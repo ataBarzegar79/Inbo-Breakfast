@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('breakfasts', function (Blueprint $table) {
-            $table->id();
-            $table->string("name") ;
-            $table->string("description") ;
-//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('ratings', function (Blueprint $table) {
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('breakfast_id')->references('id')->on('breakfasts')->onDelete('cascade');
+
         });
     }
 
@@ -29,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('breakfasts');
+        Schema::table('ratings', function (Blueprint $table) {
+
+        });
     }
 };

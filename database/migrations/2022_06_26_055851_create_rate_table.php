@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->float('rate') ;
             $table->string('description') ;
-            $table->integer('user_id');
-            $table->integer('breakfast_id');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('breakfast_id')->references('id')->on('breakfasts')->onDelete('cascade');
             $table->timestamps();
         });
     }

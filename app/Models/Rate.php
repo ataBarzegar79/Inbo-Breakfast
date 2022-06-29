@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     use HasFactory;
-
+    protected $table = 'ratings';
     public function breakfast()
     {
         return $this->belongsTo(Breakfast::class);

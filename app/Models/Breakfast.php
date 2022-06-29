@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Breakfast extends Model
 {
     use HasFactory;
-
+    protected  $table = 'breakfasts' ;
     public function rates()
     {
         return $this->hasMany(Rate::class) ;

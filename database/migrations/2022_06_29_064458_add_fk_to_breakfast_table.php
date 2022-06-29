@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('breakfasts', function (Blueprint $table) {
-            $table->id();
-            $table->string("name") ;
-            $table->string("description") ;
-//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('breakfasts', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -29,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('breakfasts');
+        Schema::table('breakfasts', function (Blueprint $table) {
+            //
+        });
     }
 };
