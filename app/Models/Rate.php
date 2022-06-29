@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     use HasFactory;
+
+    public function breakfast()
+    {
+        return $this->belongsTo(Breakfast::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
