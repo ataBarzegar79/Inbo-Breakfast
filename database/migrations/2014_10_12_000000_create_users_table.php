@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->enum('is_admin',['yse', 'no']) ;
+            $table->string('avatar') ;
+
         });
     }
 
