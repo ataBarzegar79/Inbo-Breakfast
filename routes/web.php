@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\AuthController::class , 'getLoginPage'] );
-
-
-
+Route::post('/',[\App\Http\Controllers\AuthController::class , 'getAuthData']) ;
+Route::get('/dashboard' , function (){
+    echo "successs" ;
+});
 
