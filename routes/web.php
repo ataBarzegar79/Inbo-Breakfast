@@ -15,11 +15,10 @@ use \App\Http\Controllers\DashboardController ;
 |
 */
 
-Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('get-login')->middleware('guest');
-
+Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
-
 Route::get('' , [DashboardController::class , 'dashboard']) ->name('dashboard')->middleware('auth');
+Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
 
 
 

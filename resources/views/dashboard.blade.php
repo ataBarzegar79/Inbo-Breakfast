@@ -43,7 +43,7 @@
                         @endforeach
                             @php
                         if($flag == 0){
-                            echo "  <p> Vote! From This  <a href='#'>Link</a> .</p>" ;
+                            echo "  <p> Vote! From This  <a href=''>Link</a> .</p>" ;
                             }
                             @endphp
                     </td>

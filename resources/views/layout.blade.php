@@ -59,7 +59,7 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="/logout">
                 <i class="fas-regular fa-right-from-bracket"></i>
                 <span>Log out</span></a>
         </li>
