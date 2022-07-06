@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\AuthController ;
+use \App\Http\Controllers\DashboardController ;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\AuthController::class , 'getLoginPage'] );
-Route::post('/',[\App\Http\Controllers\AuthController::class , 'getAuthData']) ;
-Route::get('/dashboard' , function (){
-    echo "successs" ;
-});
+Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('get-login')->middleware('guest');
+
+Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
+
+Route::get('' , [DashboardController::class , 'dashboard']) ->name('dashboard')->middleware('auth');
+
+
 

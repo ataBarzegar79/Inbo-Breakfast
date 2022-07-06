@@ -24,13 +24,9 @@ class AuthController extends Controller
         if($user){
             Auth::login($user);
             $request->session()->regenerate();
-            var_dump(session()->all());
-            var_dump(Auth::user());
-            return "success" ;
+            return redirect()->intended('') ;
         }
 
-
-//
         return back()->withErrors([
             'notfound' => 'The provided credentials do not match our records.',
         ]);
