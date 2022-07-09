@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController ;
 use \App\Http\Controllers\DashboardController ;
+use \App\Http\Controllers\VoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->
 Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
 Route::get('' , [DashboardController::class , 'dashboard']) ->name('dashboard')->middleware('auth');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
+Route::get('vote/{user_id}/{breakfast_id}' , [VoteController::class , 'get']);
 
 
 

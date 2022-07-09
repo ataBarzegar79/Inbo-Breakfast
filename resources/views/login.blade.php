@@ -48,7 +48,7 @@
                                                    class="form-control form-control-user"
                                                    id="name"
                                                    name="name"
-                                                   value="{{old('username')}}"
+                                                   value="{{old('name')}}"
                                                    aria-describedby="emailHelp"
                                                    placeholder="Enter Username...">
                                         </div>

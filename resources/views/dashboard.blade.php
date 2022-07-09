@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout.app')
 
 
 @section('username')
@@ -20,12 +20,13 @@
                     <th>Done by</th>
                     <th>Rate</th>
                     <th>Your Rate</th>
+                    <th>Your comment</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 @foreach($breakfasts as $breakfast)
-                <tr>
+
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->created_at}}</td>
@@ -38,14 +39,20 @@
 
                                 {{$rate->rate}}
                                 @php $flag = 1 ; @endphp
+                                @break
 
                             @endif
                         @endforeach
                             @php
                         if($flag == 0){
-                            echo "  <p> Vote! From This  <a href=''>Link</a> .</p>" ;
+                            echo "  <p> Vote! From This  <a href='/vote/$user->id/$breakfast->id'>Link</a> .</p>" ;
                             }
                             @endphp
+                    </td>
+                    <td>
+                        @if($rate->user_id == $user->id)
+                        {{$rate->description}}
+                        @endif
                     </td>
                 </tr>
                 @endforeach
