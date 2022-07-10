@@ -5,11 +5,12 @@
 
 @endsection
 @section('content')
-    <p>Please give your Vote and Comment to breakfast with name of {{$breakfast->name}}  that served at {{$breakfast->created_at}}  by
-        {{$breakfast->user->name}}!</p>
-
-    <form class="user" method="POST"  action="/login">
+    <p>Please give your Vote and Comment to breakfast with name of << {{$breakfast->name}} >> that served at   {{$breakfast->created_at}}   by
+        {{$breakfast->user->name}}!  </p>
+<div style="text-align: center">
+    <form class="user" method="POST"  action="{{route('breakfsatvotes.users.store',$breakfast->id)}}" style="display: block">
         @csrf
+        @method('POST')
         <div class="form-group">
             <input type="number"
                    style="width: 300px"
@@ -43,6 +44,6 @@
         </p>
     @enderror
 
-        <input class="btn btn-primary btn-user btn-block" type="submit" value="Login" style="width: 300px;align-content: center">
-
+        <input class="btn btn-primary btn-user btn-block" type="submit" value="Submit Rate" style="width: 300px;align-content: center">
+</div>
 @endsection

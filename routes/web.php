@@ -20,7 +20,8 @@ Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->
 Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
 Route::get('' , [DashboardController::class , 'dashboard']) ->name('dashboard')->middleware('auth');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
-Route::get('vote/{user_id}/{breakfast_id}' , [VoteController::class , 'get']);
+//Route::resource('vote/{user_id}/{breakfast_id}' , VoteController::class );
+////Route::post('vote/{user_id}/{breakfast_id}' , [VoteController::class , 'saveRate'])->name('save.vote');
 
-
+Route::resource('breakfsatvotes.users', VoteController::class);
 

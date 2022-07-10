@@ -45,7 +45,7 @@
                         @endforeach
                             @php
                         if($flag == 0){
-                            echo "  <p> Vote! From This  <a href='/vote/$user->id/$breakfast->id'>Link</a> .</p>" ;
+                            echo "  <p> Vote! From This  <a href='breakfsatvotes/$breakfast->id/users/create '>Link</a> .</p>" ;
                             }
                             @endphp
                     </td>
