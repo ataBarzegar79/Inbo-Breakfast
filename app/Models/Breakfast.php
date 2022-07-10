@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use \Morilog\Jalali\Jalalian ;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 class Breakfast extends Model
 {
     use HasFactory;
@@ -36,5 +37,12 @@ class Breakfast extends Model
 
     }
 
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Jalalian::forge($value)->format('%A, %d %B %Y'),
+//            get: fn ($value) => 1 ,
+        );
+    }
 
 }
