@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use \Morilog\Jalali\Jalalian ;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 class Breakfast extends Model
@@ -26,6 +27,17 @@ class Breakfast extends Model
         return round($rates,2) ;
 
     }
+
+    public function userRate(){
+        $user = Auth::user() ;
+        $rates = $this->rates ;
+        foreach ($rates as $rate){
+            if($rate->user_id == $user ->id){
+                return ['rate' => $rate->rate , 'description'=> $rate->description] ;
+            }
+        }
+        return null;
+}
 
     protected function createdAt(): Attribute
     {

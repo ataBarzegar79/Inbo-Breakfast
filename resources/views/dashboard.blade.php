@@ -25,6 +25,7 @@
                 </thead>
 
                 <tbody>
+                <tr>
                 @foreach($breakfasts as $breakfast)
 
                     <td>{{$breakfast->name}}</td>
@@ -33,27 +34,18 @@
                     <td>{{$breakfast->user->name}}</td>
                     <td>{{$breakfast->avareageRate()}}</td>
                     <td>
-                        @php $flag = 0; @endphp
-                        @foreach($breakfast->rates as $rate)
-                            @if($rate->user_id == $user->id)
-
-                                {{$rate->rate}}
-                                @php $flag = 1 ; @endphp
-                                @break
-
-                            @endif
-                        @endforeach
-                            @php
-                        if($flag == 0){
-                            echo "  <p> Vote! From This  <a href='breakfsatvotes/$breakfast->id/users/create '>Link</a> .</p>" ;
-                            }
-                            @endphp
-                    </td>
-                    <td>
-                        @if($rate->user_id == $user->id)
-                        {{$rate->description}}
+                        @if( $breakfast->userRate() !== null )
+                            {{$breakfast->userRate()['rate']}}
+                        @else
+                            <p> Vote! From This  <a href='{{route('breakfsatvotes.users.create' , $breakfast->id )}}'>Link</a> .</p>
                         @endif
                     </td>
+                    <td>
+                        @if($breakfast->userRate() !== null)
+                            {{$breakfast->userRate()['description']}}
+                        @endif
+                    </td>
+
                 </tr>
                 @endforeach
                 </tbody>
