@@ -5,7 +5,7 @@
 
 @endsection
 @section('content')
-    <p>Please give your Vote and Comment to breakfast with this name :</p>
+    <p>Please give your Vote and Comment to breakfast with this Info :</p>
     <p>Breakfast Name : {{$breakfast->name}}</p>
     <p>Date of Breakfast  : {{$breakfast->created_at}}  </p>
     <p>Done by : {{$breakfast->user->name}}   </p>
@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="p-5">
-                <form class="user" method="POST"  action="{{route('breakfsatvotes.users.store',$breakfast->id)}}" style="display: block">
+                <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.create',$breakfast->id)}}" style="display: block">
                     @csrf
                     @method('POST')
                     <div class="form-group">
