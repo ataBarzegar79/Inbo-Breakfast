@@ -37,7 +37,7 @@
                         @if( $breakfast->userRate() !== null )
                             {{$breakfast->userRate()['rate']}}
                         @else
-                            <p> Vote! From This  <a href='{{route('breakfsatvotes.users.create' , $breakfast->id )}}'>Link</a> .</p>
+                            <p> Vote! From This  <a href='{{route('breakfsatvotes.vote.create', $breakfast->id )}}'>Link</a> .</p>
                         @endif
                     </td>
                     <td>
@@ -54,4 +54,3 @@
     </div>
 </div>
 @endsection
-

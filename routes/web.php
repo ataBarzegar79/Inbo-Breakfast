@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController ;
 use \App\Http\Controllers\DashboardController ;
 use \App\Http\Controllers\VoteController;
-
+use \App\Http\Controllers\UserController ;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,5 +23,8 @@ Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->mi
 //Route::resource('vote/{user_id}/{breakfast_id}' , VoteController::class );
 ////Route::post('vote/{user_id}/{breakfast_id}' , [VoteController::class , 'saveRate'])->name('save.vote');
 
-Route::resource('breakfsatvotes.users', VoteController::class);
+Route::resource('breakfsatvotes.vote', VoteController::class);
+Route::resource('users', UserController::class ) ;
+
+
 
