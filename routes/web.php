@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController ;
-use \App\Http\Controllers\DashboardController ;
+use \App\Http\Controllers\BreakfastController ;
 use \App\Http\Controllers\VoteController;
 use \App\Http\Controllers\UserController ;
 /*
@@ -18,13 +18,13 @@ use \App\Http\Controllers\UserController ;
 
 Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
-Route::get('' , [DashboardController::class , 'dashboard']) ->name('dashboard')->middleware('auth');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
-//Route::resource('vote/{user_id}/{breakfast_id}' , VoteController::class );
-////Route::post('vote/{user_id}/{breakfast_id}' , [VoteController::class , 'saveRate'])->name('save.vote');
+Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
+Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
 
 Route::resource('breakfsatvotes.vote', VoteController::class);
 Route::resource('users', UserController::class ) ;
+
 
 
 

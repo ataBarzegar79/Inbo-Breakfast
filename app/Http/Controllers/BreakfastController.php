@@ -17,5 +17,11 @@ class BreakfastController extends Controller
 
     }
 
+    public function create()
+    {
+        $auth_user = Auth::user();
+        return view('breakfast-create' , ['auth_user' => $auth_user]) ;
+    }
+
 
 }

@@ -67,6 +67,13 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="{{route('breakfast.create')}}">
+                {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
+                <span>Create New Event ! </span></a>
+        </li>
+
+
+        <li class="nav-item">
             <a class="nav-link" href="{{route('logout')}}">
 {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
                 <span>Log out</span></a>
