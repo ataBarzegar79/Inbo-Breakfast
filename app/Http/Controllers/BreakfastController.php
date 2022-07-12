@@ -6,9 +6,9 @@ use App\Models\Breakfast;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class BreakfastController extends Controller
 {
-    public function dashboard()
+    public function show()
     {
         $user = Auth::user() ;
 
@@ -16,4 +16,6 @@ class DashboardController extends Controller
         return view('dashboard' ,  ['breakfasts'=>$breakfasts,'user'=>$user]);
 
     }
+
+
 }
