@@ -43,6 +43,7 @@
                                     </div>
                                     <form class="user" method="POST"  action="/login">
                                         @csrf
+
                                         <div class="form-group">
                                             <input type="text"
                                                    class="form-control form-control-user"

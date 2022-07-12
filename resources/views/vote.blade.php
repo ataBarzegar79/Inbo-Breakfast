@@ -1,5 +1,8 @@
 @extends('layout.app')
 
+@section('avatar')
+    {{$user->viewAvatar()}}
+@endsection
 @section('username')
     {{$user->name}}
 

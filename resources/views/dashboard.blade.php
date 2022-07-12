@@ -1,9 +1,12 @@
 @extends('layout.app')
 
-
+@section('avatar')
+    {{$user->viewAvatar()}}
+@endsection
 @section('username')
     {{$user->name}}
 @endsection
+
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -32,6 +35,7 @@
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->created_at}}</td>
                     <td>{{$breakfast->user->name}}</td>
+{{--                        <td>1</td>--}}
                     <td>{{$breakfast->avareageRate()}}</td>
                     <td>
                         @if( $breakfast->userRate() !== null )

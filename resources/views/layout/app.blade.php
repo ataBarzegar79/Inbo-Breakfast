@@ -60,14 +60,15 @@
         <!-- Nav Item - Charts -->
 
         <li class="nav-item">
-            <a class="nav-link" href="{{route('logout')}}">
-                <i class="fas-regular fa-right-from-bracket"></i>
-                <span>Create User</span></a>
+            <a class="nav-link" href="{{route('users.index')}}">
+{{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
+                <span>Create User</span>
+            </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/logout">
-                <i class="fas-regular fa-right-from-bracket"></i>
+            <a class="nav-link" href="{{route('logout')}}">
+{{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
                 <span>Log out</span></a>
         </li>
 
@@ -131,8 +132,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hi , Dear @yield('username')</span>
-                            <img class="img-profile rounded-circle"
-                                 src="{{asset('img/undraw_profile.svg')}}">
+                                 <img class= " center img-profile rounded-circle" src = @yield('avatar')>
                         </a>
 
                     </li>

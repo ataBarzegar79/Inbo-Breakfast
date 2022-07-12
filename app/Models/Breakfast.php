@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use \Morilog\Jalali\Jalalian ;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+
+
 class Breakfast extends Model
 {
     use HasFactory;
@@ -17,7 +19,8 @@ class Breakfast extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class) ;
+
+        return $this->belongsTo(User::class)->withTrashed(); ;
     }
 
     public function avareageRate()
