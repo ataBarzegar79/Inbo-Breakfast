@@ -21,6 +21,9 @@ Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login'
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
 Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
 Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
+Route::post('brekfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
+
+
 
 Route::resource('breakfsatvotes.vote', VoteController::class);
 Route::resource('users', UserController::class ) ;

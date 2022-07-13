@@ -22,11 +22,10 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create New Breakfast!</h1>
                             </div>
-                            <form class="user" method="POST"  action=""
+                            <form class="user" method="POST"  action="{{route('breakfast.save')}}"
                                   style="margin-right: 50px ; margin-left: 50px"
                                   enctype="multipart/form-data">
                                 @csrf
-                                {{method_field('PUT') }}
                                 <div class="form-group">
                                     <input type="text"
                                            class="form-control form-control-user"
@@ -45,12 +44,12 @@
 
 
                                 <div class="form-group">
-                                    <input type="text"
+                                    <textarea type="text"
                                            class="form-control form-control-user"
                                            name="description"
                                            id="descrition"
-                                           value=""
-                                           placeholder="Some Description">
+                                           value="{{old("description")}}"
+                                              placeholder="Some Description"></textarea>
                                 </div>
 
 
@@ -60,51 +59,36 @@
                                 </p>
                                 @enderror
 
+
+
+
                                 <div class="form-group">
-                                    <input type="password"
+                                    <input type="text"
                                            class="form-control form-control-user"
-                                           name="password"
-                                           id="password"
+                                           name="date"
+                                           id="date"
                                            value=""
-                                           placeholder="Password : ">
+                                           placeholder="Set date  ">
                                 </div>
-
-
-                                @error('password')
+                                @error('date')
                                 <p style="color: red">
                                     {{$message}}
                                 </p>
                                 @enderror
-
+                                <span id="date2"></span>
 
                                 <div class="form-group">
-                                    <label>Maker:
-                                        <select name="user" id="user" >
-                                            <option value=""></option>
+                                    <label class="col-form-label" for="user">Maker:</label>
+                                        <select name="user" id="user" class="custom-select">
+                                            @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endforeach
                                         </select>
-                                    </label>
+
                                 </div>
 
 
-                                @error('avatar')
-                                <p style="color: red">
-                                    {{$message}}
-                                </p>
-                                @enderror
-
-                                <div class="form-group">
-                                    <label>
-                                        Admin :
-                                        <select
-                                            placeholder="Admin"
-                                            id="is_admin" name="is_admin">
-                                            <option value="no">No</option>
-                                            <option value="yes">Yes</option>
-                                        </select>
-                                    </label>
-                                </div>
-
-                                @error('is_admin')
+                                @error('user')
                                 <p style="color: red">
                                     {{$message}}
                                 </p>

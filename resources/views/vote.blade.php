@@ -16,9 +16,8 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="p-5">
-                <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.create',$breakfast->id)}}" style="display: block">
+                <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.store',$breakfast->id)}}" style="display: block">
                     @csrf
-                    @method('POST')
                     <div class="form-group">
                         <input type="number"
                                style="width: 300px"

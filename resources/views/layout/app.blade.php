@@ -19,6 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/persianDatepicker-default.css')}}" />
+    <script src="{{asset('js/jquery.min.js')}}" ></script>
+    <script src="{{asset('js/persianDatepicker.min.js')}}"></script>
 
 </head>
 
@@ -210,6 +213,14 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+
+<script src="{{asset("js/jquery.min.js")}}" ></script>
+<script src="{{asset('js/persianDatepicker.min.js')}}"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#date, #date2").persianDatepicker();
+    });
+</script>
 
 </body>
 

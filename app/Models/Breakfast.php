@@ -13,6 +13,12 @@ class Breakfast extends Model
 {
     use HasFactory;
     protected  $table = 'breakfasts' ;
+    protected $fillable = [
+        'name',
+        'description',
+        'created_at',
+        'user_id'
+    ];
     public function rates()
     {
         return $this->hasMany(Rate::class) ;
@@ -44,9 +50,10 @@ class Breakfast extends Model
 
     protected function createdAt(): Attribute
     {
+
         return Attribute::make(
             get: fn ($value) => Jalalian::forge($value)->format('%A, %d %B %Y'),
-//            get: fn ($value) => 1 ,
+            set: fn ($value) => (new Jalalian($value[0], $value[1], $value[2], 0, 0, 0))->toCarbon()->toDateTimeString()  ,
         );
     }
 
