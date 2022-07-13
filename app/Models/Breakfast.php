@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use \Morilog\Jalali\Jalalian ;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 
 class Breakfast extends Model
 {
     use HasFactory;
+    use SoftDeletes ;
     protected  $table = 'breakfasts' ;
     protected $fillable = [
         'name',
