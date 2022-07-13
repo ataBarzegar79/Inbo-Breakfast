@@ -55,5 +55,12 @@ class BreakfastController extends Controller
 
     }
 
+    function destroy($id){
+    $deleted_breakfast = Breakfast::where('id' , $id)->first();
+    $deleted_breakfast->delete() ;
+    return redirect()->route('dashboard') ;
+
+    }
+
 
 }
