@@ -24,6 +24,7 @@
                     <th>Rate</th>
                     <th>Your Rate</th>
                     <th>Your comment</th>
+                    <th>Functionalities </th>
                 </tr>
                 </thead>
 
@@ -48,6 +49,20 @@
                         @if($breakfast->userRate() !== null)
                             {{$breakfast->userRate()['description']}}
                         @endif
+                    </td>
+                    <td>
+                        <div>
+                            <form  method="POST" action="{{route('breakfast.delete' , $breakfast->id)}}" >
+
+                                @csrf
+                                {{ method_field('DELETE') }}
+                                <button class="  btn btn-danger btn-circle btn-sm"  type="submit" >
+                                    <i class="fas fa-trash"></i>
+                                </button>  Delete
+                            </form>
+                        </div>
+                    </td>
+                </tr>
                     </td>
 
                 </tr>
