@@ -22,6 +22,7 @@ Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->mi
 Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
 Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
 Route::post('brekfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
+Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
 
 
 
