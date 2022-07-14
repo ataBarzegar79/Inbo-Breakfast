@@ -1,12 +1,5 @@
 @extends('layout.app')
 
-@section('avatar')
-    {{$user->viewAvatar()}}
-@endsection
-@section('username')
-    {{$user->name}}
-@endsection
-
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">

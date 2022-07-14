@@ -11,18 +11,18 @@ class BreakfastController extends Controller
 {
     public function show()
     {
-        $user = Auth::user() ;
+        $authUser = Auth::user() ;
 
         $breakfasts = Breakfast::all() ;
-        return view('dashboard' ,  ['breakfasts'=>$breakfasts,'user'=>$user]);
+        return view('dashboard' ,  ['breakfasts'=>$breakfasts]);
 
     }
 
     public function create()
     {
-        $auth_user = Auth::user();
+        $authUser = Auth::user();
         $users = User::all() ;
-        return view('breakfast-create' , ['auth_user' => $auth_user, 'users'=>$users]);
+        return view('breakfast-create' , [ 'users'=>$users]);
     }
 
 

@@ -19,7 +19,7 @@ class VoteController extends Controller
         $this->authorize('canVote', $breakfast_id) ;
         $user = Auth::user();
         $breakfast = Breakfast::where('id', $breakfast_id)->first();
-        return view('vote', ['breakfast' => $breakfast, 'user' => $user]);
+        return view('vote', ['breakfast' => $breakfast]);
     }
 
     /**

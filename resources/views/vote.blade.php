@@ -1,12 +1,5 @@
 @extends('layout.app')
 
-@section('avatar')
-    {{$user->viewAvatar()}}
-@endsection
-@section('username')
-    {{$user->name}}
-
-@endsection
 @section('content')
     <p>Please give your Vote and Comment to breakfast with this Info :</p>
     <p>Breakfast Name : {{$breakfast->name}}</p>

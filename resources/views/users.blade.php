@@ -1,10 +1,4 @@
 @extends('layout.app')
-@section('avatar')
-    {{$auth_user->viewAvatar()}}
-@endsection
-@section('username')
-    {{$auth_user->name}}
-@endsection
 
 
 @section('content')

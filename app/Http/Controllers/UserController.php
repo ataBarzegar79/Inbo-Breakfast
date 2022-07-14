@@ -20,9 +20,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
+        $authUser = Auth::user();
         $users = User::all();
-        return view('users', ['auth_user' => $user, 'users' => $users]);
+        return view('users', [ 'users' => $users]);
     }
 
 //    /**
@@ -96,9 +96,9 @@ class UserController extends Controller
     public function edit($id)
     {
 
-       $auth_user = Auth::user() ;
+       $authUser = Auth::user() ;
        $update_user = User::where('id',$id)->first() ;
-       return view('update-user' , ['update_user'=>$update_user , 'auth_user'=>$auth_user]) ;
+       return view('update-user' , ['update_user'=>$update_user ]) ;
 
     }
 
@@ -157,8 +157,8 @@ class UserController extends Controller
 
     public function standings()
     {
-        $auth_user = Auth::user() ;
+        $authUser = Auth::user() ;
         $users = User::all() ;
-        return view('standings' ,['user'=>$users , 'auth_user'=>$auth_user ]  ) ;
+        return view('standings' ,['user'=>$users ]  ) ;
     }
 }
