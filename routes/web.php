@@ -16,19 +16,27 @@ use \App\Http\Controllers\UserController ;
 |
 */
 
+
+
 Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
 Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
-Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
-Route::post('brekfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
-Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
+
+
+Route:: middleware('can:is_admin')->group(
+    function(){
+        Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
+        Route::post('breakfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
+        Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
+        Route::resource('users', UserController::class ) ;
+    }
+);
+
 
 
 
 Route::resource('breakfsatvotes.vote', VoteController::class);
-Route::resource('users', UserController::class ) ;
 
-
-
+Route::get('standings' , [UserController::class , 'standings']) ;
 

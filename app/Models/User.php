@@ -88,10 +88,23 @@ class User extends Authenticatable
 
     }
 
-    function viewAvatar(){
+    public function viewAvatar(){
 
        return $contents = Storage::url($this->avatar);
     }
+
+    public function countBreakfasts(){
+        $count = 0 ;
+        $brekfasts = Breakfast::all() ;
+        foreach ($brekfasts as $brekfast){
+            if($brekfast->user_id === $this->id) {
+                $count += 1 ;
+            }
+        }
+
+        return $count ;
+    }
+
 
     protected function createdAt(): Attribute
     {
@@ -100,6 +113,8 @@ class User extends Authenticatable
 
         );
     }
+
+
 
 
 }

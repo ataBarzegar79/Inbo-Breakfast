@@ -60,7 +60,7 @@ class BreakfastController extends Controller
     $deleted_breakfast->delete() ;
     return redirect()->route('dashboard') ;
 
-    }
+  }
 
 
 }

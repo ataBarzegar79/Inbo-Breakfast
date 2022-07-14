@@ -61,7 +61,7 @@
         </div>
 
         <!-- Nav Item - Charts -->
-
+    @can('is_admin')
         <li class="nav-item">
             <a class="nav-link" href="{{route('users.index')}}">
 {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
@@ -69,12 +69,13 @@
             </a>
         </li>
 
+
         <li class="nav-item">
             <a class="nav-link" href="{{route('breakfast.create')}}">
                 {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
                 <span>Create New Event ! </span></a>
         </li>
-
+    @endcan
 
         <li class="nav-item">
             <a class="nav-link" href="{{route('logout')}}">
@@ -167,7 +168,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
+                    <span>Copyright &copy; Inbo 2022</span>
                 </div>
             </div>
         </footer>
@@ -215,12 +216,16 @@
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 
 <script src="{{asset("js/jquery.min.js")}}" ></script>
+<script src="{{asset('js/demo/chart-bar-demo.js')}}"></script>
 <script src="{{asset('js/persianDatepicker.min.js')}}"></script>
 <script type="text/javascript">
     $(function() {
         $("#date, #date2").persianDatepicker();
     });
 </script>
+
+
+
 
 </body>
 

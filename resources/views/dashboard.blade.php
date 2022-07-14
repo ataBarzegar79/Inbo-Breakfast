@@ -24,7 +24,9 @@
                     <th>Rate</th>
                     <th>Your Rate</th>
                     <th>Your comment</th>
+                    @can('is_admin')
                     <th>Functionalities </th>
+                    @endcan
                 </tr>
                 </thead>
 
@@ -36,7 +38,7 @@
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->created_at}}</td>
                     <td>{{$breakfast->user->name}}</td>
-{{--                        <td>1</td>--}}
+
                     <td>{{$breakfast->avareageRate()}}</td>
                     <td>
                         @if( $breakfast->userRate() !== null )
@@ -50,6 +52,7 @@
                             {{$breakfast->userRate()['description']}}
                         @endif
                     </td>
+                    @can('is_admin')
                     <td>
                         <div>
                             <form  method="POST" action="{{route('breakfast.delete' , $breakfast->id)}}" >
@@ -62,10 +65,9 @@
                             </form>
                         </div>
                     </td>
+                        @endcan
                 </tr>
-                    </td>
 
-                </tr>
                 @endforeach
                 </tbody>
             </table>

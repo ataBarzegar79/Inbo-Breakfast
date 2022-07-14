@@ -107,7 +107,7 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function update(Request $request, $id)
     {
@@ -118,6 +118,7 @@ class UserController extends Controller
             'avatar' => ['file', 'image', 'max:512'],
             'is_admin' => ['required', 'in:yes,no']
         ]);
+
         if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
             $email_path = $request->email;
@@ -152,5 +153,12 @@ class UserController extends Controller
         $deleted_item->delete() ;
 
         return redirect()->route('users.index');
+    }
+
+    public function standings()
+    {
+        $auth_user = Auth::user() ;
+        $users = User::all() ;
+        return view('standings' ,['user'=>$users , 'auth_user'=>$auth_user ]  ) ;
     }
 }
