@@ -18,8 +18,8 @@ use \App\Http\Controllers\UserController ;
 
 
 
-Route::get('/login', [AuthController::class , 'getLoginPage'] )->name('login')->middleware('guest');
-Route::post('/login',[AuthController::class , 'getAuthData'])->name('post-login')->middleware('guest');
+Route::get('/login', [AuthController::class , 'show'] )->name('login')->middleware('guest');
+Route::post('/login',[AuthController::class , 'login'])->name('post-login')->middleware('guest');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
 Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
 

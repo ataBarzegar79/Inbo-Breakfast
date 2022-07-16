@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function getLoginPage(){
+    public function show(){
             return view('login') ;
     }
 
-    public function getAuthData(Request $request){
+    public function login(Request $request){
         $credentials = $request->validate([
             'name' => ['required', 'max:255'],
             'password' => ['required'],
