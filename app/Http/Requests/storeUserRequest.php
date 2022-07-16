@@ -13,7 +13,7 @@ class storeUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class storeUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'email:rfc', 'unique:users,email'],
+            'password' => ['required'],
+            'avatar' => ['file', 'image', 'max:512'],
+            'is_admin' => ['required', 'in:yes,no']
         ];
     }
 }

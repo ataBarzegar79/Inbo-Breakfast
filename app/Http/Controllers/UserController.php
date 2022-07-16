@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,15 +23,8 @@ class UserController extends Controller
 
 
 
-    public function store(Request $request)
+    public function store(storeUserRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email:rfc', 'unique:users,email'],
-            'password' => ['required'],
-            'avatar' => ['file', 'image', 'max:512'],
-            'is_admin' => ['required', 'in:yes,no']
-        ]);
 
         if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
