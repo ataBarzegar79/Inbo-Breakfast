@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeUserRequest;
+use App\Http\Requests\updateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,15 +69,8 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(updateUserRequest $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email:rfc'],
-            'password' => ['required'],
-            'avatar' => ['file', 'image', 'max:512'],
-            'is_admin' => ['required', 'in:yes,no']
-        ]);
 
         if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
