@@ -61,9 +61,10 @@ class Breakfast extends Model
 
     protected function createdAt(): Attribute
     {
-
+//        dd($this) ;
         return Attribute::make(
-            get: fn ($value) => Jalalian::forge($value)->format('%A, %d %B %Y'),
+
+            get: fn ( $value) => Jalalian::fromCarbon(new Carbon($value))->format('%A, %d %B %Y'),
             set: fn ($value) => (new Jalalian($value[0], $value[1], $value[2], 0, 0, 0))->toCarbon()->toDateTimeString()  ,
         );
     }
