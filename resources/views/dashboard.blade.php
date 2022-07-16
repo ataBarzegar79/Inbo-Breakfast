@@ -29,7 +29,7 @@
 
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
-                    <td>{{$breakfast->created_at}}</td>
+                    <td>{{$breakfast->persian}}</td>
                     <td>{{$breakfast->user->name}}</td>
 
                     <td>{{$breakfast->avareageRate()}}</td>

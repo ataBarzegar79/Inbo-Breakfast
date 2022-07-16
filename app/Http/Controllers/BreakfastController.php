@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 //use App\Http\Requests\BreakfastCreateRequest;
 use App\Models\Breakfast;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Morilog\Jalali\Jalalian;
 
 class BreakfastController extends Controller
 {
@@ -15,6 +17,11 @@ class BreakfastController extends Controller
         $authUser = Auth::user() ;
 
         $breakfasts = Breakfast::all() ;
+        foreach ($breakfasts as $breakfast){
+
+            $breakfast->persian = Jalalian::fromCarbon(new Carbon($breakfast->created_at))->format('%A, %d %B %Y');
+
+        }
         return view('dashboard' ,  ['breakfasts'=>$breakfasts]);
 
     }
@@ -28,7 +35,7 @@ class BreakfastController extends Controller
 
 
     public function save(Request $request){
-//        return var_dump($request->date) ;
+
         $all_users = User::all() ;
         $all_users_id = [] ;
         foreach ($all_users as $user){
@@ -38,15 +45,15 @@ class BreakfastController extends Controller
         $request->validate([
             'name'=>['required' , 'max:255' ] ,
             'description'=>['max:255'] ,
-            'date' => ['date'] ,
             'user' =>['required' ,'in:'.implode(',' ,$all_users_id) ]
         ] , [ 'user.in' => 'please choose a Valid user!']);
-        $persian_set_format = explode("/" , $request->date) ;
+        $persian_date = explode("/" , $request->date) ;
+        $created_at =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon()->toDateTimeString() ;
         Breakfast::create(
             [
                 'name' => $request->name ,
                 'description'=>$request->description ,
-                'created_at' => $persian_set_format ,
+                'created_at' => $created_at ,
                 'user_id' => (int)$request->user ,
             ]
         );
