@@ -96,7 +96,7 @@ class UserController extends Controller
     public function edit($id)
     {
 
-       $authUser = Auth::user() ;
+
        $update_user = User::where('id',$id)->first() ;
        return view('update-user' , ['update_user'=>$update_user ]) ;
 

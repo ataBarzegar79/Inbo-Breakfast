@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-
+/**
+ * @property Carbon $created_at
+ */
 class Breakfast extends Model
 {
     use HasFactory;
@@ -22,6 +25,11 @@ class Breakfast extends Model
         'created_at',
         'user_id'
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function rates()
     {
         return $this->hasMany(Rate::class) ;
