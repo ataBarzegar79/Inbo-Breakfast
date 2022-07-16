@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
 
     public function breakfasts(){
-        return $this->hasMany(Breakfast::class) ;
+        return $this->belongsToMany(Breakfast::class) ;
     }
 
     public function rates(){
