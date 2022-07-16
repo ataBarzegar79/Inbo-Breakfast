@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\loginRequest;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,7 @@ class AuthController extends Controller
             return view('login') ;
     }
 
-    public function login(Request $request){
-        $credentials = $request->validate([
-            'name' => ['required', 'max:255'],
-            'password' => ['required'],
-        ]);
+    public function login(loginRequest $request){
 
         $user = \App\Models\User::where('name','=',$request->get('name'))
             ->where('password','=',$request->get('password'))
