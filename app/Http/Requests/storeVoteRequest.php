@@ -13,7 +13,7 @@ class storeVoteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class storeVoteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'rate' => ['required', 'numeric', 'between:1,10'],
+            'description' => ['required', 'max:255'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'rate.between' => 'your rate should be between 1 and 10 '
         ];
     }
 }

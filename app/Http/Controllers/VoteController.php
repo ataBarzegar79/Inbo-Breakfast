@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
 use Illuminate\Http\Request;
@@ -18,15 +19,10 @@ class VoteController extends Controller
         return view('vote', ['breakfast' => $breakfast]);
     }
 
-    public function store(Request $request, $breakfast_id)
+    public function store(storeVoteRequest $request, $breakfast_id)
     {
         $this->authorize('canVote', $breakfast_id) ;
-        $request->validate([
-            'rate' => ['required', 'numeric', 'between:1,10'],
-            'description' => ['required', 'max:255'],
-        ], [
-            'rate.between' => 'your rate should be between 1 and 10 '
-        ]);
+
         $user = Auth::user();
         $rate = Rate::create([
             'rate' => $request->rate,
