@@ -9,11 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return mixed
-     */
+
     public function create($breakfast_id)
     {
         $this->authorize('canVote', $breakfast_id) ;
@@ -22,12 +18,6 @@ class VoteController extends Controller
         return view('vote', ['breakfast' => $breakfast]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return mixed
-     */
     public function store(Request $request, $breakfast_id)
     {
         $this->authorize('canVote', $breakfast_id) ;
