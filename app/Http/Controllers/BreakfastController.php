@@ -40,14 +40,15 @@ class BreakfastController extends Controller
 
         $persian_date = explode("/" , $request->date) ;
         $created_at =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon()->toDateTimeString() ;
-        Breakfast::create(
+
+        $breakfast = Breakfast::create(
             [
                 'name' => $request->name ,
                 'description'=>$request->description ,
                 'created_at' => $created_at ,
-                'user_id' => (int)$request->user ,
             ]
         );
+        $breakfast->users()->sync($request->users) ;
 
         return redirect()->route('dashboard') ;
 

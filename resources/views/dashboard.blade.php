@@ -31,7 +31,7 @@
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->persian}}</td>
                     <td>@foreach($breakfast->users as $user)
-                        {{$user ->name}} -
+                        {{$user ->name}} |
                         @endforeach
                     </td>
 

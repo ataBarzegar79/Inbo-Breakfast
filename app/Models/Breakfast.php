@@ -37,7 +37,7 @@ class Breakfast extends Model
 
         public function users(){
 
-        return $this->belongsToMany(User::class)->withTrashed();
+        return $this->belongsToMany(User::class)->withTrashed() ;
     }
 
     public function avareageRate()

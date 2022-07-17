@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Rules\breakfastDateCreationMakers;
+use App\Rules\breakfastMakers;
 use Illuminate\Foundation\Http\FormRequest;
 
 class storeBreakfastRequest extends FormRequest
@@ -25,20 +27,13 @@ class storeBreakfastRequest extends FormRequest
     public function rules()
     {
 
-        $all_users = User::all() ;
-        $all_users_id = [] ;
-
-        foreach ($all_users as $user){
-            $all_users_id[] = (string)$user->id ;
-        }
-
-
-        return [
+//        dd(request()->date) ;
+         return [
             'name'=>['required' , 'max:255' ] ,
             'description'=>['max:255'] ,
-            'date' =>['required'] ,
-            'user' =>['required' ,'in:'.implode(',' ,$all_users_id) ]
-        ];
+            'date' =>['required' , new breakfastDateCreationMakers()] ,
+            'users' =>['required' ,new breakfastMakers() ]
+             ];
 
 
     }

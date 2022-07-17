@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
 
     public function breakfasts(){
-        return $this->belongsToMany(Breakfast::class) ;
+        return $this->belongsToMany(Breakfast::class)->withTrashed() ;
     }
 
     public function rates(){

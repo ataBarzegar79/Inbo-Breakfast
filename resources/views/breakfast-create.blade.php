@@ -72,7 +72,7 @@
     </div>
 
 
-    @error('user')
+    @error('users')
     <p style="color: red">
         {{$message}}
     </p>
