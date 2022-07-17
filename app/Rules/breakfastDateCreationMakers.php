@@ -26,28 +26,33 @@ class breakfastDateCreationMakers implements Rule
      */
     public function passes($attribute, $value)
     {
-        $standard_items = ['0','1','2','3','4','5','6','7','8','9' ] ;
-        $chars = ['/'   ];
-        $input = str_split($attribute);
+        $numbers  = ['0','1','2','3','4','5','6','7','8','9' ] ;
+        $input = str_split($value);
         if(count($input)>10){
-            return false ;
+            dd('false-len') ;
         }
 
         foreach ($input as $word){
-            if(!in_array($word , $standard_items) && !in_array($word,$chars)){
-                return  false ;
+
+            if(in_array($word , $numbers) || $word == "/" ){
+                continue ;
+            }
+            else {
+
+                return false ;
             }
         }
 
 
         try {
-            $persian_date = explode("/" , $request->date) ;
+            $persian_date = explode("/" , request()->date) ;
             $created_at =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon()->toDateTimeString() ;
         }catch (\ErrorException){
+
             return false ;
         }
 
-
+        return true ;
 
     }
 
