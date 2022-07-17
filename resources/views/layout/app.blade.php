@@ -224,7 +224,16 @@
     });
 </script>
 
+<!-- Include the plugin's CSS and JS: -->
+<script type="text/javascript" src="{{asset('js/bootstrap-multiselect.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/bootstrap-multiselect.css')}}" type="text/css"/>
 
+<!-- Initialize the plugin: -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-getting-started').multiselect();
+    });
+</script>
 
 
 </body>

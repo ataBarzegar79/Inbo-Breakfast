@@ -61,8 +61,9 @@
     <span id="date2"></span>
 
     <div class="form-group">
-        <label class="col-form-label" for="user">Maker:</label>
-            <select name="user" id="user" class="custom-select">
+        <label class="col-form-label" for="user">Maker(s):You can select multiple makers </label>
+        <br>
+            <select name="users[]" id="example-getting-started" class="multiselect-group" multiple >
                 @foreach($users as $user)
                 <option value="{{$user->id}}">{{$user->name}}</option>
                 @endforeach

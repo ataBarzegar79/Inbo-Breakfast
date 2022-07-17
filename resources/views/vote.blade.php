@@ -4,7 +4,9 @@
     <p>Please give your Vote and Comment to breakfast with this Info :</p>
     <p>Breakfast Name : {{$breakfast->name}}</p>
     <p>Date of Breakfast  : {{$breakfast->created_at}}  </p>
-    <p>Done by : {{$breakfast->user->name}}   </p>
+    <p>Done by :  @foreach($breakfast->users as $user)
+                      {{$user->name}}
+        @endforeach</p>
     <hr>
     <div class="row">
         <div class="col-lg-6">

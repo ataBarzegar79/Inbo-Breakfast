@@ -30,7 +30,10 @@
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->persian}}</td>
-                    <td>{{$breakfast->user->name}}</td>
+                    <td>@foreach($breakfast->users as $user)
+                        {{$user ->name}} -
+                        @endforeach
+                    </td>
 
                     <td>{{$breakfast->avareageRate()}}</td>
                     <td>
