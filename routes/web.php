@@ -1,9 +1,9 @@
 <?php
 
-use App\Controllers\AuthController;
-use App\Controllers\BreakfastController;
-use App\Controllers\UserController;
-use App\Controllers\VoteController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BreakfastController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
