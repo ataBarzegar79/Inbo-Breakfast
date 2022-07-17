@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Models\Http\Requests;
 
-use App\Models\User;
 use App\Rules\breakfastDateCreationMakers;
 use App\Rules\breakfastMakers;
 use Illuminate\Foundation\Http\FormRequest;

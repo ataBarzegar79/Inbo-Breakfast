@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models\Http\Controllers;
 
-use App\Http\Requests\storeVoteRequest;
 use App\Models\Breakfast;
+use App\Models\Http\Requests\storeVoteRequest;
 use App\Models\Rate;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function redirect;
+use function view;
 
 class VoteController extends Controller
 {

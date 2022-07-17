@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Http\Controllers\AuthController;
+use App\Models\Http\Controllers\BreakfastController;
+use App\Models\Http\Controllers\UserController;
+use App\Models\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\AuthController ;
-use \App\Http\Controllers\BreakfastController ;
-use \App\Http\Controllers\VoteController;
-use \App\Http\Controllers\UserController ;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

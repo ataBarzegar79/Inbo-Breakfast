@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models\Http\Controllers;
 
-use App\Http\Requests\loginRequest;
-use http\Client\Curl\User;
+use App\Models\Http\Requests\loginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function back;
+use function redirect;
+use function view;
 
 class AuthController extends Controller
 {

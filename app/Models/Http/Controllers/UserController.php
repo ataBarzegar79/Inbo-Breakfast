@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models\Http\Controllers;
 
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Models\Http\Requests\storeUserRequest;
+use App\Models\Http\Requests\updateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-
-
+use function redirect;
+use function view;
 
 
 class UserController extends Controller

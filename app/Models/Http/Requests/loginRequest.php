@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Models\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class updateUserRequest extends FormRequest
+class loginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,7 @@ class updateUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'email:rfc'],
             'password' => ['required'],
-            'avatar' => ['file', 'image', 'max:512'],
-            'is_admin' => ['required', 'in:yes,no']
         ];
     }
 }

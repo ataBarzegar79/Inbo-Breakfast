@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models\Http\Controllers;
 
 //use App\Http\Requests\BreakfastCreateRequest;
-use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
+use App\Models\Http\Requests\storeBreakfastRequest;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
+use function redirect;
+use function view;
 
 class BreakfastController extends Controller
 {
