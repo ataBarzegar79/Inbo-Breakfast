@@ -14,7 +14,7 @@
                class="form-control form-control-user"
                id="name"
                name="name"
-               value=""
+               value="{{old('name')}}"
                aria-describedby="emailHelp"
                placeholder="Breakfast Name" >
     </div>
@@ -32,7 +32,7 @@
                name="description"
                id="descrition"
                value="{{old("description")}}"
-                  placeholder="Some Description"></textarea>
+               placeholder="Some Description"></textarea>
     </div>
 
 
@@ -50,7 +50,7 @@
                class="form-control form-control-user"
                name="date"
                id="date"
-               value=""
+               value="{{old('date')}}"
                placeholder="Set date  ">
     </div>
     @error('date')
