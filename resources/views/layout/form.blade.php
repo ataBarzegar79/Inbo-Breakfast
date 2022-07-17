@@ -14,6 +14,7 @@
                 <div class="card-body p-0" >
                     <div class="p-5" >
                         <div class="text-center">
+                            <h1 class="h4 text-white-900 mb-4">@yield('form-subject')  </h1>
                         </div>
                         @yield('form')
                     </div>

@@ -1,7 +1,8 @@
 @extends('layout.form')
 
-
-
+@section('form-subject')
+    Update User !
+@endsection
 @section('form')
 
 <form class="user" method="POST"  action="{{route('users.update' , $update_user->id )}}"

@@ -1,8 +1,7 @@
 @extends('layout.form')
 
-@section('preform')
-
-
+@section('form-subject')
+    Vote !
 @endsection
 
 @section('form')
@@ -10,7 +9,7 @@
     <div class="container ">
         <div class="row justify-content-center " >
             <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-sm my-5">
                     <div class="card-body p-0" >
                         <div class="p-5  alert-info" >
                             <div class="text-center">
@@ -30,7 +29,7 @@
             </div>
         </div>
     </div>
-    <br><br><br>
+    <br>
     <div style="margin-left: 100px ;margin-right: 100px ">
                 <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.store',$breakfast->id)}}" >
                     @csrf

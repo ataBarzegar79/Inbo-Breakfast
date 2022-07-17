@@ -1,6 +1,8 @@
 @extends('layout.form')
 
-
+@section('form-subject')
+    Create New User !
+@endsection
 @section('form')
 
 <form class="user" method="POST"  action="{{route('users.store')}}"
@@ -59,6 +61,7 @@
     <div class="form-group">
         <label>Avatar :
         <input type="file"
+               class="form-control-file form-control-user  "
                name="avatar"
                id="avatar"
                value="{{old('avatar')}}"
@@ -78,6 +81,7 @@
             Admin :
         <select
             placeholder="Admin"
+            class=" form-control-sm"
             id="is_admin" name="is_admin">
             <option value="no">No</option>
             <option value="yes">Yes</option>
@@ -95,6 +99,12 @@
 </form>
 
 @endsection
+
+
+
+
+
+
 @section('postform')
 
     <div class="card shadow mb-4">

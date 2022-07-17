@@ -1,6 +1,8 @@
 @extends('layout.form')
 
-
+@section('form-subject')
+    Create New Breakfast !
+@endsection
 
 @section('form')
 
