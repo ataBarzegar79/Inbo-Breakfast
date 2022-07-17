@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Http\Controllers;
+namespace App\Controllers;
 
 //use App\Http\Requests\BreakfastCreateRequest;
+use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
-use App\Models\Http\Requests\storeBreakfastRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;

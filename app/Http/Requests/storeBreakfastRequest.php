@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Http\Requests;
+namespace App\Http\Requests;
 
 use App\Rules\breakfastDateCreationMakers;
 use App\Rules\breakfastMakers;

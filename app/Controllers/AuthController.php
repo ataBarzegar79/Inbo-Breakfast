@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Http\Controllers;
+namespace App\Controllers;
 
-use App\Models\Http\Requests\loginRequest;
+use App\Http\Requests\loginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function back;

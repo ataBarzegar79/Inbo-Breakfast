@@ -31,40 +31,40 @@
     </div>
     <br>
     <div style="margin-left: 100px ;margin-right: 100px ">
-                <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.store',$breakfast->id)}}" >
-                    @csrf
-                    <div class="form-group">
-                        <input type="number"
-                               class="form-control form-control-user"
-                               id="rate"
-                               name="rate"
-                               value="{{old('rate')}}"
-                               aria-describedby="emailHelp"
-                               placeholder="Enter your Rate.. ">
-                    </div>
-                    @error('rate')
-                    <p style="color: red">
+        <form class="user" method="POST"  action="{{route('breakfsatvotes.vote.store',$breakfast->id)}}" >
+            @csrf
+            <div class="form-group">
+                <input type="number"
+                       class="form-control form-control-user"
+                       id="rate"
+                       name="rate"
+                       value="{{old('rate')}}"
+                       aria-describedby="emailHelp"
+                       placeholder="Enter your Rate.. ">
+            </div>
+            @error('rate')
+            <p style="color: red">
+            {{$message}}
+            </p>
+            @enderror
+
+
+            <div class="form-group">
+                <textarea type="text"
+                        class="form-control form-control-user"
+                        id="description"
+                        name="description"
+                        value="{{old('description')}}"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter your Description "></textarea>
+            </div>
+            @error('description')
+                <p style="color: red">
                     {{$message}}
-                    </p>
-                    @enderror
-
-
-                    <div class="form-group">
-                        <textarea type="text"
-                                class="form-control form-control-user"
-                                id="description"
-                                name="description"
-                                value="{{old('description')}}"
-                                aria-describedby="emailHelp"
-                                placeholder="Enter your Description "></textarea>
-                    </div>
-                    @error('description')
-                        <p style="color: red">
-                            {{$message}}
-                        </p>
-                    @enderror
-                    <input class="btn btn-primary btn-user btn-block" type="submit" value="Submit Rate" >
-                </form>
+                </p>
+            @enderror
+            <input class="btn btn-primary btn-user btn-block" type="submit" value="Submit Rate" >
+        </form>
     </div>
 
 @endsection

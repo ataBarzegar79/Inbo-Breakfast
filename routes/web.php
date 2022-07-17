@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Http\Controllers\AuthController;
-use App\Models\Http\Controllers\BreakfastController;
-use App\Models\Http\Controllers\UserController;
-use App\Models\Http\Controllers\VoteController;
+use App\Controllers\AuthController;
+use App\Controllers\BreakfastController;
+use App\Controllers\UserController;
+use App\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +30,9 @@ Route:: middleware('can:is_admin')->group(
         Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
         Route::post('breakfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
         Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
-        Route::resource('users', UserController::class ) ;
+        Route::get('breakfast/update/{id}' , [BreakfastController::class , 'update'])->name('breakfast.update') ;
+
+        Route::resource('users', UserController::class , ) ;
     }
 );
 

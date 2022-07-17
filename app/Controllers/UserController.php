@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Http\Controllers;
+namespace App\Controllers;
 
-use App\Models\Http\Requests\storeUserRequest;
-use App\Models\Http\Requests\updateUserRequest;
+use App\Http\Requests\storeUserRequest;
+use App\Http\Requests\updateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use function redirect;

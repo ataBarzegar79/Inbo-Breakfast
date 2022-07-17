@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Http\Controllers;
+namespace App\Controllers;
 
+use App\Http\Requests\storeVoteRequest;
 use App\Models\Breakfast;
-use App\Models\Http\Requests\storeVoteRequest;
 use App\Models\Rate;
 use Illuminate\Support\Facades\Auth;
 use function redirect;
