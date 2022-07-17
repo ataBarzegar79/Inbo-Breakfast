@@ -2,7 +2,8 @@
 
 
 @section('content')
-@yield('beforeContent')
+
+@yield('preform')
 
 <div class="container">
 
@@ -13,7 +14,6 @@
                 <div class="card-body p-0" >
                     <div class="p-5" >
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create New Breakfast!</h1>
                         </div>
                         @yield('form')
                     </div>
@@ -22,4 +22,6 @@
         </div>
     </div>
 </div>
+    @yield('postform')
 @endsection
+
