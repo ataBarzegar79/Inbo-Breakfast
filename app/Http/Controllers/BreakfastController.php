@@ -31,7 +31,6 @@ class BreakfastController extends Controller
 
     public function create()
     {
-        $authUser = Auth::user();
         $users = User::all() ;
         return view('breakfast-create' , [ 'users'=>$users]);
     }
@@ -41,7 +40,7 @@ class BreakfastController extends Controller
 
 
         $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon()->toDateTimeString() ;
+        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
 
         $breakfast = Breakfast::create(
             [
@@ -81,7 +80,7 @@ class BreakfastController extends Controller
             return redirect()->route('dashboard');
         }
         $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon()->toDateTimeString() ;
+        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
 
         $breakfast ->name = $request->name ;
         $breakfast->description = $request->description ;

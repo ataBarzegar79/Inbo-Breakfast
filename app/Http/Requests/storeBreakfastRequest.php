@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\breakfastDateCreationMakers;
 use App\Rules\breakfastMakers;
+use App\Rules\UniqueCreationDate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class storeBreakfastRequest extends FormRequest
@@ -26,11 +27,10 @@ class storeBreakfastRequest extends FormRequest
     public function rules()
     {
 
-//        dd(request()->date) ;
          return [
             'name'=>['required' , 'max:255' ] ,
             'description'=>['max:255'] ,
-            'date' =>['required' , new breakfastDateCreationMakers()] ,
+            'date' =>['required' , new breakfastDateCreationMakers() , new UniqueCreationDate()] ,
             'users' =>['required' ,new breakfastMakers() ]
              ];
 

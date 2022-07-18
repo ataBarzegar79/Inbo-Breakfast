@@ -25,10 +25,10 @@ class Breakfast extends Model
         'created_at',
         'user_id'
     ];
-
-    protected $casts = [
-        'created_at' => 'datetime',
-    ];
+//
+//    protected $casts = [
+//        'created_at' => 'datetime',
+//    ];
 
     public function rates()
     {
