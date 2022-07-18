@@ -60,6 +60,12 @@
                                 </button>  Delete
                             </form>
                         </div>
+                        <br>
+                        <div>
+                            <a href="{{route('breakfast.update' ,$breakfast->id )}}" class="btn btn-warning btn-circle btn-sm">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </a>   Update
+                        </div>
                     </td>
                         @endcan
                 </tr>

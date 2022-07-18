@@ -39,7 +39,6 @@ Route:: middleware('can:is_admin')->group(
 
 
 
-
 Route::resource('breakfsatvotes.vote', VoteController::class);
 
 //Route::get('standings' , [UserController::class , 'standings']) ;
