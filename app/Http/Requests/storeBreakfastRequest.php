@@ -29,7 +29,7 @@ class storeBreakfastRequest extends FormRequest
 
          return [
             'name'=>['required' , 'max:255' ] ,
-            'description'=>['max:255'] ,
+            'description'=>['required','max:255'] ,
             'date' =>['required' , new breakfastDateCreationMakers() , new UniqueCreationDate()] ,
             'users' =>['required' ,new breakfastMakers() ]
              ];
