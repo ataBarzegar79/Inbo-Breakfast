@@ -31,6 +31,7 @@ Route:: middleware('can:is_admin')->group(
         Route::post('breakfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
         Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
         Route::get('breakfast/update/{id}' , [BreakfastController::class , 'update'])->name('breakfast.update') ;
+        Route::put('breakfasts/update/{id}/edit' , [BreakfastController::class ,'edit'])->name('breakfast.edit') ;
 
         Route::resource('users', UserController::class , ) ;
     }
