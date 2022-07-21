@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -94,26 +95,21 @@ class User extends Authenticatable
     }
 
     public function countBreakfasts(){
-        $count = 0 ;
-        $brekfasts = Breakfast::all() ;
-        foreach ($brekfasts as $brekfast){
-            if($brekfast->user_id === $this->id) {
-                $count += 1 ;
-            }
-        }
-
-        return $count ;
+        return $this->breakfasts->whereNull('deleted_at')->count() ;
+//           return $this ->breakfasts->count() ;
     }
 
 
-    protected function createdAt(): Attribute
+    public function averAgeParticipating()
     {
-        return Attribute::make(
-            get: fn ($value) => Jalalian::forge($value)->format('%A, %d %B %Y'),
 
-        );
+        $berakfast_counts = $this->breakfasts->whereNull('deleted_at')->count();
+        $user_created_at = Carbon::createFromFormat('Y-m-d  H:i:s' , $this->created_at );
+        $now = Carbon::now();
+        $diff = $user_created_at->diffInDays($now) + 1;
+        return round($berakfast_counts/$diff,3) ;
+
     }
-
 
 
 

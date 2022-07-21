@@ -16,7 +16,7 @@
                         </div>
                         <div class="text-center">
                             <p>Breakfast Name : {{$breakfast->name}}</p>
-                            <p>Date of Breakfast  :  </p>
+                            <p>Date of Breakfast  : {{persianFormat($breakfast->created_at)}} </p>
                             <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->users as $user)
                                     {{$user->name}} |
                                 @endforeach</p>
@@ -39,9 +39,9 @@
                    class="form-control form-control-user"
                    id="name"
                    name="name"
-{{--                   value="{{old($breakfast->name)}}"--}}
+                   value="{{$breakfast->name}}"
                    aria-describedby="emailHelp"
-                   placeholder="Breakfast Name" >
+                   >
         </div>
 
         @error('name')
@@ -56,8 +56,8 @@
               class="form-control form-control-user"
               name="description"
               id="description"
-              value="{{old($breakfast->description)}}"
-              placeholder="Some Description"></textarea>
+              value="{{$breakfast->description}}"
+              >{{$breakfast->description}}</textarea>
         </div>
 
 
@@ -70,19 +70,19 @@
 
 
 
-        <div class="form-group">
-            <input type="text"
-                   class="form-control form-control-user"
-                   name="date"
-                   id="date"
-                   placeholder="Set date  ">
-        </div>
-        @error('date')
-        <p style="color: red">
-            {{$message}}
-        </p>
-        @enderror
-        <span id="date2"></span>
+{{--        <div class="form-group">--}}
+{{--            <input type="text"--}}
+{{--                   class="form-control form-control-user"--}}
+{{--                   name="date"--}}
+{{--                   id="date"--}}
+{{--                   placeholder="Set date  ">--}}
+{{--        </div>--}}
+{{--        @error('date')--}}
+{{--        <p style="color: red">--}}
+{{--            {{$message}}--}}
+{{--        </p>--}}
+{{--        @enderror--}}
+{{--        <span id="date2"></span>--}}
 
         <div class="form-group">
             <label class="col-form-label" for="user">Maker(s):You can select multiple makers </label>

@@ -39,7 +39,7 @@ Route:: middleware('can:is_admin')->group(
 
 
 
-Route::resource('breakfsatvotes.vote', VoteController::class);
+Route::resource('breakfsatvotes.vote', VoteController::class)->middleware('auth');
 
-//Route::get('standings' , [UserController::class , 'standings']) ;
+Route::get('standings' , [UserController::class , 'standings'])->name('standings')->middleware('auth') ;
 

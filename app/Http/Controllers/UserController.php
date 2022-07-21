@@ -101,10 +101,15 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-//    public function standings()
-//    {
-//        $authUser = Auth::user() ;
-//        $users = User::all() ;
-//        return view('standings' ,['user'=>$users ]  ) ;
-//    }
+    public function standings()
+    {
+        $users = User::all() ;
+        $list = [];
+        foreach ($users as $user){
+            $list[] = [$user->averAgeParticipating(), $user  ];
+        }
+        rsort($list);
+
+        return view('standings' ,['users'=>$list ]  ) ;
+    }
 }

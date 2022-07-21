@@ -17,7 +17,7 @@
                             </div>
                             <div class="text-center">
                                 <p>Breakfast Name : {{$breakfast->name}}</p>
-                                <p>Date of Breakfast  : {{$breakfast->persian}}  </p>
+                                <p>Date of Breakfast  : {{persianFormat($breakfast->created_at)}}  </p>
                                 <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->users as $user)
                                         {{$user->name}}
                                     @endforeach</p>

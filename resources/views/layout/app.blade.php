@@ -76,7 +76,11 @@
                 <span>Create New Event ! </span></a>
         </li>
     @endcan
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('standings')}}">
+                {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
+                <span>Standings</span></a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('logout')}}">
 {{--                <i class="fas-regular fa-right-from-bracket"></i>--}}
