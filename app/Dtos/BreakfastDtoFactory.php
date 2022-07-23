@@ -12,11 +12,10 @@ class BreakfastDtoFactory
         return  new BreakfastDto(
             $model->id ,
             $model->name ,
-            $model->name ,
             $model->description ,
             $model->created_at ,
             $model->users ,
-            $model->userRate() );
+            $model->avareageRate()  );
     }
 
 
