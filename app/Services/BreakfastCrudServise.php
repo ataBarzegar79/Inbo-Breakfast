@@ -5,8 +5,10 @@ namespace App\Services ;
 use App\Dtos\BreakfastDtoFactory;
 use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
+use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
+use Morilog\Jalali\Jalalian;
 
 class  BreakfastCrudServise implements  breakfastService{
     public function index():array
@@ -51,7 +53,18 @@ class  BreakfastCrudServise implements  breakfastService{
 
     public function store(storeBreakfastRequest $request): void
     {
-        // TODO: Implement store() method.
+        $persian_date = explode("/" , $request->date) ;
+        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
+
+        $breakfast = Breakfast::create(
+            [
+                'name' => $request->name ,
+                'description'=>$request->description ,
+                'created_at' => $created_at ,
+            ]
+        );
+        $breakfast->users()->sync($request->users) ;
+
     }
 
     public function update(storeBreakfastRequest $request, int $breakfast_id): void
@@ -61,6 +74,7 @@ class  BreakfastCrudServise implements  breakfastService{
 
     public function destroy(int $breakfast_id): void
     {
-        // TODO: Implement destroy() method.
+        $deleted_breakfast = Breakfast::find( $breakfast_id);
+        $deleted_breakfast->delete() ;
     }
 }

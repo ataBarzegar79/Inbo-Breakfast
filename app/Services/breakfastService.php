@@ -3,6 +3,7 @@ namespace App\Services ;
 
 use App\Dtos\BreakfastDto;
 use App\Dtos\UserBreakfastDto;
+use App\Http\Requests\storeBreakfastRequest;
 
 interface breakfastService{
 

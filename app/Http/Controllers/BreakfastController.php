@@ -18,7 +18,7 @@ class BreakfastController extends Controller
 {
     public function index(breakfastService $service)
     {
-        return view('dashboard' ,  ['breakfasts'=>$service->in]);
+        return view('dashboard' ,  ['breakfasts'=>$service->index()]);
     }
 
     public function create(breakfastService $service)
@@ -28,30 +28,14 @@ class BreakfastController extends Controller
     }
 
 
-    public function save(storeBreakfastRequest $request){
-
-
-        $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
-
-        $breakfast = Breakfast::create(
-            [
-                'name' => $request->name ,
-                'description'=>$request->description ,
-                'created_at' => $created_at ,
-            ]
-        );
-        $breakfast->users()->sync($request->users) ;
-
+    public function store(breakfastService $service , storeBreakfastRequest $request){
+        $service->store($request);
         return redirect()->route('dashboard') ;
-
-
     }
 
-    public function destroy($id)
+    public function destroy($id , breakfastService $service)
     {
-        $deleted_breakfast = Breakfast::where('id' , $id)->first();
-        $deleted_breakfast->delete() ;
+        $service->destroy($id);
         return redirect()->route('dashboard') ;
     }
 
