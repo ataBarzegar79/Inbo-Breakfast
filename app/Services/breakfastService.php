@@ -1,9 +1,11 @@
 <?php
 namespace App\Services ;
 
+use App\Dtos\UserBreakfastDto;
+
 interface breakfastService{
 /**
- * @return UserDTO[]
+ * @return UserBreakfastDTO[]
  */
 public function create():array ;
 
