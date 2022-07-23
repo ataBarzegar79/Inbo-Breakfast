@@ -3,7 +3,7 @@ namespace App\Services ;
 
 
 use App\Dtos\BreakfastDtoFactory;
-use App\Dtos\UserDtoFactory;
+use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\User;
 
 class  BreakfastCrudServise implements  breakfastService{
@@ -13,7 +13,7 @@ class  BreakfastCrudServise implements  breakfastService{
         $users = User::all();
         $users_dto = [];
         foreach ($users as $user) {
-            $factory = new UserDtoFactory($user) ;
+            $factory = new UserBreakfastDtoFactory($user) ;
             $users_dto[] = $factory->fromModel($user);
         }
         return $users_dto;

@@ -67,7 +67,7 @@
         <br>
             <select name="users[]" id="example-getting-started" class="multiselect-group" multiple >
                 @foreach($users as $user)
-                <option @if($user[0] < averageParticipationUsers()) class="alert-danger" @endif value="{{$user[1]->id}}">{{$user[1]->name}} - {{$user[0]}}</optionclass>
+                <option @if($user->average < averageParticipationUsers()) class="alert-danger" @endif value="{{$user->id}}">{{$user->name}} - {{$user->average}}</optionclass>
                 @endforeach
             </select>
 
