@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use App\Http\Requests\BreakfastCreateRequest;
+use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
@@ -39,33 +40,18 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard') ;
     }
 
-   public function  update( $breakfast_id){
-        if(!$breakfast = Breakfast::find($breakfast_id) ){
-            return redirect()->route('dashboard') ;
-        }
+   public function  edit( $breakfast_id , breakfastService $service  ){
 
-        $users = User::all();
-
-        return view('breakfast-update' , ['breakfast'=>$breakfast , 'users'=>$users]) ;
+        $edited_breakfast = $service->edit($breakfast_id) ;
+        return view('breakfast-update' , ['breakfast'=>$edited_breakfast["breakfast"] , 'users'=>$edited_breakfast['users'] ]) ;
    }
 
 
-    public function edit(storeBreakfastRequest $request , $breakfast_id)
+    public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
     {
-        if(!$breakfast = Breakfast::find($breakfast_id) ) {
-            return redirect()->route('dashboard');
-        }
-        $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
-
-        $breakfast ->name = $request->name ;
-        $breakfast->description = $request->description ;
-        $breakfast->created_at = $created_at ;
-        $breakfast->save() ;
-
-        $breakfast->users()->sync($request->users) ;
-
+        $service ->update($request , $breakfast_id ) ;
         return redirect()->route('dashboard') ;
+
 
     }
 

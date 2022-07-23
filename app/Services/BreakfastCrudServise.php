@@ -5,9 +5,11 @@ namespace App\Services ;
 use App\Dtos\BreakfastDtoFactory;
 use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
+use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
+use Illuminate\View\View;
 use Morilog\Jalali\Jalalian;
 
 class  BreakfastCrudServise implements  breakfastService{
@@ -46,9 +48,29 @@ class  BreakfastCrudServise implements  breakfastService{
         return $users_dto;
     }
 
-    public function edit(int $breakfast_id): array
+    public function edit(int $breakfast_id)
     {
-        // TODO: Implement edit() method.
+        if(!$breakfast = Breakfast::find($breakfast_id) ){
+            return redirect()->route('dashboard') ;
+        }
+
+        $breakfast = Breakfast::find($breakfast_id);
+        $new_breakfast_factory = new BreakfastDtoFactory() ;
+        $breakfast_dto = $new_breakfast_factory->fromModel($breakfast , null) ;
+
+        $users = User::all();
+        $dto_users = [] ;
+        $new_user_factory = new UserBreakfastDtoFactory() ;
+        foreach ($users as $user){
+            $new_user_dto = $new_user_factory->fromModel($user) ;
+            $dto_users[] = $new_user_dto ;
+
+        }
+
+        return ['users'=>$dto_users ,"breakfast" => $breakfast_dto] ;
+
+
+
     }
 
     public function store(storeBreakfastRequest $request): void
@@ -67,9 +89,19 @@ class  BreakfastCrudServise implements  breakfastService{
 
     }
 
-    public function update(storeBreakfastRequest $request, int $breakfast_id): void
+    public function update(BreakfastUpdateRequest $request, int $breakfast_id)
     {
-        // TODO: Implement update() method.
+
+        if(!$breakfast = Breakfast::find($breakfast_id) ) {
+            return redirect()->route('dashboard');
+        }
+
+        $breakfast ->name = $request->name ;
+        $breakfast->description = $request->description ;
+        $breakfast->save() ;
+
+        $breakfast->users()->sync($request->users) ;
+
     }
 
     public function destroy(int $breakfast_id): void

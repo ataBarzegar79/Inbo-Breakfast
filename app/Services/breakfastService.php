@@ -3,6 +3,7 @@ namespace App\Services ;
 
 use App\Dtos\BreakfastDto;
 use App\Dtos\UserBreakfastDto;
+use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\storeBreakfastRequest;
 
 interface breakfastService{
@@ -27,18 +28,18 @@ interface breakfastService{
 
     /**
      * @param int $user_id
-     * @return BreakfastDto[]
-     */
-    public function edit(int $breakfast_id):array;
+     * @return UserBreakfastDto[]
+     * @return BreakfastDto
+     **/
+    public function edit(int $breakfast_id);
 
 
     /**
      * @param  int $breakfast_id
      * @param storeBreakfastRequest $request
-     * @return
+     *
      */
-    public function update(storeBreakfastRequest $request ,int $breakfast_id):void ;
-
+    public function update(BreakfastUpdateRequest $request ,int $breakfast_id) ;
 
 
     /**
