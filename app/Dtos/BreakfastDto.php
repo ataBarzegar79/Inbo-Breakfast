@@ -11,6 +11,9 @@ class BreakfastDto
         public string       $created_at,
         public array        $users,
         public float        $averageRate,
+        public ?RateDto     $user_rate,
+
+
        )
     {
 
