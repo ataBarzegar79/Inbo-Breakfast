@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use App\Http\Requests\BreakfastCreateRequest;
+use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
@@ -18,7 +19,7 @@ class BreakfastController extends Controller
 {
     public function index(breakfastService $service)
     {
-        return view('dashboard' ,  ['breakfasts'=>$service->in]);
+        return view('dashboard' ,  ['breakfasts'=>$service->index()]);
     }
 
     public function create(breakfastService $service)
@@ -28,60 +29,29 @@ class BreakfastController extends Controller
     }
 
 
-    public function save(storeBreakfastRequest $request){
-
-
-        $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
-
-        $breakfast = Breakfast::create(
-            [
-                'name' => $request->name ,
-                'description'=>$request->description ,
-                'created_at' => $created_at ,
-            ]
-        );
-        $breakfast->users()->sync($request->users) ;
-
+    public function store(breakfastService $service , storeBreakfastRequest $request){
+        $service->store($request);
         return redirect()->route('dashboard') ;
-
-
     }
 
-    public function destroy($id)
+    public function destroy($id , breakfastService $service)
     {
-        $deleted_breakfast = Breakfast::where('id' , $id)->first();
-        $deleted_breakfast->delete() ;
+        $service->destroy($id);
         return redirect()->route('dashboard') ;
     }
 
-   public function  update( $breakfast_id){
-        if(!$breakfast = Breakfast::find($breakfast_id) ){
-            return redirect()->route('dashboard') ;
-        }
+   public function  edit( $breakfast_id , breakfastService $service  ){
 
-        $users = User::all();
-
-        return view('breakfast-update' , ['breakfast'=>$breakfast , 'users'=>$users]) ;
+        $edited_breakfast = $service->edit($breakfast_id) ;
+        return view('breakfast-update' , ['breakfast'=>$edited_breakfast["breakfast"] , 'users'=>$edited_breakfast['users'] ]) ;
    }
 
 
-    public function edit(storeBreakfastRequest $request , $breakfast_id)
+    public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
     {
-        if(!$breakfast = Breakfast::find($breakfast_id) ) {
-            return redirect()->route('dashboard');
-        }
-        $persian_date = explode("/" , $request->date) ;
-        $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
-
-        $breakfast ->name = $request->name ;
-        $breakfast->description = $request->description ;
-        $breakfast->created_at = $created_at ;
-        $breakfast->save() ;
-
-        $breakfast->users()->sync($request->users) ;
-
+        $service ->update($request , $breakfast_id ) ;
         return redirect()->route('dashboard') ;
+
 
     }
 

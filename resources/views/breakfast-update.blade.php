@@ -67,23 +67,6 @@
         </p>
         @enderror
 
-
-
-
-{{--        <div class="form-group">--}}
-{{--            <input type="text"--}}
-{{--                   class="form-control form-control-user"--}}
-{{--                   name="date"--}}
-{{--                   id="date"--}}
-{{--                   placeholder="Set date  ">--}}
-{{--        </div>--}}
-{{--        @error('date')--}}
-{{--        <p style="color: red">--}}
-{{--            {{$message}}--}}
-{{--        </p>--}}
-{{--        @enderror--}}
-{{--        <span id="date2"></span>--}}
-
         <div class="form-group">
             <label class="col-form-label" for="user">Maker(s):You can select multiple makers </label>
             <br>
