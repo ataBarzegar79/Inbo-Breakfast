@@ -16,18 +16,9 @@ use function view;
 
 class BreakfastController extends Controller
 {
-    public function index()
+    public function index(breakfastService $service)
     {
-        $authUser = Auth::user() ;
-
-        $breakfasts = Breakfast::all() ;
-        foreach ($breakfasts as $breakfast){
-
-            $breakfast->persian = Jalalian::fromCarbon(new Carbon($breakfast->created_at))->format('%A, %d %B %Y');
-
-        }
-        return view('dashboard' ,  ['breakfasts'=>$breakfasts]);
-
+        return view('dashboard' ,  ['breakfasts'=>$service->in]);
     }
 
     public function create(breakfastService $service)
