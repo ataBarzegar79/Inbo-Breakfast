@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
@@ -13,12 +14,16 @@ use function view;
 class UserController extends Controller
 {
 
-    public function index()
+    public function index(UserService $service)
     {
-        $authUser = Auth::user();
-        $users = User::all();
-        return view('users', [ 'users' => $users]);
+        return view('users', ['users' => $service->index()]);
     }
+
+//    public function index()
+//    {
+//        $users = User::all();
+//        return view('users', [ 'users' => $users]);
+//    }
 
 
 
