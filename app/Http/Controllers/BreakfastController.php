@@ -16,7 +16,7 @@ use function view;
 
 class BreakfastController extends Controller
 {
-    public function show()
+    public function index()
     {
         $authUser = Auth::user() ;
 

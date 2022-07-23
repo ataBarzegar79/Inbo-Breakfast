@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class , 'show'] )->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class , 'login'])->name('post-login')->middleware('guest');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
-Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
+Route::get('' , [BreakfastController::class , 'index']) ->name('dashboard')->middleware('auth');
 
 
 Route:: middleware('can:is_admin')->group(
