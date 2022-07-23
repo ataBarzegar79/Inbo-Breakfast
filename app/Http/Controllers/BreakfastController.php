@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
+use App\Services\breakfastService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,10 +30,10 @@ class BreakfastController extends Controller
 
     }
 
-    public function create()
+    public function create(breakfastService $service)
     {
-        $users = User::all() ;
-        return view('breakfast-create' , [ 'users'=>$users]);
+
+        return view('breakfast-create' , [ 'users'=>$service->create()]);
     }
 
 

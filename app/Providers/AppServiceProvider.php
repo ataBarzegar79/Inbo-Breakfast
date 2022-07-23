@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Breakfast;
 use App\Models\User;
+use App\Services\BreakfastCrudServise;
+use App\Services\breakfastService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use phpDocumentor\Reflection\Types\Mixed_;
@@ -45,6 +47,8 @@ class AppServiceProvider extends ServiceProvider
             return true ;
 
         }) ;
+
+        $this->app->singleton(breakfastService::class , BreakfastCrudServise::class);
 
 
     }
