@@ -48,11 +48,9 @@ class UserController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($id, UserService $service)
     {
-        $deleted_item = User::find($id) ;
-        $deleted_item->delete() ;
-
+        $service->destroy($id);
         return redirect()->route('users.index');
     }
 

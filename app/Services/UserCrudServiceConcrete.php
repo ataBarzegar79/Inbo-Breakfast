@@ -72,6 +72,12 @@ class UserCrudServiceConcrete implements UserService{
         $updated_user->save() ;
     }
 
+    public function destroy(int $id): void
+    {
+        $deleted_user = User::find($id);
+        $deleted_user->delete() ;
+    }
+
     public function standing(): array
     {
         $users = User::all();

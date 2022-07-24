@@ -30,6 +30,13 @@ interface UserService{
     public function update(updateUserRequest $request, int $id);
 
     /**
+     * @param int $id
+     * @return void
+     */
+    public function destroy(int $id): void;
+
+
+    /**
      * @return UserDto[]
      */
     public function standing():array;
