@@ -32,10 +32,10 @@ class UserController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(int $id, UserService $service)
     {
 
-       $update_user = User::where('id',$id)->first() ;
+       $update_user = $service->edit($id);
        return view('update-user' , ['update_user'=>$update_user ]) ;
 
     }

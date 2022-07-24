@@ -21,6 +21,11 @@ interface UserService{
      */
     public function store(storeUserRequest $request):void;
 
+    /**
+     * @param int $id
+     * @return UserDto[]
+     */
+    public function edit(int $id);
 
     /**
      * @param updateUserRequest $request

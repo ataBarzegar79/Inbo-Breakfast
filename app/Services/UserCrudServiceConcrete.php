@@ -49,6 +49,19 @@ class UserCrudServiceConcrete implements UserService{
         $new_user->save();
     }
 
+    public function edit(int $id)
+    {
+        if(!$user = User::find($id)){
+            return redirect()->route('dashboard') ;
+        }
+
+        $user = User::find($id);
+        $new_user_factory = new UserDtoFactory();
+        $user_dto = $new_user_factory->fromModel($user);
+
+        return $user_dto;
+    }
+
     public function update(updateUserRequest $request, int $id)
     {
         if($request->avatar !== null) {

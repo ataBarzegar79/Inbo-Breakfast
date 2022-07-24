@@ -11,6 +11,7 @@ class UserDto
         public int       $id,
         public string    $name,
         public string    $email,
+        public string    $password,
         public string    $created_at,
         public string    $is_admin,
         public string    $avatar,

@@ -28,6 +28,7 @@ class UserDtoFactory
             $user->id,
             $user->name,
             $user->email,
+            $user->password,
             $created_at,
             $user->is_admin,
             $user_avatar,
