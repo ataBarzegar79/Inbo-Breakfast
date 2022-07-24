@@ -32,7 +32,13 @@ class BreakfastController extends Controller
     public function create()
     {
         $users = User::all() ;
-        return view('breakfast-create' , [ 'users'=>$users]);
+        $users_with_participate = [] ;
+        foreach ($users as $user){
+            $users_with_participate[] = [$user->averAgeParticipating() , $user];
+
+        }
+        sort($users_with_participate) ;
+        return view('breakfast-create' , [ 'users'=>$users_with_participate]);
     }
 
 
