@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\UserCrudService;
+use App\Services\UserCrudServiceConcrete;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +25,6 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->singleton(UserService::class, UserCrudService::class);
+        $this->app->singleton(UserService::class, UserCrudServiceConcrete::class);
     }
 }

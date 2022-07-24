@@ -1,10 +1,12 @@
 <?php
 namespace App\Services ;
 
+use App\Dtos\UserCreateDtoFactory;
 use App\Dtos\UserDtoFactory;
+use App\Http\Requests\storeUserRequest;
 use App\Models\User;
 
-class UserCrudService implements UserService{
+class UserCrudServiceConcrete implements UserService{
     public function index(): array
     {
         $users = User::all();
@@ -17,5 +19,15 @@ class UserCrudService implements UserService{
         }
 
         return $user_dtos;
+    }
+
+    public function store(storeUserRequest $request): array
+    {
+
+        $user_factory = new UserCreateDtoFactory();
+        $user_dtos[] = $user_factory->fromRequest($request);
+
+        return $user_dtos;
+
     }
 }

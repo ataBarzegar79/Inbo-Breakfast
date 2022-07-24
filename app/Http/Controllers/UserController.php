@@ -18,7 +18,6 @@ class UserController extends Controller
     {
         return view('users', ['users' => $service->index()]);
     }
-
 //    public function index()
 //    {
 //        $users = User::all();
@@ -26,11 +25,9 @@ class UserController extends Controller
 //    }
 
 
-
-    public function store(storeUserRequest $request)
+    public function store(UserService $service, storeUserRequest $request)
     {
-
-        if($request->avatar !== null) {
+/*        if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
             $email_path = $request->email;
             $avatar_path = $email_path.$avatar_extension ;
@@ -48,17 +45,11 @@ class UserController extends Controller
             'password' => $request -> password ,
             'avatar' => 'avatars\\'.$avatar_path ,
             'is_admin' => $request->is_admin
-        ]);
-
+        ]);*/
+        $service->store($request);
         return  redirect()->route('users.index');
 
 
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
 
