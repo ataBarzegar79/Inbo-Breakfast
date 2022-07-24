@@ -15,8 +15,8 @@ interface UserService{
 
     /**
      * @param storeUserRequest $request
-     * @return array
+     * @return void
      */
-    public function store(storeUserRequest $request):array;
+    public function store(storeUserRequest $request):void;
 
 }

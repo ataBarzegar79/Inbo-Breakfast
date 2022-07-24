@@ -21,13 +21,30 @@ class UserCrudServiceConcrete implements UserService{
         return $user_dtos;
     }
 
-    public function store(storeUserRequest $request): array
+    public function store(storeUserRequest $request): void
     {
 
-        $user_factory = new UserCreateDtoFactory();
-        $user_dtos[] = $user_factory->fromRequest($request);
 
-        return $user_dtos;
+        if($request->avatar !== null) {
+            $avatar_extension = '.' . $request->avatar->extension();
+            $email_path = $request->email;
+            $avatar_path = $email_path.$avatar_extension ;
+            $Avatar_saving = $request->file('avatar')->storeAs(
+                'avatars', $avatar_path, 'public'
+            );
+        }
+        else{
+            $avatar_path = "default.svg" ;
+        }
 
+        $new_user = User::create([
+            'name' => $request ->name ,
+            'email' => $request ->email ,
+            'password' => $request -> password ,
+            'avatar' => 'avatars\\'.$avatar_path ,
+            'is_admin' => $request->is_admin
+        ]);
+
+        $new_user->save();
     }
 }
