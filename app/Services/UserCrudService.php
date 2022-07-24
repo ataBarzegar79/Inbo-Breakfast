@@ -5,18 +5,16 @@ use App\Dtos\UserDtoFactory;
 use App\Models\User;
 
 class UserCrudService implements UserService{
-    public function index()
+    public function index(): array
     {
         $users = User::all();
 
-        foreach ($users as $user){
-            $user_performance = $user->performance()['rate'];
-            $user_color = $user->performance()['color'];
-            $user_avatar = $user->viewAvatar();
-        }
+        foreach ($users as $user) {
 
-        $user_factory = new UserDtoFactory();
-        $user_dtos[] = $user_factory->fromModel($users, $user_performance, $user_color, $user_avatar);
+            $user_factory = new UserDtoFactory();
+            $user_dtos[] = $user_factory->fromModel($user);
+
+        }
 
         return $user_dtos;
     }

@@ -9,6 +9,5 @@ interface UserService{
     /**
      * @return UserDto[]
      */
-    public function index();
-
+    public function index():array;
 }

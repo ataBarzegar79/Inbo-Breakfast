@@ -132,10 +132,10 @@
 
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{persianFormat($user->created_at)}}</td>
+                            <td>{{$user->created_at}}</td>
                             <td>{{$user->is_admin}}</td>
-                            <td style="background-color: {{$user_color}}">{{$user_performace}}</td>
-                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user_avatar()}}> </td>
+                            <td style="background-color: {{$user->color}}">{{$user->rate}}</td>
+                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user->avatar}}> </td>
 
                             <td>
                                 <div>

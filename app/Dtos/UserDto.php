@@ -12,8 +12,10 @@ class UserDto
         public string       $name,
         public string       $email,
         public string       $created_at,
-        public Boolean      $is_admin,
-        public string       $avatar
+        public string       $is_admin,
+        public string       $avatar,
+        public string       $rate,
+        public string       $color,
     )
     {
     }
