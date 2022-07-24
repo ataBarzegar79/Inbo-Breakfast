@@ -7,7 +7,7 @@ use App\Dtos\BreakfastDtoFactory;
 use App\Http\Requests\storeVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
-use App\Services\RateServiceuse Illuminate\Support\Facades\Auth;
+
 
 class  RateCreateService implements RateService{
 
