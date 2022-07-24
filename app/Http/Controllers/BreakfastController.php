@@ -40,11 +40,11 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard') ;
     }
 
-   public function  edit( $breakfast_id , breakfastService $service  ){
+    public function  edit( $breakfast_id , breakfastService $service  ){
 
         $edited_breakfast = $service->edit($breakfast_id) ;
         return view('breakfast-update' , ['breakfast'=>$edited_breakfast["breakfast"] , 'users'=>$edited_breakfast['users'] ]) ;
-   }
+    }
 
 
     public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
