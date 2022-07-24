@@ -16,6 +16,10 @@ class UserDtoFactory
 
         $user_avatar = $user->viewAvatar();
 
+        $averageParticipating = $user->averAgeParticipating();
+
+        $countBreakfast = $user->countBreakfasts();
+
         // persianFormat helper class did not worked correctly, I had to handle it DASTY
         $created_at = Jalalian::fromCarbon(new Carbon($user->created_at))->format('%A, %d %B %Y');
 
@@ -29,6 +33,8 @@ class UserDtoFactory
             $user_avatar,
             $user_rate,
             $user_performance_color,
+            $averageParticipating,
+            $countBreakfast,
         );
     }
 }

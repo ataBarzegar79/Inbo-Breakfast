@@ -56,15 +56,14 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function standings()
+    public function standings(UserService $service)
     {
-        $users = User::all() ;
+/*        $users = User::all() ;
         $list = [];
         foreach ($users as $user){
             $list[] = [$user->averAgeParticipating(), $user  ];
         }
-        rsort($list);
-
-        return view('standings' ,['users'=>$list ]  ) ;
+        rsort($list);*/
+        return view('standings' ,['users' => $service->standing() ]  ) ;
     }
 }

@@ -24,9 +24,14 @@ interface UserService{
 
     /**
      * @param updateUserRequest $request
-     * @param $id
+     * @param int $id
      * @return mixed
      */
     public function update(updateUserRequest $request, int $id);
+
+    /**
+     * @return UserDto[]
+     */
+    public function standing():array;
 
 }

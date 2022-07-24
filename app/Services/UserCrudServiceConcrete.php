@@ -71,4 +71,20 @@ class UserCrudServiceConcrete implements UserService{
 
         $updated_user->save() ;
     }
+
+    public function standing(): array
+    {
+        $users = User::all();
+
+        foreach ($users as $user) {
+
+            $user_factory = new UserDtoFactory();
+            $user_dtos[] = $user_factory->fromModel($user);
+
+        }
+
+        rsort($user_dtos);
+
+        return $user_dtos;
+    }
 }
