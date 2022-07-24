@@ -27,35 +27,13 @@ class UserController extends Controller
 
     public function store(UserService $service, storeUserRequest $request)
     {
-/*        if($request->avatar !== null) {
-            $avatar_extension = '.' . $request->avatar->extension();
-            $email_path = $request->email;
-            $avatar_path = $email_path.$avatar_extension ;
-            $Avatar_saving = $request->file('avatar')->storeAs(
-                'avatars', $avatar_path, 'public'
-            );
-        }
-        else{
-            $avatar_path = "default.svg" ;
-        }
-
-        $new_user = User::create([
-            'name' => $request ->name ,
-            'email' => $request ->email ,
-            'password' => $request -> password ,
-            'avatar' => 'avatars\\'.$avatar_path ,
-            'is_admin' => $request->is_admin
-        ]);*/
         $service->store($request);
         return  redirect()->route('users.index');
-
-
     }
 
 
     public function edit($id)
     {
-
 
        $update_user = User::where('id',$id)->first() ;
        return view('update-user' , ['update_user'=>$update_user ]) ;
@@ -63,28 +41,9 @@ class UserController extends Controller
     }
 
 
-    public function update(updateUserRequest $request, $id)
+    public function update(UserService $service, updateUserRequest $request, int $id)
     {
-
-        if($request->avatar !== null) {
-            $avatar_extension = '.' . $request->avatar->extension();
-            $email_path = $request->email;
-            $avatar_path = $email_path.$avatar_extension ;
-            $Avatar_saving = $request->file('avatar')->storeAs(
-                'avatars', $avatar_path, 'public'
-            );
-        }
-        else{
-            $avatar_path = "default.svg" ;
-        }
-
-        $updated_user = User::find($id) ;
-        $updated_user->name = $request->name ;
-        $updated_user->email = $request->email;
-        $updated_user->is_admin = $request->is_admin ;
-        $updated_user ->avatar = 'avatars\\'.$avatar_path  ;
-        $updated_user->save() ;
-
+        $service->update($request , $id ) ;
         return  redirect()->route('users.index') ;
     }
 
