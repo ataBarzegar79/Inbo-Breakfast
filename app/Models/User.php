@@ -91,7 +91,13 @@ class User extends Authenticatable
 
     public function viewAvatar(){
 
-       return $contents = Storage::url($this->avatar);
+       $url =url($this->avatar);
+       if(str_contains($url , 'default.svg')){
+           return $url ;
+       }
+       else{
+           return asset(Storage::url($this->avatar)) ;
+       }
     }
 
     public function countBreakfasts(){

@@ -25,24 +25,24 @@ class UserCrudServiceConcrete implements UserService{
     public function store(storeUserRequest $request): void
     {
 
-
         if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
             $email_path = $request->email;
-            $avatar_path = $email_path.$avatar_extension ;
+            $avatar_path = 'avatars\\'.$email_path.$avatar_extension ;
+            $avatar_storage_adress = $email_path.$avatar_extension ;
             $Avatar_saving = $request->file('avatar')->storeAs(
-                'avatars', $avatar_path, 'public'
+                'avatars', $avatar_storage_adress, 'public'
             );
         }
         else{
-            $avatar_path = "default.svg" ;
+            $avatar_path = "img\default.svg" ;
         }
 
         $new_user = User::create([
             'name' => $request ->name ,
             'email' => $request ->email ,
             'password' => $request -> password ,
-            'avatar' => 'avatars\\'.$avatar_path ,
+            'avatar' => $avatar_path ,
             'is_admin' => $request->is_admin
         ]);
 
@@ -65,22 +65,24 @@ class UserCrudServiceConcrete implements UserService{
     public function update(updateUserRequest $request, int $id)
     {
         if($request->avatar !== null) {
+
             $avatar_extension = '.' . $request->avatar->extension();
             $email_path = $request->email;
-            $avatar_path = $email_path.$avatar_extension ;
+            $avatar_path = 'avatars\\'.$email_path.$avatar_extension ;
+            $avatar_storage_adress = $email_path.$avatar_extension ;
             $Avatar_saving = $request->file('avatar')->storeAs(
-                'avatars', $avatar_path, 'public'
+                'avatars', $avatar_storage_adress, 'public'
             );
         }
         else{
-            $avatar_path = "default.svg" ;
+            $avatar_path = "img\default.svg" ;
         }
 
         $updated_user = User::find($id) ;
         $updated_user->name = $request->name ;
         $updated_user->email = $request->email;
         $updated_user->is_admin = $request->is_admin ;
-        $updated_user ->avatar = 'avatars\\'.$avatar_path;
+        $updated_user ->avatar = $avatar_path;
 
         $updated_user->save() ;
     }
