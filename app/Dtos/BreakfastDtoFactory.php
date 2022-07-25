@@ -8,6 +8,7 @@ use App\Models\Rate;
 
 class BreakfastDtoFactory
 {
+    //todo use static methods in dto facilities
     public function fromModel(Breakfast $model ,?Rate $rate): BreakfastDto
     {   $users = $model->users ;
         $items = [] ;

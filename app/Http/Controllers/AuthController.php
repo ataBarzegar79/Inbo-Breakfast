@@ -11,19 +11,22 @@ use function view;
 
 class AuthController extends Controller
 {
+    //fixme define return type for functions
     public function show(){
-            return view('login') ;
+            return view('login') ; //fixme: pay attention to indentations
     }
 
+    //fixme define return type for functions
     public function login(loginRequest $request){
-
+        //fixme format functions brackets '{' consistently
+        //todo replace inline namespaces with imports
         $user = \App\Models\User::where('name','=',$request->get('name'))
             ->where('password','=',$request->get('password'))
             ->first();
         if($user){
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('') ;
+            return redirect()->intended('') ; //fixme use route method for paths
         }
 
         return back()->withErrors([
@@ -31,7 +34,7 @@ class AuthController extends Controller
         ]);
      }
 
-
+    //fixme define return type for functions
      public function logout(Request $request)
     {
         Auth::logout();
@@ -40,7 +43,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/');//fixme use route method for paths
     }
 
 

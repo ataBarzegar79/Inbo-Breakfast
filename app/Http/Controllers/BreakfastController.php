@@ -13,15 +13,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
 use function redirect;
-use function view;
+use function view; //fixme cleanup unused imports
 
 class BreakfastController extends Controller
 {
+    //fixme define return type for functions
     public function index(breakfastService $service)
     {
         return view('dashboard' ,  ['breakfasts'=>$service->index()]);
     }
 
+    //fixme define return type for functions
     public function create(breakfastService $service)
     {
 
@@ -29,17 +31,21 @@ class BreakfastController extends Controller
     }
 
 
+    //fixme define return type for functions
     public function store(breakfastService $service , storeBreakfastRequest $request){
         $service->store($request);
         return redirect()->route('dashboard') ;
     }
 
+    //fixme define return type for functions
     public function destroy($id , breakfastService $service)
     {
         $service->destroy($id);
         return redirect()->route('dashboard') ;
     }
 
+    //fixme use camelcase for function parameters
+    //fixme define return type for functions
     public function  edit( $breakfast_id , breakfastService $service  ){
 
         $edited_breakfast = $service->edit($breakfast_id) ;
@@ -47,6 +53,8 @@ class BreakfastController extends Controller
     }
 
 
+    //fixme use camelcase for function parameters
+    //fixme define return type for functions
     public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
     {
         $service ->update($request , $breakfast_id ) ;

@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-
+//todo document model parameters
 class Breakfast extends Model
 {
     use HasFactory;
     use SoftDeletes ;
-    protected  $table = 'breakfasts' ;
+    protected  $table = 'breakfasts' ; //todo table name is redundant
     protected $fillable = [
         'name',
         'description',
@@ -28,16 +28,21 @@ class Breakfast extends Model
 //        'created_at' => 'datetime',
 //    ];
 
+    //fixme define return type for functions
     public function rates()
     {
         return $this->hasMany(Rate::class) ;
     }
 
+    //fixme define return type for functions
+    //fixme: pay attention to indentations
         public function users(){
 
         return $this->belongsToMany(User::class)->withTrashed() ;
     }
 
+    //todo move business logic to service layer
+    //fixme define return type for functions
     public function avareageRate()
     {
 
@@ -46,6 +51,8 @@ class Breakfast extends Model
 
     }
 
+    //fixme define return type for functions
+    //todo remove unused functions
     public function userRate(){
         $user = Auth::user() ;
         $rates = $this->rates ;

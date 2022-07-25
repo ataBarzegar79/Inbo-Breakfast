@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 use \Morilog\Jalali\Jalalian ;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-
+//todo document model parameters
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -51,14 +51,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function breakfasts(){
+    public function breakfasts(){//fixme define return type for functions
         return $this->belongsToMany(Breakfast::class)->withTrashed() ;
     }
 
-    public function rates(){
+    public function rates(){//fixme define return type for functions
         return $this->hasMany(Rate::class);
     }
 
+    //fixme define return type for functions
+    //todo move business logic to service layer
+    //fixme use dtos instead of maps for data transferring
     public function performance(){
         $breakfasts_done = $this -> breakfasts ;
         $counter = 0 ;
@@ -71,11 +74,11 @@ class User extends Authenticatable
         try {
             $performance =  round($sum/$counter , 2 ) ;
         }catch (\DivisionByZeroError ){
-            $performance =  "No rates yet !";
+            $performance =  "No rates yet !"; //todo use translations for user messages
         }
 
         if($performance >=1  && $performance <= 4) {
-            return ['rate'=>$performance , 'color'=>"#ff8080"] ;
+            return ['rate'=>$performance , 'color'=>"#ff8080"] ; //todo move view elements to view layer
         }
         elseif ($performance >4  && $performance <= 6){
             return ['rate'=>$performance , 'color'=>"#f6c23e"] ;
@@ -89,9 +92,12 @@ class User extends Authenticatable
 
     }
 
+    //todo move business logic to service layer
+    //fixme define return type for functions
     public function viewAvatar(){
 
-       $url =url($this->avatar);
+
+        $url =url($this->avatar);
        if(str_contains($url , 'default.svg')){
            return $url ;
        }
@@ -100,12 +106,15 @@ class User extends Authenticatable
        }
     }
 
-    public function countBreakfasts(){
+    public function countBreakfasts(){    //fixme define return type for functions
+
         return $this->breakfasts->whereNull('deleted_at')->count() ;
 //           return $this ->breakfasts->count() ;
     }
 
 
+    //fixme define return type for functions
+    //todo move business logic to service layer
     public function averAgeParticipating()
     {
 
