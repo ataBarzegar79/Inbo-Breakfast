@@ -30,16 +30,16 @@
                         @foreach($users as $user)
 
                             <td>{{$counter+=1}}</td>
-                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user[1]->avatar}}> </td>
-                            <td>{{$user->name}}</td>
-                            <td class="text-center">{{$user->created_at}}</td>
-                            <td class="text-center" style="background-color: {{$user->color}}">{{$user->rate}}</td>
-                            <td> <span class="font-weight-bolder" >{{$user->countBreakfast}}</span>  breakfasts</td>
+                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user['dto']->avatar}}> </td>
+                            <td>{{$user['dto']->name}}</td>
+                            <td class="text-center">{{$user['dto']->created_at}}</td>
+                            <td class="text-center" style="background-color: {{$user['dto']->color}}">{{$user['dto']->rate}}</td>
+                            <td> <span class="font-weight-bolder" >{{$user['dto']->countBreakfast}}</span>  breakfasts</td>
 
-                            @if($user->averageParticipating > averageParticipationUsers())
-                                <td class="alert-success text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span></td>
+                            @if($user['average'] > averageParticipationUsers())
+                                <td class="alert-success text-center"><span class="font-weight-bold">{{$user['average']*10 }} XP</span></td>
                             @else
-                                <td class="alert-danger text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span></td>
+                                <td class="alert-danger text-center"><span class="font-weight-bold">{{$user['average']*10 }} XP</span></td>
                             @endif
 
 

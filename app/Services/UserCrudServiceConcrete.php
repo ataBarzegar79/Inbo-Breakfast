@@ -98,7 +98,8 @@ class UserCrudServiceConcrete implements UserService{
         foreach ($users as $user) {
 
             $user_factory = new UserDtoFactory();
-            $user_dtos[] = $user_factory->fromModel($user);
+            $user_dto = $user_factory->fromModel($user);
+            $user_dtos[] = ['average'=>$user_dto->averageParticipating ,'dto'=> $user_dto];
 
         }
 
