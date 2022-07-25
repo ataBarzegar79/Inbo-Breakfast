@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('ratings', function (Blueprint $table) {
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('breakfast_id')->references('id')->on('breakfasts')->onDelete('cascade');
-
+            $table->primary(['user_id' , 'breakfast_id']) ;
         });
     }
 
