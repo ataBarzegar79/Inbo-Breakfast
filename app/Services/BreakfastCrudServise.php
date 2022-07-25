@@ -43,8 +43,15 @@ class  BreakfastCrudServise implements  breakfastService{
         $users_dto = [];
         foreach ($users as $user) {
             $factory = new UserBreakfastDtoFactory($user) ;
-            $users_dto[] = $factory->fromModel($user);
+            $user_dto = $factory->fromModel($user);
+            $users_dto_average[] = [$user_dto->average , $user_dto];
         }
+        sort($users_dto_average) ;
+
+        foreach ($users_dto_average as $item){
+            $users_dto[] = $item[1] ;
+        }
+
         return $users_dto;
     }
 
