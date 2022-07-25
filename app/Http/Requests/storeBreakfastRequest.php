@@ -27,7 +27,7 @@ class storeBreakfastRequest extends FormRequest
     public function rules()
     {
 
-         return [
+        return [
             'name'=>['required' , 'max:255' ] ,
             'description'=>['required','max:255'] ,
             'date' =>['required' , new breakfastDateCreationMakers() , new UniqueCreationDate()] ,

@@ -11,9 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-/**
- * @property Carbon $created_at
- */
+
 class Breakfast extends Model
 {
     use HasFactory;

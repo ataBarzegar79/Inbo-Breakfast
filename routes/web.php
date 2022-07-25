@@ -22,16 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class , 'show'] )->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class , 'login'])->name('post-login')->middleware('guest');
 Route::get('/logout' , [AuthController::class , 'logout']) ->name('logout') ->middleware('auth');
-Route::get('' , [BreakfastController::class , 'show']) ->name('dashboard')->middleware('auth');
+Route::get('' , [BreakfastController::class , 'index']) ->name('dashboard')->middleware('auth');
 
 
 Route:: middleware('can:is_admin')->group(
     function(){
         Route::get('/breakfast/create' , [BreakfastController::class , 'create'])->name('breakfast.create');
-        Route::post('breakfast/save' ,  [BreakfastController::class , 'save'])->name('breakfast.save') ;
+        Route::post('breakfast/save' ,  [BreakfastController::class , 'store'])->name('breakfast.save') ;
         Route::delete('breakfast/delete/{id}' , [BreakfastController::class , 'destroy']) ->name('breakfast.delete');
-        Route::get('breakfast/update/{id}' , [BreakfastController::class , 'update'])->name('breakfast.update') ;
-        Route::put('breakfasts/update/{id}/edit' , [BreakfastController::class ,'edit'])->name('breakfast.edit') ;
+        Route::get('breakfast/update/{id}' , [BreakfastController::class , 'edit'])->name('breakfast.update') ;
+        Route::put('breakfasts/update/{id}/edit' , [BreakfastController::class ,'update'])->name('breakfast.edit') ;
 
         Route::resource('users', UserController::class , ) ;
     }
