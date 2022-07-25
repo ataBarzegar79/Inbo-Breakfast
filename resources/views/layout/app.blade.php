@@ -35,9 +35,9 @@
 
         <!-- Sidebar - Brand -->
         <img  src="{{asset('logo.svg')}}" class="img-thumbnail  rounded mx-auto d-block"  style="width: 20px ;margin-top: 30px" >
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
             <div class="sidebar-brand-icon rotate-n-15">
-                <img  src="{{asset("logo.svg")}}">
+                <img  href="{{route('dashboard')}}" src="{{asset("logo.svg")}}">
             </div>
             <div class="sidebar-brand-text mx-3">Inbo Breakfast</div>
         </a>
