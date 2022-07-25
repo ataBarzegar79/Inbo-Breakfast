@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserService $service, storeUserRequest $request)
     {
         $service->store($request);
-        return  redirect()->route('users.index');
+        return  redirect()->route('dashboard');
     }
 
 
@@ -44,14 +44,14 @@ class UserController extends Controller
     public function update(UserService $service, updateUserRequest $request, int $id)
     {
         $service->update($request , $id ) ;
-        return  redirect()->route('users.index') ;
+        return  redirect()->route('dashboard') ;
     }
 
 
     public function destroy($id, UserService $service)
     {
         $service->destroy($id);
-        return redirect()->route('users.index');
+        return redirect()->route('dashboard');
     }
 
     public function standings(UserService $service)
