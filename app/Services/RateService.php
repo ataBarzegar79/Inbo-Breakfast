@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Dtos\BreakfastDto;
-use App\Http\Requests\storeVoteRequest;
+use App\Http\Requests\StoreVoteRequest;
 
 interface  RateService
 {
@@ -21,6 +21,5 @@ interface  RateService
      */
     //fixme use camelcase for function parameters:Done
     public function store(storeVoteRequest $request, int $breakfastId): void;
-
 
 }

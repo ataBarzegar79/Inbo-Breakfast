@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -22,7 +22,7 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function store(UserService $service, storeUserRequest $request): RedirectResponse
+    public function store(UserService $service, StoreUserRequest $request): RedirectResponse
     {
         $service->store($request);
         return redirect()->route('dashboard');
@@ -40,7 +40,7 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function update(UserService $service, updateUserRequest $request, int $id): RedirectResponse
+    public function update(UserService $service, UpdateUserRequest $request, int $id): RedirectResponse
     {
         $service->update($request, $id);
         return redirect()->route('dashboard');//fixme use route method for paths *done

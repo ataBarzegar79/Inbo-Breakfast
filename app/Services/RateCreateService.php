@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Dtos\BreakfastDto;
 use App\Dtos\BreakfastDtoFactory;
-use App\Http\Requests\storeVoteRequest;
+use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
 

@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Dtos\UserCreateDtoFactory;
 use App\Dtos\UserDtoFactory;
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 
 class UserCrudServiceConcrete implements UserService
@@ -25,6 +25,7 @@ class UserCrudServiceConcrete implements UserService
 
 
     public function store(storeUserRequest $request): void
+
     {
         if ($request->avatar !== null) {
             $avatarExtension = '.' . $request->avatar->extension();
