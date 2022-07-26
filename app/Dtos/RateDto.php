@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Dtos ;
+namespace App\Dtos;
 
-class RateDto {
-
-    public function  __construct(
-        public int $id ,
-        public int $rate ,
+class RateDto
+{
+    public function __construct(
+        public int    $id,
+        public int    $rate,
         public string $description
-    ){}
-
+    )
+    {
+    }
 }
