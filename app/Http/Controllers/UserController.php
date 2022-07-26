@@ -4,67 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
-use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use function redirect;
-use function view;//fixme cleanup unused imports
+use function view;
 
+//fixme remove unused imports *done
 
 class UserController extends Controller
 {
-
-    //fixme define return type for functions
-    public function index(UserService $service)
+    public function index(UserService $service): Factory|View|Application
     {
         return view('users', ['users' => $service->index()]);
     }
-//    public function index()
-//    {
-//        $users = User::all();
-//        return view('users', [ 'users' => $users]);
-//    }
 
-    //fixme define return type for functions
-    public function store(UserService $service, storeUserRequest $request)
+    //fixme define return type for functions *done
+    public function store(UserService $service, storeUserRequest $request): RedirectResponse
     {
         $service->store($request);
-        return  redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 
-    //fixme define return type for functions
-    public function edit(int $id, UserService $service)
+    //fixme define return type for functions *done
+    public function edit(int $id, UserService $service): Factory|View|Application
     {
-
-       $update_user = $service->edit($id);//fixme use camelcase for variable names
-       return view('update-user' , ['update_user'=>$update_user ]) ;
-
+        $updateUser = $service->edit($id);//fixme use camelcase for variable names *done
+        return view('update-user', ['update_user' => $updateUser]);
     }
 
-    //fixme define return type for functions
-    public function update(UserService $service, updateUserRequest $request, int $id)
+    //fixme define return type for functions *done
+    public function update(UserService $service, updateUserRequest $request, int $id): RedirectResponse
     {
-        $service->update($request , $id ) ;
-        return  redirect()->route('dashboard') ;//fixme use route method for paths
-        //todo use consistent spacings
+        $service->update($request, $id);
+        return redirect()->route('dashboard');//fixme use route method for paths *done
+        //todo use consistent spacings *done
     }
 
-    //fixme define return type for functions
-    public function destroy($id, UserService $service)
+    //fixme define return type for functions *done
+    public function destroy($id, UserService $service): RedirectResponse
     {
         $service->destroy($id);
-        return redirect()->route('dashboard');//fixme use route method for paths
+        return redirect()->route('dashboard');//fixme use route method for paths *done
     }
 
-    //fixme define return type for functions
-    public function standings(UserService $service)
+    //fixme define return type for functions *done
+    public function standings(UserService $service): Factory|View|Application
     {
-/*        $users = User::all() ;
-        $list = [];
-        foreach ($users as $user){
-            $list[] = [$user->averAgeParticipating(), $user  ];
-        }
-        rsort($list);*/ //todo remove unused codes
-        return view('standings' ,['users' => $service->standing() ]  ) ;
+        //todo remove unused codes *done
+        return view('standings', ['users' => $service->standing()]);
     }
+
 }
