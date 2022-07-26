@@ -5,27 +5,27 @@ namespace App\Services;
 use App\Dtos\UserDto;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use phpDocumentor\Reflection\Types\Void_;
 
-interface UserService{
+interface UserService
+{
 
     /**
      * @return UserDto[]
      */
-    public function index():array;
+    public function index(): array;
 
 
     /**
      * @param StoreUserRequest $request
      * @return void
      */
-    public function store(StoreUserRequest $request):void;
+    public function store(StoreUserRequest $request): void;
 
     /**
      * @param int $id
      * @return UserDto|bool
      */
-    public function edit(int $id):object|bool;
+    public function edit(int $id): object|bool;
 
     /**
      * @param UpdateUserRequest $request
@@ -33,7 +33,7 @@ interface UserService{
      * @return void
      */
 
-    public function update(updateUserRequest $request, int $id):void;
+    public function update(UpdateUserRequest $request, int $id): void;
 
 
     /**
@@ -46,6 +46,6 @@ interface UserService{
     /**
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
-    public function standing():array;
+    public function standing(): array;
 
 }
