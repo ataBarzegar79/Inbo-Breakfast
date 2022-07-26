@@ -38,8 +38,8 @@ class BreakfastController extends Controller
 
     public function edit($breakfastId, breakfastService $service): Factory|View|Application
     {
-        $edited_breakfast = $service->edit($breakfastId);
-        return view('breakfast-update', ['breakfast' => $edited_breakfast["breakfast"], 'users' => $edited_breakfast['users']]);
+        $editedBreakfast = $service->edit($breakfastId);
+        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users']]);
     }
 
     public function update(BreakfastUpdateRequest $request, $breakfastId, breakfastService $service): RedirectResponse
