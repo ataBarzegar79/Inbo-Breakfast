@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use mysql_xdevapi\Table;
 
 //todo document model parameters *done: anyway needs checking
 
 /**
  * @method static create(array $array)
+ * @property mixed $id
+ * @property mixed $rate
+ * @property mixed $description
  */
 class Rate extends Model
 {
