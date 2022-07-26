@@ -7,7 +7,7 @@ class RateDto {
     public function  __construct(
         public int $id ,
         public int $rate ,
-        public int $description
+        public string $description
     ){}
 
 }
