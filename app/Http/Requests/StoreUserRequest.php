@@ -5,7 +5,15 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-//fixme start class names with UpperCase
+//fixme start class names with UpperCase *done
+
+/**
+ * @property mixed $name
+ * @property mixed $email
+ * @property mixed $password
+ * @property mixed $is_admin
+ * @property mixed $avatar
+ */
 class StoreUserRequest extends FormRequest
 {
     /**
