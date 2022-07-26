@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
 //fixme start class names with UpperCase *done
+
+/**
+ * @property mixed $rate
+ * @property mixed $description
+ */
 class StoreVoteRequest extends FormRequest
 {
     /**

@@ -22,23 +22,23 @@ class UniqueCreationDate implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
 
-        $persian_date = explode("/" , $value) ;
-        $form_date =(new Jalalian($persian_date[0], $persian_date[1], $persian_date[2], 0, 0, 0))->toCarbon();
-        $breakfasts = Breakfast::all() ;
-        foreach ($breakfasts as $breakfast){
-            $registered_date =  Carbon::createFromFormat('Y-m-d  H:i:s' , $breakfast->created_at);
-            if($registered_date->eq($form_date)){
-                return  false ;
+        $persianDate = explode("/", $value);
+        $formDate = (new Jalalian($persianDate[0], $persianDate[1], $persianDate[2], 0, 0, 0))->toCarbon();
+        $breakfasts = Breakfast::all();
+        foreach ($breakfasts as $breakfast) {
+            $registeredDate = Carbon::createFromFormat('Y-m-d  H:i:s', $breakfast->created_at);
+            if ($registeredDate->eq($formDate)) {
+                return false;
             }
         }
-        return  true ;
+        return true;
     }
 
     /**
@@ -46,7 +46,7 @@ class UniqueCreationDate implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'A breakfast has been set at this date ';
     }

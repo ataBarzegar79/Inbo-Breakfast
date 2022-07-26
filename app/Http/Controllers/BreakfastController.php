@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BreakfastUpdateRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\BreakfastService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

@@ -3,12 +3,13 @@
 namespace App\Dtos;
 
 use App\Models\Rate;
+use JetBrains\PhpStorm\Pure;
 
 class RateDtoFactory
 {
     //todo use static methods in dto facilities *done
     //fixme define return type for functions *done
-    public static function fromModel(Rate $rate): RateDto
+    #[Pure] public static function fromModel(Rate $rate): RateDto
     {
         return new RateDto(
             $rate->id,

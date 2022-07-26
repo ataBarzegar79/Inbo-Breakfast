@@ -16,6 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static find(int $breakfast_id)
  * @method static create(array $array)
  * @property mixed $rates
+ * @property mixed $users
+ * @property mixed $created_at
+ * @property mixed $description
+ * @property mixed $name
+ * @property mixed $id
  */
 class Breakfast extends Model
 {
@@ -55,7 +60,7 @@ class Breakfast extends Model
     //todo remove unused functions
     public function userRate(): ?array
     {
-        // $user = Auth::user(); // todo: delete this
+        // $user = Auth::user(); // todo Ehsan: delete this
         $rates = $this->rates;
         foreach ($rates as $rate) {
             if ($rate->user_id == Auth::id()) {  // todo I changed $user_id to Auth::id() because of some warning, need to be checked if it's working

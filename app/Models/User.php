@@ -24,7 +24,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property mixed $breakfasts
  * @property mixed $avatar
  * @property mixed $created_at
+ * @property mixed $name
+ * @property mixed $email
+ * @property mixed $password
  * @method static find(int $id)
+ * @method static create(array $array)
  */
 class User extends Authenticatable
 {
@@ -117,9 +121,9 @@ class User extends Authenticatable
         }
     }
 
-    public function countBreakfasts()
+    public function countBreakfasts(): int
     {
-        //fixme define return type for functions
+        //fixme define return type for functions *done
         return $this->breakfasts->whereNull('deleted_at')->count();
     }
 

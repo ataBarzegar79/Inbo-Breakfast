@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @return mixed
+     * @return void
      */
     public function boot()
     {
@@ -38,9 +38,6 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('canVote',  function(User $user, $breakfastId ){
             $rates =  Breakfast::find(intval($breakfastId))?->rates;
-//            $x = Breakfast::all()->first(static function($rate) use($user) {
-//               $rate->user_id === $user->id;
-//            });
             foreach ($rates as $rate){
                 if($rate->user_id === $user->id){
                     return  false ;

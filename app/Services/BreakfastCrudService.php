@@ -2,14 +2,12 @@
 
 namespace App\Services;
 
-
 use App\Dtos\BreakfastDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\storeBreakfastRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Morilog\Jalali\Jalalian;
 use phpDocumentor\Reflection\Types\Boolean;
 
@@ -31,17 +29,16 @@ class  BreakfastCrudService implements BreakfastService
 
             foreach ($rates as $rate) {
                 if ($rate->user->id == $user->id) {
-                    $user_rate = $rate;
+                    $userRate = $rate;
                     $flag = 1;
                 }
             }
 
             if ($flag == 0) {
-                $user_rate = null;
+                $userRate = null;
             }
 
-            $breakfast_factory = new BreakfastDtoFactory();
-            $breakfastDtos[] = $breakfast_factory->fromModel($breakfast, $user_rate);
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $userRate); // todo Ehsan: $userRate is probably undefined
         }
 
         return $breakfastDtos;
@@ -55,8 +52,7 @@ class  BreakfastCrudService implements BreakfastService
         $usersDto = [];
 
         foreach ($users as $user) {
-            $factory = new UserBreakfastDtoFactory($user);
-            $userDto = $factory->fromModel($user);
+            $userDto = UserBreakfastDtoFactory::fromModel($user);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
 
@@ -79,15 +75,13 @@ class  BreakfastCrudService implements BreakfastService
         }
 
         $breakfast = Breakfast::find($breakfastId);
-        $newBreakfastFactory = new BreakfastDtoFactory();//fixme use camelcase for variable names : Done
-        $breakfastDto = $newBreakfastFactory->fromModel($breakfast, null);
+        $breakfastDto = BreakfastDtoFactory::fromModel($breakfast, null);
 
         $users = User::all();
         $usersDto = [];
-        $newUserFactory = new UserBreakfastDtoFactory();
 
         foreach ($users as $user) {
-            $newUserDto = $newUserFactory->fromModel($user);
+            $newUserDto = UserBreakfastDtoFactory::fromModel($user);
             $usersDto[] = $newUserDto;
         }
 
@@ -95,9 +89,9 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    public function store(storeBreakfastRequest $request): void
+    public function store(StoreBreakfastRequest $request): void
     {
-        $persianDate = explode("/", $request->date);//todo use Jalaian format service to format Jalali strings
+        $persianDate = explode("/", $request->date);//todo use Jalali format service to format Jalali strings
         $createdAt = (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))->toCarbon();
 
         $breakfast = Breakfast::create(
