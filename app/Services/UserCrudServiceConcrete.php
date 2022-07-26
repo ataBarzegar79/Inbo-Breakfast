@@ -3,8 +3,8 @@ namespace App\Services ;
 
 use App\Dtos\UserCreateDtoFactory;
 use App\Dtos\UserDtoFactory;
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 
 class UserCrudServiceConcrete implements UserService{
@@ -22,7 +22,7 @@ class UserCrudServiceConcrete implements UserService{
         return $user_dtos;
     }
 
-    public function store(storeUserRequest $request): void
+    public function store(StoreUserRequest $request): void
     {
 
         if($request->avatar !== null) {
@@ -64,7 +64,7 @@ class UserCrudServiceConcrete implements UserService{
     }
 
     //fixme define return type for functions
-    public function update(updateUserRequest $request, int $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
         if($request->avatar !== null) {
 
