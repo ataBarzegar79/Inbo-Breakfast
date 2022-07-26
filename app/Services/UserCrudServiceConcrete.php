@@ -27,7 +27,7 @@ class UserCrudServiceConcrete implements UserService{
 
         if($request->avatar !== null) {
             $avatar_extension = '.' . $request->avatar->extension();
-            $email_path = $request->email;
+            $email_path = $request->email;//fixme use camelcase for variable names
             $avatar_path = 'avatars\\'.$email_path.$avatar_extension ;
             $avatar_storage_adress = $email_path.$avatar_extension ;
             $Avatar_saving = $request->file('avatar')->storeAs(
@@ -49,6 +49,7 @@ class UserCrudServiceConcrete implements UserService{
         $new_user->save();
     }
 
+    //fixme define return type for functions
     public function edit(int $id)
     {
         if(!$user = User::find($id)){
@@ -56,17 +57,18 @@ class UserCrudServiceConcrete implements UserService{
         }
 
         $user = User::find($id);
-        $new_user_factory = new UserDtoFactory();
+        $new_user_factory = new UserDtoFactory();//fixme use camelcase for variable names
         $user_dto = $new_user_factory->fromModel($user);
 
         return $user_dto;
     }
 
+    //fixme define return type for functions
     public function update(updateUserRequest $request, int $id)
     {
         if($request->avatar !== null) {
 
-            $avatar_extension = '.' . $request->avatar->extension();
+            $avatar_extension = '.' . $request->avatar->extension();//fixme use camelcase for variable names
             $email_path = $request->email;
             $avatar_path = 'avatars\\'.$email_path.$avatar_extension ;
             $avatar_storage_adress = $email_path.$avatar_extension ;
@@ -99,7 +101,7 @@ class UserCrudServiceConcrete implements UserService{
 
         foreach ($users as $user) {
 
-            $user_factory = new UserDtoFactory();
+            $user_factory = new UserDtoFactory();//fixme use camelcase for variable names
             $user_dto = $user_factory->fromModel($user);
             $user_dtos[] = ['average'=>$user_dto->averageParticipating ,'dto'=> $user_dto];
 

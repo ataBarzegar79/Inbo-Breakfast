@@ -3,28 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeVoteRequest;
-use App\Models\Breakfast;
-use App\Models\Rate;
 use App\Services\RateService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use function redirect;
-use function view;
+use function view;//fixme cleanup unused imports *done
 
 class VoteController extends Controller
 {
-
-    public function create($breakfast_id , RateService $service)
+    //fixme use camelcase for function parameters *done
+    //fixme define return type for functions *done
+    /**
+     * @throws AuthorizationException
+     */
+    public function create($breakfastId , RateService $service): Factory|View|Application
     {
-        $this->authorize('canVote', $breakfast_id) ;
-        return view('vote', ['breakfast' => $service->create($breakfast_id)]);
+        $this->authorize('canVote', $breakfastId) ;
+        //fixme add none runtime exceptions to function document with @throw annotation *done
+        return view('vote', ['breakfast' => $service->create($breakfastId)]);
     }
 
-    public function store($breakfast_id,storeVoteRequest $request , RateService $service)
+    //fixme use camelcase for function parameters *done
+    //fixme define return type for functions *done
+    /**
+     * @throws AuthorizationException
+     */
+    public function store($breakfastId, storeVoteRequest $request, RateService $service): RedirectResponse
     {
-        $this->authorize('canVote', $breakfast_id) ;
-        $service->store($request , $breakfast_id);
-        return redirect()->route('dashboard');
+        $this->authorize('canVote', $breakfastId) ;
+        //fixme add none runtime exceptions to function document with @throw annotation *done
+        $service->store($request , $breakfastId);
+        return redirect()->route('dashboard');//fixme use route method for paths *done
     }
+
 }
 
 
