@@ -16,7 +16,7 @@ use phpDocumentor\Reflection\Types\Boolean;
 //fixme cleanup unused imports : Done
 
 //fixme fix misspells :Done
-class  BreakfastCrudService implements breakfastService
+class  BreakfastCrudService implements BreakfastService
 {
 
 
