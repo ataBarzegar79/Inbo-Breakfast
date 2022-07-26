@@ -6,7 +6,7 @@ use App\Dtos\BreakfastDtoFactory;
 use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\storeBreakfastRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use Illuminate\View\View;
@@ -82,7 +82,7 @@ class  BreakfastCrudServise implements  breakfastService{
 
     }
 
-    public function store(storeBreakfastRequest $request): void
+    public function store(StoreBreakfastRequest $request): void
     {
         $persian_date = explode("/" , $request->date) ;//todo use Jalaian format service to format Jalali strings
         $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;

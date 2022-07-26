@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\breakfastMakers;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-class BreakfastUpdateRequest extends FormRequest
+//fixme start class names with UpperCase
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,15 @@ class BreakfastUpdateRequest extends FormRequest
      * @return array<string, mixed>
      */
     //fixme define return type for functions *done
-    //todo use array shape annotation where ever is possible
-    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'users' => "array"])] public function rules(): array
+    //todo use array shape annotation where ever is possible *done
+    #[ArrayShape(['name' => "string[]", 'email' => "string[]", 'password' => "string[]", 'avatar' => "string[]", 'is_admin' => "string[]"])] public function rules(): array
     {
         return [
             'name' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
-            'users' => ['required', new breakfastMakers()]
+            'email' => ['required', 'email:rfc', 'unique:users,email'],
+            'password' => ['required'],
+            'avatar' => ['file', 'image', 'max:512'],
+            'is_admin' => ['required', 'in:yes,no']
         ];
     }
 

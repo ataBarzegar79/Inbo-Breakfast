@@ -4,7 +4,7 @@ namespace App\Services ;
 
 use App\Dtos\BreakfastDto;
 use App\Dtos\BreakfastDtoFactory;
-use App\Http\Requests\storeVoteRequest;
+use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
 
@@ -23,7 +23,7 @@ class  RateCreateService implements RateService{
 
 
     //fixme use camelcase for function parameters
-    public function store(storeVoteRequest $request, int $breakfast_id): void
+    public function store(StoreVoteRequest $request, int $breakfast_id): void
     {
         $user = auth()->user();
         $rate = Rate::create([ //todo clean unused variables

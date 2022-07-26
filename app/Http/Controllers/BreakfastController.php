@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\storeBreakfastRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\breakfastService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -24,7 +24,7 @@ class BreakfastController extends Controller
         return view('breakfast-create', ['users' => $service->create()]);
     }
 
-    public function store(breakfastService $service, storeBreakfastRequest $request): RedirectResponse
+    public function store(breakfastService $service, StoreBreakfastRequest $request): RedirectResponse
     {
         $service->store($request);
         return redirect()->route('dashboard');

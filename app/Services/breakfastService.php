@@ -4,7 +4,7 @@ namespace App\Services ;
 use App\Dtos\BreakfastDto;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\storeBreakfastRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 
 //fixme start class names with uppercase letter
 //todo use consistent naming conventions through the application
@@ -22,11 +22,11 @@ interface breakfastService{
     public function create():array ;
 
     /**
-     * @param storeBreakfastRequest $request
+     * @param StoreBreakfastRequest $request
      * @return void
      */
     //fixme do not pass Request objects to service layer; ****
-    public function store(storeBreakfastRequest $request):void ;
+    public function store(StoreBreakfastRequest $request):void ;
 
 
     /**
@@ -41,7 +41,7 @@ interface breakfastService{
 
     /**
      * @param  int $breakfast_id
-     * @param storeBreakfastRequest $request
+     * @param StoreBreakfastRequest $request
      *
      */
     //fixme update documents according to functions

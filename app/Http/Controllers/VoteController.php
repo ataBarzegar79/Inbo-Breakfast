@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\storeVoteRequest;
+use App\Http\Requests\StoreVoteRequest;
 use App\Services\RateService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
@@ -31,7 +31,7 @@ class VoteController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store($breakfastId, storeVoteRequest $request, RateService $service): RedirectResponse
+    public function store($breakfastId, StoreVoteRequest $request, RateService $service): RedirectResponse
     {
         $this->authorize('canVote', $breakfastId) ;
         //fixme add none runtime exceptions to function document with @throw annotation *done
