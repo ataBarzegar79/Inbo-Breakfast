@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
@@ -22,7 +23,7 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function store(UserService $service, StoreUserRequest $request): RedirectResponse
+    public function store(UserService $service,  StoreUserRequest $request): RedirectResponse
     {
         $service->store($request);
         return redirect()->route('dashboard');

@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
+    public function moz(){
+        $user = User::first();
+        $user->rates()->avg();
+    }
     //fixme define return type for functions
     //todo move business logic to service layer
     //fixme use dtos instead of maps for data transferring
