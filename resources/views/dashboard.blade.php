@@ -29,7 +29,7 @@
 
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
-                    <td>{{persianFormat($breakfast->created_at)}}</td>
+                    <td>{{persianFormat($breakfast->createdAt)}}</td>
                     <td>@foreach($breakfast->users as $user)
                         {{$user ->name}} |
                         @endforeach
@@ -37,15 +37,15 @@
 
                     <td>{{$breakfast->averageRate}}</td>
                     <td>
-                        @if( $breakfast->user_rate !== null )
-                            {{$breakfast->user_rate->rate}}
+                        @if( $breakfast->userRate !== null )
+                            {{$breakfast->userRate->rate}}
                         @else
                             <p> Vote! From This  <a href='{{route('breakfsatvotes.vote.create', $breakfast->id )}}'>Link</a> .</p>
                         @endif
                     </td>
                     <td>
-                        @if($breakfast->user_rate !== null)
-                            {{$breakfast->user_rate->description}}
+                        @if($breakfast->userRate !== null)
+                            {{$breakfast->userRate->description}}
                         @endif
                     </td>
                     @can('is_admin')
