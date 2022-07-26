@@ -36,9 +36,12 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function edit($breakfastId, breakfastService $service): Factory|View|Application
+    public function edit($breakfastId, breakfastService $service): Factory|View|Application|RedirectResponse
     {
         $editedBreakfast = $service->edit($breakfastId);
+        if($editedBreakfast === false) {
+            return  redirect()->route('dashboard');
+        }
         return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users']]);
     }
 
