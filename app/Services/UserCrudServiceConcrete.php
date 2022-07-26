@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Dtos\UserCreateDtoFactory;
 use App\Dtos\UserDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -16,16 +15,13 @@ class UserCrudServiceConcrete implements UserService
         $userDtos = [];
 
         foreach ($users as $user) {
-            $userFactory = new UserDtoFactory();
-            $userDtos[] = $userFactory->fromModel($user);
+            $userDtos[] = UserDtoFactory::fromModel($user);
         }
 
         return $userDtos;
     }
 
-
-    public function store(storeUserRequest $request): void
-
+    public function store(StoreUserRequest $request): void
     {
         if ($request->avatar !== null) {
             $avatarExtension = '.' . $request->avatar->extension();
@@ -46,7 +42,6 @@ class UserCrudServiceConcrete implements UserService
             'avatar' => $avatarPath,
             'is_admin' => $request->is_admin
         ]);
-
         $newUser->save();
     }
 
@@ -58,16 +53,14 @@ class UserCrudServiceConcrete implements UserService
         if (!$user) {
             return false;
         }
-
-        $newUserFactory = new UserDtoFactory();//fixme use camelcase for variable names :Done
-        return $newUserFactory->fromModel($user);
+        return UserDtoFactory::fromModel($user);
     }
 
     //fixme define return type for functions :Done
-    public function update(updateUserRequest $request, int $id):void
+    public function update(UpdateUserRequest $request, int $id): void
     {
         if ($request->avatar !== null) {
-            $avatarExtension = '.' . $request->avatar->extension();//fixme use camelcase for variable names
+            $avatarExtension = '.' . $request->avatar->extension();//fixme use camelcase for variable names :Done
             $emailPath = $request->email;
             $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
             $avatarStorageAddress = $emailPath . $avatarExtension;
@@ -97,12 +90,11 @@ class UserCrudServiceConcrete implements UserService
     {
         $users = User::all();
         foreach ($users as $user) {
-            $userFactory = new UserDtoFactory();//fixme use camelcase for variable names
-            $userDto = $userFactory->fromModel($user);
+            $userDto = UserDtoFactory::fromModel($user);
             $userDtos[] = ['average' => $userDto->averageParticipating, 'dto' => $userDto];
         }
-
         rsort($userDtos);
         return $userDtos;
     }
+
 }
