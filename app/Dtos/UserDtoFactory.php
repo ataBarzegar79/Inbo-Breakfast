@@ -22,7 +22,7 @@ class UserDtoFactory
 
         $countBreakfast = $user->countBreakfasts();
 
-        // persianFormat helper class did not worked correctly, I had to handle it DASTY
+        // persianFormat helper class did not work correctly, I had to handle it DASTY
         $createdAt = Jalalian::fromCarbon(new Carbon($user->created_at))->format('%A, %d %B %Y');//fixme use camelcase for variable names
 
 
