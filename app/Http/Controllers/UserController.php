@@ -29,9 +29,13 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function edit(int $id, UserService $service): Factory|View|Application
+    public function edit(int $id, UserService $service): Factory|View|Application|RedirectResponse
     {
-        $updateUser = $service->edit($id);//fixme use camelcase for variable names *done
+        $updateUser = $service->edit($id);
+        //fixme use camelcase for variable names *done
+        if($updateUser === false ) {
+            return redirect()->route('dashboard');
+        }
         return view('update-user', ['update_user' => $updateUser]);
     }
 

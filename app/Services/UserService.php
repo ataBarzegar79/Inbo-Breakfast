@@ -23,16 +23,16 @@ interface UserService{
 
     /**
      * @param int $id
-     * @return UserDto[]
+     * @return UserDto|bool
      */
-    public function edit(int $id);
+    public function edit(int $id):object|bool;
 
     /**
      * @param updateUserRequest $request
      * @param int $id
-     * @return mixed
+     * @return void
      */
-    public function update(updateUserRequest $request, int $id);
+    public function update(updateUserRequest $request, int $id):void;
 
     /**
      * @param int $id
@@ -42,7 +42,7 @@ interface UserService{
 
 
     /**
-     * @return UserDto[]
+     * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
     public function standing():array;
 
