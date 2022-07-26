@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\loginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -22,7 +22,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function login(loginRequest $request): RedirectResponse
+    public function login(LoginRequest $request): RedirectResponse
     {
         //todo move logic to service
         $user = User::where('name', '=', $request->get('name'))
