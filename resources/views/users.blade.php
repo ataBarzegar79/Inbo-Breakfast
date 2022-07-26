@@ -100,11 +100,6 @@
 
 @endsection
 
-
-
-
-
-
 @section('postform')
 
     <div class="card shadow mb-4">
@@ -132,10 +127,10 @@
 
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->created_at}}</td>
-                            <td>{{$user->is_admin}}</td>
+                            <td>{{$user->createdAt}}</td>
+                            <td>{{$user->isAdmin}}</td>
                             <td style="background-color: {{$user->color}}">{{$user->rate}}</td>
-                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user->avatar}}> </td>
+                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user->avatar}} alt=""> </td>
 
                             <td>
                                 <div>
