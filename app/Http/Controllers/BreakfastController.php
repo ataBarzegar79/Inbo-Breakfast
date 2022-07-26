@@ -2,65 +2,50 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\BreakfastCreateRequest;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\storeBreakfastRequest;
-use App\Models\Breakfast;
-use App\Models\User;
 use App\Services\breakfastService;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Morilog\Jalali\Jalalian;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use function redirect;
-use function view; //fixme cleanup unused imports
+use function view;
 
 class BreakfastController extends Controller
 {
-    //fixme define return type for functions
-    public function index(breakfastService $service)
+    public function index(breakfastService $service): Factory|View|Application
     {
-        return view('dashboard' ,  ['breakfasts'=>$service->index()]);
+        return view('dashboard', ['breakfasts' => $service->index()]);
     }
 
-    //fixme define return type for functions
-    public function create(breakfastService $service)
+    public function create(breakfastService $service): Factory|View|Application
     {
-
-        return view('breakfast-create' , [ 'users'=>$service->create()]);
+        return view('breakfast-create', ['users' => $service->create()]);
     }
 
-
-    //fixme define return type for functions
-    public function store(breakfastService $service , storeBreakfastRequest $request){
+    public function store(breakfastService $service, storeBreakfastRequest $request): RedirectResponse
+    {
         $service->store($request);
-        return redirect()->route('dashboard') ;
+        return redirect()->route('dashboard');
     }
 
-    //fixme define return type for functions
-    public function destroy($id , breakfastService $service)
+    public function destroy($id, breakfastService $service): RedirectResponse
     {
         $service->destroy($id);
-        return redirect()->route('dashboard') ;
+        return redirect()->route('dashboard');
     }
 
-    //fixme use camelcase for function parameters
-    //fixme define return type for functions
-    public function  edit( $breakfast_id , breakfastService $service  ){
-
-        $edited_breakfast = $service->edit($breakfast_id) ;
-        return view('breakfast-update' , ['breakfast'=>$edited_breakfast["breakfast"] , 'users'=>$edited_breakfast['users'] ]) ;
-    }
-
-
-    //fixme use camelcase for function parameters
-    //fixme define return type for functions
-    public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
+    public function edit($breakfastId, breakfastService $service): Factory|View|Application
     {
-        $service ->update($request , $breakfast_id ) ;
-        return redirect()->route('dashboard') ;
+        $edited_breakfast = $service->edit($breakfastId);
+        return view('breakfast-update', ['breakfast' => $edited_breakfast["breakfast"], 'users' => $edited_breakfast['users']]);
+    }
 
-
+    public function update(BreakfastUpdateRequest $request, $breakfastId, breakfastService $service): RedirectResponse
+    {
+        $service->update($request, $breakfastId);
+        return redirect()->route('dashboard');
     }
 
 }
