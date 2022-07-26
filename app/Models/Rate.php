@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use mysql_xdevapi\Table;
 
 //todo document model parameters *done: anyway needs checking
 
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Rate extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'ratings';
 
     protected $fillable = [
         'rate',
