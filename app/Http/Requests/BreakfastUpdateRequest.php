@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\breakfastDateCreationMakers;
 use App\Rules\breakfastMakers;
-use App\Rules\UniqueCreationDate;
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class BreakfastUpdateRequest extends FormRequest
 {
@@ -14,9 +13,9 @@ class BreakfastUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    //fixme define return type for functions
+    //fixme define return type for functions *done
     //todo remove unused methods
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,18 +25,15 @@ class BreakfastUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    //fixme define return type for functions
+    //fixme define return type for functions *done
     //todo use array shape annotation where ever is possible
-    public function rules()
+    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'users' => "array"])] public function rules(): array
     {
-
-       return [
-           'name'=>['required' , 'max:255' ] ,
-           'description'=>['required','max:255'] ,
-           'users' =>['required' ,new breakfastMakers() ]
-       ];
-
+        return [
+            'name' => ['required', 'max:255'],
+            'description' => ['required', 'max:255'],
+            'users' => ['required', new breakfastMakers()]
+        ];
     }
-
 
 }
