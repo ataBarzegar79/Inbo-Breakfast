@@ -7,6 +7,7 @@ use App\Rules\breakfastMakers;
 use App\Rules\UniqueCreationDate;
 use Illuminate\Foundation\Http\FormRequest;
 
+//fixme start class names with UpperCase
 class storeBreakfastRequest extends FormRequest
 {
     /**
@@ -14,6 +15,8 @@ class storeBreakfastRequest extends FormRequest
      *
      * @return bool
      */
+    //fixme define return type for functions
+    //todo remove unused methods
     public function authorize()
     {
         return true;
@@ -24,6 +27,8 @@ class storeBreakfastRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    //fixme define return type for functions
+    //todo use array shape annotation where ever is possible
     public function rules()
     {
 

@@ -3,10 +3,12 @@
 namespace App\Dtos;
 
 use phpDocumentor\Reflection\Types\Boolean;
+//fixme cleanup unused imports
 
 class UserDto
 {
 
+    //fixme use consistent naming conventions
     public function __construct(
         public int       $id,
         public string    $name,

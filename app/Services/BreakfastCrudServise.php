@@ -10,14 +10,15 @@ use App\Http\Requests\storeBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use Illuminate\View\View;
-use Morilog\Jalali\Jalalian;
+use Morilog\Jalali\Jalalian;//fixme cleanup unused imports
 
+//fixme fix misspells
 class  BreakfastCrudServise implements  breakfastService{
     public function index():array
     {
      $user = auth()->user() ;
      $breakfasts = Breakfast::all() ;
-     $breakfast_dtos = [];
+     $breakfast_dtos = [];//fixme use camelcase for variable names
      foreach ($breakfasts as $breakfast ){
          $rates = $breakfast->rates ;
          $flag = 0 ;
@@ -40,7 +41,7 @@ class  BreakfastCrudServise implements  breakfastService{
     public function create(): array
     {
         $users = User::all();
-        $users_dto = [];
+        $users_dto = [];//fixme use camelcase for variable names
         foreach ($users as $user) {
             $factory = new UserBreakfastDtoFactory($user) ;
             $user_dto = $factory->fromModel($user);
@@ -55,6 +56,7 @@ class  BreakfastCrudServise implements  breakfastService{
         return $users_dto;
     }
 
+    //fixme define return type for functions
     public function edit(int $breakfast_id)
     {
         if(!$breakfast = Breakfast::find($breakfast_id) ){
@@ -62,7 +64,7 @@ class  BreakfastCrudServise implements  breakfastService{
         }
 
         $breakfast = Breakfast::find($breakfast_id);
-        $new_breakfast_factory = new BreakfastDtoFactory() ;
+        $new_breakfast_factory = new BreakfastDtoFactory() ;//fixme use camelcase for variable names
         $breakfast_dto = $new_breakfast_factory->fromModel($breakfast , null) ;
 
         $users = User::all();
@@ -82,7 +84,7 @@ class  BreakfastCrudServise implements  breakfastService{
 
     public function store(storeBreakfastRequest $request): void
     {
-        $persian_date = explode("/" , $request->date) ;
+        $persian_date = explode("/" , $request->date) ;//todo use Jalaian format service to format Jalali strings
         $created_at =(new Jalalian((int)$persian_date[0], (int)$persian_date[1], (int)$persian_date[2], 0, 0, 0))->toCarbon() ;
 
         $breakfast = Breakfast::create(
@@ -96,11 +98,13 @@ class  BreakfastCrudServise implements  breakfastService{
 
     }
 
+    //fixme define return type for functions
+    //fixme use camelcase for function parameters
     public function update(BreakfastUpdateRequest $request, int $breakfast_id)
     {
 
-        if(!$breakfast = Breakfast::find($breakfast_id) ) {
-            return redirect()->route('dashboard');
+        if(!$breakfast = Breakfast::find($breakfast_id) ) {//fixme use camelcase for variable names
+            return redirect()->route('dashboard');//fixme redirect !!!!
         }
 
         $breakfast ->name = $request->name ;
@@ -111,9 +115,10 @@ class  BreakfastCrudServise implements  breakfastService{
 
     }
 
+    //fixme use camelcase for function parameters
     public function destroy(int $breakfast_id): void
     {
-        $deleted_breakfast = Breakfast::find( $breakfast_id);
+        $deleted_breakfast = Breakfast::find( $breakfast_id);//fixme use camelcase for variable names
         $deleted_breakfast->delete() ;
     }
 }

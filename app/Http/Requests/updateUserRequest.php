@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+//fixme start class names with UpperCase
 class updateUserRequest extends FormRequest
 {
     /**
@@ -11,6 +12,8 @@ class updateUserRequest extends FormRequest
      *
      * @return bool
      */
+    //fixme define return type for functions
+    //todo remove unused methods
     public function authorize()
     {
         return true;
@@ -21,6 +24,8 @@ class updateUserRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    //fixme define return type for functions
+    //todo use array shape annotation where ever is possible
     public function rules()
     {
         return [
