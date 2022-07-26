@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Dtos\UserDto;
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use phpDocumentor\Reflection\Types\Void_;
 
 interface UserService{
@@ -16,10 +16,10 @@ interface UserService{
 
 
     /**
-     * @param storeUserRequest $request
+     * @param StoreUserRequest $request
      * @return void
      */
-    public function store(storeUserRequest $request):void;
+    public function store(StoreUserRequest $request):void;
 
     /**
      * @param int $id
@@ -28,11 +28,11 @@ interface UserService{
     public function edit(int $id);
 
     /**
-     * @param updateUserRequest $request
+     * @param UpdateUserRequest $request
      * @param int $id
      * @return mixed
      */
-    public function update(updateUserRequest $request, int $id);
+    public function update(UpdateUserRequest $request, int $id);
 
     /**
      * @param int $id
