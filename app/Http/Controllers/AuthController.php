@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\loginRequest;
+use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use function back;
 use function redirect;
@@ -11,31 +17,29 @@ use function view;
 
 class AuthController extends Controller
 {
-    //fixme define return type for functions
-    public function show(){
-            return view('login') ; //fixme: pay attention to indentations
+    public function show(): Factory|View|Application
+    {
+        return view('login');
     }
 
-    //fixme define return type for functions
-    public function login(loginRequest $request){
-        //fixme format functions brackets '{' consistently
-        //todo replace inline namespaces with imports
-        $user = \App\Models\User::where('name','=',$request->get('name'))
-            ->where('password','=',$request->get('password'))
+    public function login(loginRequest $request): RedirectResponse
+    {
+        //todo move logic to service
+        $user = User::where('name', '=', $request->get('name'))
+            ->where('password', '=', $request->get('password'))
             ->first();
-        if($user){
+        if ($user) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('') ; //fixme use route method for paths
+            return redirect()->intended('dashboard'); //fixme use route method for paths *done
         }
 
         return back()->withErrors([
             'notfound' => 'The provided credentials do not match our records.',
         ]);
-     }
+    }
 
-    //fixme define return type for functions
-     public function logout(Request $request)
+    public function logout(Request $request): Redirector|Application|RedirectResponse
     {
         Auth::logout();
 
@@ -43,7 +47,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');//fixme use route method for paths
+        return redirect()->route('dashboard');//fixme use route method for paths *done
     }
 
 
