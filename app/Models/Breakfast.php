@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Breakfast extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'breakfasts';
 
     //todo table name is redundant *done: deleted protected $table = 'breakfasts';
     protected $fillable = [
