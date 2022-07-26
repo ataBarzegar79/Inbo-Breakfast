@@ -2,13 +2,20 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\breakfastDateCreationMakers;
-use App\Rules\breakfastMakers;
+use App\Rules\BreakfastDateCreationMakers;
+use App\Rules\BreakfastMakers;
 use App\Rules\UniqueCreationDate;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-//fixme start class names with UpperCase
+//fixme start class names with UpperCase *done
+
+/**
+ * @property mixed $date
+ * @property mixed $name
+ * @property mixed $description
+ * @property mixed $users
+ */
 class StoreBreakfastRequest extends FormRequest
 {
     /**
@@ -35,8 +42,8 @@ class StoreBreakfastRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'description' => ['required', 'max:255'],
-            'date' => ['required', new breakfastDateCreationMakers(), new UniqueCreationDate()],
-            'users' => ['required', new breakfastMakers()]
+            'date' => ['required', new BreakfastDateCreationMakers(), new UniqueCreationDate()],
+            'users' => ['required', new BreakfastMakers()]
         ];
     }
 
