@@ -6,6 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
 //fixme start class names with UpperCase *done
+
+/**
+ * @property mixed $avatar
+ * @property mixed $email
+ * @property mixed $is_admin
+ * @property mixed $name
+ */
 class UpdateUserRequest extends FormRequest
 {
     /**
