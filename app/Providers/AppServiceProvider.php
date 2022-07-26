@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\Breakfast;
 use App\Models\User;
-use App\Services\BreakfastCrudService;
 use App\Services\BreakfastService;
 use App\Services\RateCreateService;
 use App\Services\RateService;
@@ -50,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         }) ;
 
-        $this->app->singleton(BreakfastService::class , BreakfastCrudService::class);
+        $this->app->singleton(breakfastService::class , BreakfastCrudServise::class);
         $this->app->singleton(RateService::class , RateCreateService::class);
 
 
