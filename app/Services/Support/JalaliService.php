@@ -1,8 +1,24 @@
 <?php
 
-namespace App\Services\Support ;
+namespace App\Services\Support;
 
 
-interface  JalaliService {
+use Carbon\Carbon;
+
+interface  JalaliService
+{
+    /**
+     * @param string $time
+     * @return string
+     */
+    public function toPersian(string $time):string ;
+
+
+    /**
+     * @param string $persianFormat
+     * @return Carbon
+     */
+    public function toAd(string $persianFormat):Carbon ;
+
 
 }
