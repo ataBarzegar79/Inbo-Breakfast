@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use DivisionByZeroError;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +32,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
     protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -76,37 +76,6 @@ class User extends Authenticatable
     {
         //fixme define return type for functions *done
         return $this->hasMany(Rate::class);
-    }
-
-    //fixme define return type for functions *done
-    //todo move business logic to service layer
-    //fixme use dtos instead of maps for data transferring
-    #[ArrayShape(['rate' => "float|string", 'color' => "string"])] public function performance(): array
-    {
-        $breakfastsDone = $this->breakfasts;
-        $counter = 0;
-        $sum = 0;
-        foreach ($breakfastsDone as $breakfast) {
-            $counter += 1;
-            $sum += $breakfast->avareageRate();
-        }
-
-        try {
-            $performance = round($sum / $counter, 2);
-        } catch (DivisionByZeroError) {
-            $performance = "No rates yet !"; //todo use translations for user messages
-        }
-
-        if ($performance >= 1 && $performance <= 4) {
-            return ['rate' => $performance, 'color' => "#ff8080"]; //todo move view elements to view layer
-        } elseif ($performance > 4 && $performance <= 6) {
-            return ['rate' => $performance, 'color' => "#f6c23e"];
-        } elseif ($performance > 6 && $performance <= 10) {
-            return ['rate' => $performance, 'color' => "#1cc88a"];
-        } else {
-            return ['rate' => $performance, 'color' => "#f8f9fc"];
-        }
-
     }
 
     //todo move business logic to service layer
