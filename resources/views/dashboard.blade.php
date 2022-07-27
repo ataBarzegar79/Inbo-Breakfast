@@ -29,7 +29,7 @@
 
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
-                    <td>{{persianFormat($breakfast->createdAt)}}</td>
+                    <td>{{$breakfast->createdAt}}</td>
                     <td>@foreach($breakfast->users as $user)
                         {{$user ->name}} |
                         @endforeach
