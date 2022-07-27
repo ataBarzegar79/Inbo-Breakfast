@@ -48,13 +48,6 @@ class Breakfast extends Model
         return $this->belongsToMany(User::class)->withTrashed();
     }
 
-    //todo move business logic to service layer
-    //fixme define return type for functions *done
-    public function avareageRate(): float
-    {
-        $rates = $this->rates->avg('rate');
-        return round($rates, 2);
-    }
 
 
 }
