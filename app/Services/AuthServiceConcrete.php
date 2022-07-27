@@ -1,30 +1,33 @@
 <?php
 
-namespace App\Services ;
+namespace App\Services;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class AuthServiceConcrete implements AuthService {
+class AuthServiceConcrete implements AuthService
+{
 
-    public function login()
+    public function login(LoginRequest $request):bool
     {
-        $user = User::where('name', '=', $request->get('name'))
-            ->where('password', '=', $request->get('password'))
+        $user = User::where('name', '=', $request->name)
+            ->where('password', '=', $request->password)
             ->first();
         if ($user) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('dashboard'); //fixme use route method for paths *done
+            return true;
         }
 
-        return back()->withErrors([
-            'notfound' => 'The provided credentials do not match our records.',
-        ]);
+        return false;
+
     }
 
-    public function logout()
+    public function logout():void
     {
-        // TODO: Implement logout() method.
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
     }
 }
