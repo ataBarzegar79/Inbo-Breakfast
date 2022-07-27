@@ -15,13 +15,13 @@ interface  JalaliService
     /**
      * @return string
      */
-    public  function toPersian():string ;
+    public function toPersian(): string;
 
 
     /**
      * @return Carbon
      */
-    public  function toAd():Carbon ;
+    public function toAd(): Carbon;
 
 
 }
