@@ -51,8 +51,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(BreakfastService::class , BreakfastCrudService::class);
         $this->app->singleton(RateService::class , RateCreateService::class);
-        $this->app->singleton(JalaliService::class , JalaliServiceConcrete::class);
+        $this->app->singleton(JalaliService::class , function($app,$time){
+            return new JalaliServiceConcrete($time[0]) ;
+        });
+}
 
 
-    }
+
 }
