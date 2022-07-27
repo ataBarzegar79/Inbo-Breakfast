@@ -23,20 +23,16 @@ class  BreakfastCrudService implements BreakfastService
         $user = auth()->user();
         $breakfasts = Breakfast::all();
         $breakfastDtos = [];//fixme use camelcase for variable names : Done
+        $userRate = null ;
         foreach ($breakfasts as $breakfast) {
             $rates = $breakfast->rates;
-            $flag = 0;
 
             foreach ($rates as $rate) {
                 if ($rate->user->id == $user->id) {
                     $userRate = $rate;
-                    $flag = 1;
                 }
             }
 
-            if ($flag == 0) {
-                $userRate = null;
-            }
 
             $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $userRate); // todo Ehsan: $userRate is probably undefined
         }
