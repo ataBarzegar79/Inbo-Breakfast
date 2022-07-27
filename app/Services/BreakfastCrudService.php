@@ -8,6 +8,7 @@ use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
+use App\Services\Support\JalaliService;
 use Morilog\Jalali\Jalalian;
 use phpDocumentor\Reflection\Types\Boolean;
 
@@ -87,8 +88,8 @@ class  BreakfastCrudService implements BreakfastService
 
     public function store(StoreBreakfastRequest $request): void
     {
-        $persianDate = explode("/", $request->date);//todo use Jalali format service to format Jalali strings
-        $createdAt = (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))->toCarbon();
+        $service = resolve(JalaliService::class ,[$request->created_at]);
+        $createdAt = $service->toPersian();
 
         $breakfast = Breakfast::create(
             [
