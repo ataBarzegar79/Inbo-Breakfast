@@ -9,13 +9,8 @@ use Morilog\Jalali\Jalalian;
 class UserDtoFactory
 {
     //todo use static methods in dto facilities *done
-    public static function fromModel(User $user): UserDto
+    public static function fromModel(User $user, $userRate, $userPerformanceColor): UserDto
     {
-        //fixme use dtos instead of maps for data transferring
-        $userRate = $user->performance()['rate'];//fixme use camelcase for variable names *done
-
-        $userPerformanceColor = $user->performance()['color'];
-
         $userAvatar = $user->viewAvatar();
 
         $averageParticipating = $user->averAgeParticipating();
