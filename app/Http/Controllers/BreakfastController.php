@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\BreakfastService;
+use App\Services\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(BreakfastService $service): Factory|View|Application
+    public function index(BreakfastService $service, UserSupportService $supportService): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index()]);
+        return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $supportService->viewAvatar(Auth::id())]);
     }
 
     public function create(BreakfastService $service): Factory|View|Application

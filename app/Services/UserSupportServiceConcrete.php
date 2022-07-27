@@ -3,7 +3,12 @@
 namespace App\Services;
 
 use App\Models\User;
+use Carbon\Carbon;
 use DivisionByZeroError;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserSupportServiceConcrete implements UserSupportService
 {
@@ -28,9 +33,8 @@ class UserSupportServiceConcrete implements UserSupportService
         return $performance;
     }
 
-    public function performanceColor(int $userId, UserSupportService $service): string
+    public function performanceColor(int $userId, float|string $performance): string
     {
-        $performance = $service->performance($userId);
 
         if ($performance >= 1 && $performance <= 4) {
             $color = "#ff8080"; //todo move view elements to view layer
@@ -43,6 +47,34 @@ class UserSupportServiceConcrete implements UserSupportService
         }
 
         return $color;
+    }
+
+    public function viewAvatar(int $userId): string|UrlGenerator|Application
+    {
+        $user = User::find($userId);
+        $url = url($user->avatar);
+        if (str_contains($url, 'default.svg')) {
+            return $url;
+        } else {
+            return asset(Storage::url($user->avatar));
+        }
+    }
+
+    public function countBreakfasts(int $userId): int
+    {
+        $user = User::find($userId);
+        return $user->breakfasts->whereNull('deleted_at')->count();
+    }
+
+    public function averAgeParticipating(int $userId): float
+    {
+        $user = User::find($userId);
+        $breakfastCounts = $user->breakfasts->whereNull('deleted_at')->count();
+        $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $user->created_at);
+        $now = Carbon::now();
+        $diff = $userCreatedAt->diffInDays($now) + 1;
+
+        return round($breakfastCounts / $diff, 3);
     }
 
 }
