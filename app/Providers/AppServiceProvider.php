@@ -8,6 +8,8 @@ use App\Services\AuthService;
 use App\Services\AuthServiceConcrete;
 use App\Services\BreakfastCrudService;
 use App\Services\BreakfastService;
+use App\Services\BreakfastSupportService;
+use App\Services\BreakfastSupportServiceConcrete;
 use App\Services\RateCreateService;
 use App\Services\RateService;
 use App\Services\Support\JalaliService;
@@ -57,6 +59,9 @@ class AppServiceProvider extends ServiceProvider
             return new JalaliServiceConcrete($time[0]);
         });
         $this->app->singleton(AuthService::class, AuthServiceConcrete::class);
+        $this->app->singleton(BreakfastSupportService::class, function ($app, $breakfast) {
+            return new BreakfastSupportServiceConcrete($breakfast[0]);
+        });
     }
 
 
