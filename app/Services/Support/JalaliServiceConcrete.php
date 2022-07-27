@@ -7,15 +7,19 @@ use Carbon\Carbon;
 use Morilog\Jalali\Jalalian;
 
 class JalaliServiceConcrete implements JalaliService{
-
-    public function toPersian(string $adFormat): string
+    public function __construct(string $format)
     {
-        return Jalalian::fromCarbon(new Carbon($adFormat))->format('%A, %d %B %Y');
+         $this->format = $format;
     }
 
-    public function toAd(string $persianFormat): Carbon
+    public  function toPersian(): string
     {
-        $persianDate = explode("/", $persianFormat);
+        return Jalalian::fromCarbon(new Carbon($this->format))->format('%A, %d %B %Y');
+    }
+
+    public  function toAd(): Carbon
+    {
+        $persianDate = explode("/", $this->format);
         return (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))->toCarbon();
 
     }
