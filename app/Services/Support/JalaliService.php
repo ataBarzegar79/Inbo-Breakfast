@@ -11,7 +11,7 @@ interface  JalaliService
      * @param string $time
      * @return string
      */
-    public function toPersian(string $time):string ;
+    public function toPersian(string $adFormat):string ;
 
 
     /**
