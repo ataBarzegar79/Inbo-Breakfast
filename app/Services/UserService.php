@@ -8,12 +8,11 @@ use App\Http\Requests\UpdateUserRequest;
 
 interface UserService
 {
-
     /**
+     * @param UserSupportService $service
      * @return UserDto[]
      */
-    public function index(): array;
-
+    public function index(UserSupportService $service): array;
 
     /**
      * @param StoreUserRequest $request
@@ -23,18 +22,17 @@ interface UserService
 
     /**
      * @param int $id
+     * @param UserSupportService $service
      * @return UserDto|bool
      */
-    public function edit(int $id): object|bool;
+    public function edit(int $id, UserSupportService $service): object|bool;
 
     /**
      * @param UpdateUserRequest $request
      * @param int $id
      * @return void
      */
-
     public function update(UpdateUserRequest $request, int $id): void;
-
 
     /**
      * @param int $id
@@ -44,8 +42,9 @@ interface UserService
 
 
     /**
+     * @param UserSupportService $service
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
-    public function standing(): array;
+    public function standing(UserSupportService $service): array;
 
 }

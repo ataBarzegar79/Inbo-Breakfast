@@ -9,13 +9,15 @@ use App\Models\User;
 
 class UserCrudServiceConcrete implements UserService
 {
-    public function index(): array
+    public function index(UserSupportService $service): array
     {
         $users = User::all();
         $userDtos = [];
 
         foreach ($users as $user) {
-            $userDtos[] = UserDtoFactory::fromModel($user);
+            $userRate = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $service);
+            $userDtos[] = UserDtoFactory::fromModel($user, $userRate, $performanceColor);
         }
 
         return $userDtos;
@@ -47,13 +49,15 @@ class UserCrudServiceConcrete implements UserService
 
 
     //fixme define return type for functions  :Done
-    public function edit(int $id): object|bool
+    public function edit(int $id, UserSupportService $service): object|bool
     {
         $user = User::find($id);
         if (!$user) {
             return false;
         }
-        return UserDtoFactory::fromModel($user);
+        $userRate = $service->performance($user->id);
+        $performanceColor = $service->performanceColor($user->id, $service);
+        return UserDtoFactory::fromModel($user, $userRate, $performanceColor);
     }
 
     //fixme define return type for functions :Done
@@ -86,11 +90,13 @@ class UserCrudServiceConcrete implements UserService
         $deletedUser->delete();
     }
 
-    public function standing(): array
+    public function standing(UserSupportService $service): array
     {
         $users = User::all();
         foreach ($users as $user) {
-            $userDto = UserDtoFactory::fromModel($user);
+            $userRate = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $service);
+            $userDto = UserDtoFactory::fromModel($user, $userRate, $performanceColor);
             $userDtos[] = ['average' => $userDto->averageParticipating, 'dto' => $userDto];
         }
         rsort($userDtos);
