@@ -13,6 +13,6 @@ class BreakfastSupportServiceConcrete implements BreakfastSupportService
 
     public function averageRate(): float
     {
-        return $this->breakfast->rates->avg();
+        return $this->breakfast->rates->avg('rate');
     }
 }

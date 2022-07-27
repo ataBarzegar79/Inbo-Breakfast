@@ -4,6 +4,7 @@ namespace App\Dtos;
 
 use App\Models\Breakfast;
 use App\Models\Rate;
+use App\Services\BreakfastSupportService;
 use App\Services\Support\JalaliService;
 use App\Services\UserSupportService;
 
@@ -12,8 +13,14 @@ class BreakfastDtoFactory
     //todo use static methods in dto facilities *done
     public static function fromModel(Breakfast $model, ?Rate $rate, UserSupportService $userSupportService): BreakfastDto
     {
-        $service = resolve(JalaliService::class ,[$model->created_at]);
-        $createdAt = $service->toPersian();
+        $jalaliService = resolve(JalaliService::class, [$model->created_at]);
+        $createdAt = $jalaliService->toPersian();
+
+
+        $breakfastSupport = resolve(BreakfastSupportService::class, [$model]);
+        $averageRate = $breakfastSupport->averageRate();
+
+
         $users = $model->users;
         $items = [];
         if ($rate !== null) {
@@ -33,7 +40,7 @@ class BreakfastDtoFactory
             $model->description,
             $createdAt,
             $items,
-            $model->avareageRate(),
+            $averageRate,
             $rateDto
         );
     }
