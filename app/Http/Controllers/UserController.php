@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
+use App\Services\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,13 +17,13 @@ use function view;
 
 class UserController extends Controller
 {
-    public function index(UserService $service): Factory|View|Application
+    public function index(UserService $service, UserSupportService $supportService): Factory|View|Application
     {
-        return view('users', ['users' => $service->index()]);
+        return view('users', ['users' => $service->index($supportService)]);
     }
 
     //fixme define return type for functions *done
-    public function store(UserService $service,  StoreUserRequest $request): RedirectResponse
+    public function store(UserService $service, StoreUserRequest $request): RedirectResponse
     {
         $service->store($request);
         return redirect()->route('dashboard');
@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $updateUser = $service->edit($id);
         //fixme use camelcase for variable names *done
-        if($updateUser === false ) {
+        if ($updateUser === false) {
             return redirect()->route('dashboard');
         }
         return view('update-user', ['update_user' => $updateUser]);
@@ -56,10 +56,10 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function standings(UserService $service): Factory|View|Application
+    public function standings(UserService $service, UserSupportService $supportService): Factory|View|Application
     {
         //todo remove unused codes *done
-        return view('standings', ['users' => $service->standing()]);
+        return view('standings', ['users' => $service->standing($supportService)]);
     }
 
 }
