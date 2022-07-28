@@ -15,7 +15,7 @@ class  RateCreateService implements RateService
     public function create(int $breakfastId): BreakfastDto
     {
         $breakfast = Breakfast::find($breakfastId);
-        return BreakfastDtoFactory::fromModel($breakfast, null);
+        return BreakfastDtoFactory::fromModel($breakfast, null,null);
     }
 
     //fixme use camelcase for function parameters : Done
