@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Dtos\BreakfastDtoDoerFactory;
 use App\Dtos\BreakfastDtoFactory;
+use App\Dtos\BreakfastUpdateDtoFactory;
 use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
@@ -11,7 +12,6 @@ use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
-use Morilog\Jalali\Jalalian;
 use phpDocumentor\Reflection\Types\Boolean;
 
 
@@ -28,7 +28,7 @@ class  BreakfastCrudService implements BreakfastService
             $doers = [];
             $rates = $breakfast->rates;
             $users = $breakfast->users;
-            $userRate = null ;
+            $userRate = null;
             $persianService = resolve(JalaliService::class);
             $persianService = $persianService->toPersian($breakfast->created_at);
             $breakfastSupport = resolve(BreakfastSupportService::class);
@@ -41,10 +41,10 @@ class  BreakfastCrudService implements BreakfastService
 
             foreach ($rates as $rate) {
                 if ($rate->user->id == $user->id) {
-                    $userRate =  RateDtoFactory::fromModel($rate);
+                    $userRate = RateDtoFactory::fromModel($rate);
                 }
             }
-            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers,$userRate);
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers, $userRate);
         }
 
         return $breakfastDtos;
@@ -53,7 +53,6 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        //fixme use camelcase for variable names :Done
         $users = User::all();
         $usersDto = [];
 
@@ -80,17 +79,19 @@ class  BreakfastCrudService implements BreakfastService
         if (!$breakfast) {
             return false;
         }
+        $breakfastUsers = $breakfast->users;
+        $doers = [] ;
+        foreach ($breakfastUsers as $user) {
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+        }
 
-        $breakfast = Breakfast::find($breakfastId);
-        $breakfastDto = BreakfastDtoFactory::fromModel($breakfast, null, $userSupportService);
+        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast,$doers);
 
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
-            $newUserDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
-            $usersDto[] = $newUserDto;
+            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user) ;
         }
 
         return ['users' => $usersDto, "breakfast" => $breakfastDto];
@@ -114,14 +115,12 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    //fixme define return type for functions :Done
-    //fixme use camelcase for function parameters : Done
+
     public function update(BreakfastUpdateRequest $request, int $breakfastId): bool
     {
         $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
-            //fixme use camelcase for variable names : Done
-            return false;//fixme redirect !!!! : Done
+            return false;
         }
 
         $breakfast->name = $request->name;
