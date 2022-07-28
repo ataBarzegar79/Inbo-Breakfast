@@ -18,9 +18,9 @@ use function view;
 
 class UserController extends Controller
 {
-    public function index(UserService $service, UserSupportService $supportService): Factory|View|Application
+    public function index(UserService $service, UserSupportService $userSupportService ,BreakfastSupportService $breakfastSupportService): Factory|View|Application
     {
-        return view('users', ['users' => $service->index($supportService)]);
+        return view('users', ['users' => $service->index($userSupportService ,$breakfastSupportService )]);
     }
 
     //fixme define return type for functions *done
