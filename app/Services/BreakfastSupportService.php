@@ -7,12 +7,8 @@ use App\Models\Breakfast;
 interface  BreakfastSupportService
 {
     /**
-     * @param Breakfast $breakfast will get the breakfast id and return it back ! to all service a property .
+     * @param Breakfast $breakfast
+     * @return float|string
      */
-    public function __construct(Breakfast $breakfast);
-
-    /**
-     * @return float
-     */
-    public function averageRate(): float|string;
+    public function averageRate(Breakfast $breakfast): float|string;
 }
