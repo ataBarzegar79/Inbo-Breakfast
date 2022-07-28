@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Dtos\BreakfastDtoDoerFactory;
 use App\Dtos\BreakfastDtoFactory;
+use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
@@ -12,28 +14,37 @@ use App\Services\Support\JalaliService;
 use Morilog\Jalali\Jalalian;
 use phpDocumentor\Reflection\Types\Boolean;
 
-//fixme cleanup unused imports : Done
 
-//fixme fix misspells :Done
 class  BreakfastCrudService implements BreakfastService
 {
 
 
-    public function index(UserSupportService $userSupportService): array
+    public function index(): array
     {
         $user = auth()->user();
         $breakfasts = Breakfast::all();
-        $breakfastDtos = [];//fixme use camelcase for variable names : Done
-        $userRate = null ;
+        $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
+            $doers = [];
             $rates = $breakfast->rates;
+            $users = $breakfast->users;
+            $userRate = null ;
+            $persianService = resolve(JalaliService::class);
+            $persianService = $persianService->toPersian($breakfast->created_at);
+            $breakfastSupport = resolve(BreakfastSupportService::class);
+            $breakfastAverage = $breakfastSupport->averageRate($breakfast);
+
+            foreach ($users as $doer) {
+                $doers[] = BreakfastDtoDoerFactory::fromModel($doer);
+
+            }
 
             foreach ($rates as $rate) {
                 if ($rate->user->id == $user->id) {
-                    $userRate = $rate;
+                    $userRate =  RateDtoFactory::fromModel($rate);
                 }
             }
-            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $userRate, $userSupportService); // todo Ehsan: $userRate is probably undefined
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers,$userRate);
         }
 
         return $breakfastDtos;
@@ -88,9 +99,8 @@ class  BreakfastCrudService implements BreakfastService
 
     public function store(StoreBreakfastRequest $request): void
     {
-//        dd($request->date);
-        $service = resolve(JalaliService::class ,[$request->date]);
-        $createdAt = $service->toAd();
+        $service = resolve(JalaliService::class);
+        $createdAt = $service->toAd($request->date);
 
         $breakfast = Breakfast::create(
             [
