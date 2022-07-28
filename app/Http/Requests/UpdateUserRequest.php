@@ -15,17 +15,7 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 class UpdateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    //fixme define return type for functions *done
-    //todo remove unused methods
-    public function authorize(): bool
-    {
-        return true;
-    }
+
 
     /**
      * Get the validation rules that apply to the request.

@@ -48,26 +48,6 @@ class Breakfast extends Model
         return $this->belongsToMany(User::class)->withTrashed();
     }
 
-    //todo move business logic to service layer
-    //fixme define return type for functions *done
-    public function avareageRate(): float
-    {
-        $rates = $this->rates->avg('rate');
-        return round($rates, 2);
-    }
 
-    //fixme define return type for functions *done
-    //todo remove unused functions
-    public function userRate(): ?array
-    {
-        // $user = Auth::user(); // todo Ehsan: delete this
-        $rates = $this->rates;
-        foreach ($rates as $rate) {
-            if ($rate->user_id == Auth::id()) {  // todo I changed $user_id to Auth::id() because of some warning, need to be checked if it's working
-                return ['rate' => $rate->rate, 'description' => $rate->description];
-            }
-        }
-        return null;
-    }
 
 }
