@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\BreakfastService;
+use App\Services\Support\AverageParticipateService;
 use App\Services\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -21,9 +22,15 @@ class BreakfastController extends Controller
         return view('dashboard', ['breakfasts' => $service->index($userSupportService), 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
     }
 
-    public function create(BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application
+    public function create(BreakfastService $service, UserSupportService $userSupportService, AverageParticipateService $averageParticipateService): Factory|View|Application
     {
-        return view('breakfast-create', ['users' => $service->create($userSupportService)]);
+        return view('breakfast-create',
+            [
+                'users' => $service->create($userSupportService),
+                'avatar' => $userSupportService->viewAvatar(Auth::id()),
+                'averageParticipate' => $averageParticipateService->averageParticipate()
+            ]
+        );
     }
 
     public function store(BreakfastService $service, StoreBreakfastRequest $request): RedirectResponse
@@ -41,10 +48,10 @@ class BreakfastController extends Controller
     public function edit($breakfastId, BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application|RedirectResponse
     {
         $editedBreakfast = $service->edit($breakfastId, $userSupportService);
-        if($editedBreakfast === false) {
-            return  redirect()->route('dashboard');
+        if ($editedBreakfast === false) {
+            return redirect()->route('dashboard');
         }
-        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users'] ,'avatar' => $userSupportService->viewAvatar(Auth::id())] );
+        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users'], 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
     }
 
     public function update(BreakfastUpdateRequest $request, $breakfastId, BreakfastService $service): RedirectResponse
