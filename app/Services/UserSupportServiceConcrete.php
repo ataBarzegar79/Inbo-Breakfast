@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Dtos\BreakfastDtoFactory;
+use App\Dtos\RateDto;
 use App\Models\User;
 use Carbon\Carbon;
 use DivisionByZeroError;
@@ -68,7 +70,7 @@ class UserSupportServiceConcrete implements UserSupportService
 
     public function averAgeParticipating(int $userId): float
     {
-        $user = User::find($userId);
+        $user = User::where('id', $userId)->first();
         $breakfastCounts = $user->breakfasts->whereNull('deleted_at')->count();
         $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $user->created_at);
         $now = Carbon::now();
