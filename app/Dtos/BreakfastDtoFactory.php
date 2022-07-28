@@ -5,11 +5,12 @@ namespace App\Dtos;
 use App\Models\Breakfast;
 use App\Models\Rate;
 use App\Services\Support\JalaliService;
+use App\Services\UserSupportService;
 
 class BreakfastDtoFactory
 {
     //todo use static methods in dto facilities *done
-    public static function fromModel(Breakfast $model, ?Rate $rate): BreakfastDto
+    public static function fromModel(Breakfast $model, ?Rate $rate, UserSupportService $userSupportService): BreakfastDto
     {
         $service = resolve(JalaliService::class ,[$model->created_at]);
         $createdAt = $service->toPersian();
@@ -22,7 +23,8 @@ class BreakfastDtoFactory
         }
 
         foreach ($users as $user) {
-            $items[] = UserBreakfastDtoFactory::fromModel($user);
+            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            $items[] = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
         }
 
         return new BreakfastDto(

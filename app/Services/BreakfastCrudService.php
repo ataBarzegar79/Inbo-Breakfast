@@ -19,7 +19,7 @@ class  BreakfastCrudService implements BreakfastService
 {
 
 
-    public function index(): array
+    public function index(UserSupportService $userSupportService): array
     {
         $user = auth()->user();
         $breakfasts = Breakfast::all();
@@ -33,23 +33,22 @@ class  BreakfastCrudService implements BreakfastService
                     $userRate = $rate;
                 }
             }
-
-
-            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $userRate); // todo Ehsan: $userRate is probably undefined
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $userRate, $userSupportService); // todo Ehsan: $userRate is probably undefined
         }
 
         return $breakfastDtos;
     }
 
 
-    public function create(): array
+    public function create(UserSupportService $userSupportService): array
     {
         //fixme use camelcase for variable names :Done
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $userDto = UserBreakfastDtoFactory::fromModel($user);
+            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            $userDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
 
@@ -64,7 +63,7 @@ class  BreakfastCrudService implements BreakfastService
 
 
     //fixme define return type for functions : Done
-    public function edit(int $breakfastId): array|boolean
+    public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean
     {
         $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
@@ -72,13 +71,14 @@ class  BreakfastCrudService implements BreakfastService
         }
 
         $breakfast = Breakfast::find($breakfastId);
-        $breakfastDto = BreakfastDtoFactory::fromModel($breakfast, null);
+        $breakfastDto = BreakfastDtoFactory::fromModel($breakfast, null, $userSupportService);
 
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $newUserDto = UserBreakfastDtoFactory::fromModel($user);
+            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            $newUserDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDto[] = $newUserDto;
         }
 

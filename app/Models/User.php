@@ -78,6 +78,7 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
+/*
     //todo move business logic to service layer
     //fixme define return type for functions *done
     public function viewAvatar(): string|UrlGenerator|Application
@@ -106,6 +107,6 @@ class User extends Authenticatable
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;
         return round($breakfastCounts / $diff, 3);
-    }
+    }*/ // todo Ehsan: Delete this
 
 }

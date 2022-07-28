@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\BreakfastService;
+use App\Services\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(BreakfastService $service): Factory|View|Application
+    public function index(BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index()]);
+        return view('dashboard', ['breakfasts' => $service->index($userSupportService), 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
     }
 
-    public function create(BreakfastService $service): Factory|View|Application
+    public function create(BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application
     {
-        return view('breakfast-create', ['users' => $service->create()]);
+        return view('breakfast-create', ['users' => $service->create($userSupportService)]);
     }
 
     public function store(BreakfastService $service, StoreBreakfastRequest $request): RedirectResponse
@@ -36,9 +38,9 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function edit($breakfastId, BreakfastService $service): Factory|View|Application|RedirectResponse
+    public function edit($breakfastId, BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application|RedirectResponse
     {
-        $editedBreakfast = $service->edit($breakfastId);
+        $editedBreakfast = $service->edit($breakfastId, $userSupportService);
         if($editedBreakfast === false) {
             return  redirect()->route('dashboard');
         }

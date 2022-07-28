@@ -15,9 +15,12 @@ class UserCrudServiceConcrete implements UserService
         $userDtos = [];
 
         foreach ($users as $user) {
-            $userRate = $service->performance($user->id);
-            $performanceColor = $service->performanceColor($user->id, $service);
-            $userDtos[] = UserDtoFactory::fromModel($user, $userRate, $performanceColor);
+            $viewAvatar = $service->viewAvatar($user->id);
+            $performance = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $performance);
+            $averAgeParticipating = $service->averAgeParticipating($user->id);
+            $countBreakfasts = $service->countBreakfasts($user->id);
+            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
 
         return $userDtos;
@@ -55,9 +58,7 @@ class UserCrudServiceConcrete implements UserService
         if (!$user) {
             return false;
         }
-        $userRate = $service->performance($user->id);
-        $performanceColor = $service->performanceColor($user->id, $service);
-        return UserDtoFactory::fromModel($user, $userRate, $performanceColor);
+        return UserDtoFactory::fromModel($user, $service);
     }
 
     //fixme define return type for functions :Done
@@ -94,10 +95,12 @@ class UserCrudServiceConcrete implements UserService
     {
         $users = User::all();
         foreach ($users as $user) {
-            $userRate = $service->performance($user->id);
-            $performanceColor = $service->performanceColor($user->id, $service);
-            $userDto = UserDtoFactory::fromModel($user, $userRate, $performanceColor);
-            $userDtos[] = ['average' => $userDto->averageParticipating, 'dto' => $userDto];
+            $viewAvatar = $service->viewAvatar($user->id);
+            $performance = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $performance);
+            $averAgeParticipating = $service->averAgeParticipating($user->id);
+            $countBreakfasts = $service->countBreakfasts($user->id);
+            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
         rsort($userDtos);
         return $userDtos;
