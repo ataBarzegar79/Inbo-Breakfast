@@ -15,7 +15,12 @@ class UserCrudServiceConcrete implements UserService
         $userDtos = [];
 
         foreach ($users as $user) {
-            $userDtos[] = UserDtoFactory::fromModel($user, $service);
+            $viewAvatar = $service->viewAvatar($user->id);
+            $performance = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $performance);
+            $averAgeParticipating = $service->averAgeParticipating($user->id);
+            $countBreakfasts = $service->countBreakfasts($user->id);
+            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
 
         return $userDtos;
@@ -90,8 +95,12 @@ class UserCrudServiceConcrete implements UserService
     {
         $users = User::all();
         foreach ($users as $user) {
-            $userDto = UserDtoFactory::fromModel($user, $service);
-            $userDtos[] = ['average' => $userDto->averageParticipating, 'dto' => $userDto];
+            $viewAvatar = $service->viewAvatar($user->id);
+            $performance = $service->performance($user->id);
+            $performanceColor = $service->performanceColor($user->id, $performance);
+            $averAgeParticipating = $service->averAgeParticipating($user->id);
+            $countBreakfasts = $service->countBreakfasts($user->id);
+            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
         rsort($userDtos);
         return $userDtos;
