@@ -55,7 +55,7 @@ class  BreakfastCrudService implements BreakfastService
         sort($usersDtoAverage);
 
         foreach ($usersDtoAverage as $dto) {
-            $usersDto[] = $dto;
+            $usersDto[] = $dto[1];
         }
 
         return $usersDto;
@@ -88,8 +88,9 @@ class  BreakfastCrudService implements BreakfastService
 
     public function store(StoreBreakfastRequest $request): void
     {
-        $service = resolve(JalaliService::class ,[$request->created_at]);
-        $createdAt = $service->toPersian();
+//        dd($request->date);
+        $service = resolve(JalaliService::class ,[$request->date]);
+        $createdAt = $service->toAd();
 
         $breakfast = Breakfast::create(
             [
