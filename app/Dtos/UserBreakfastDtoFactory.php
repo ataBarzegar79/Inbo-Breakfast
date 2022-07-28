@@ -3,14 +3,13 @@
 namespace App\Dtos;
 
 use App\Models\User;
-use App\Services\UserSupportService;
+use JetBrains\PhpStorm\Pure;
 
 class UserBreakfastDtoFactory
 {
     //todo use static methods in dto facilities *done
-    public static function fromModel(User $model, UserSupportService $service): UserBreakfastDto
+    #[Pure] public static function fromModel(User $model, float $averAgeParticipating): UserBreakfastDto
     {
-        $averAgeParticipating = $service->averAgeParticipating($model->id);
         return new UserBreakfastDto(
             $model->id,
             $model->name,
