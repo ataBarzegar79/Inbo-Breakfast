@@ -10,7 +10,7 @@ class BreakfastDto
         public string   $description,
         public string   $createdAt,
         public array    $users,
-        public float    $averageRate,
+        public float|string    $averageRate,
         public ?RateDto $userRate,
     )
     {
