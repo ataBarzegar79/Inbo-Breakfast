@@ -17,12 +17,12 @@ interface BreakfastService
     /**
      * @return BreakfastDto[]
      */
-    public function index(): array;
+    public function index(UserSupportService $userSupportService): array;
 
     /**
      * @return UserBreakfastDTO[]
      */
-    public function create(): array;
+    public function create(UserSupportService $userSupportService): array;
 
     /**
      * @param int $breakfastId
@@ -30,7 +30,7 @@ interface BreakfastService
      */
     //fixme update documents according to functions *done
     //fixme use camelcase for function parameters *done
-    public function edit(int $breakfastId): array|boolean;
+    public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean;
 
     /**
      * @param StoreBreakfastRequest $request
