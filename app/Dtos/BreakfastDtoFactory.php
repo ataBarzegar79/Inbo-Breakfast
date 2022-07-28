@@ -11,7 +11,7 @@ use App\Services\UserSupportService;
 class BreakfastDtoFactory
 {
     //todo use static methods in dto facilities *done
-    public static function fromModel(Breakfast $model, ?Rate $rate, UserSupportService $userSupportService): BreakfastDto
+    public static function fromModel(Breakfast $model, ?Rate $rate, ?UserSupportService $userSupportService): BreakfastDto
     {
         $jalaliService = resolve(JalaliService::class, [$model->created_at]);
         $createdAt = $jalaliService->toPersian();
@@ -30,8 +30,13 @@ class BreakfastDtoFactory
         }
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
-            $items[] = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
+            if ($userSupportService === null) {
+                $averAgeParticipating = null;
+            } else {
+                $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            }
+
+            $doers[] = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
         }
 
         return new BreakfastDto(
@@ -39,7 +44,7 @@ class BreakfastDtoFactory
             $model->name,
             $model->description,
             $createdAt,
-            $items,
+            $doers,
             $averageRate,
             $rateDto
         );

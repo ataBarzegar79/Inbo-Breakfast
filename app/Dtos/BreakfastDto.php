@@ -7,10 +7,10 @@ class BreakfastDto
     public function __construct(
         public int      $id,
         public string   $name,
-        public string   $description,
+        public ?string   $description,
         public string   $createdAt,
         public array    $users,
-        public float|string    $averageRate,
+        public null|float|string    $averageRate,
         public ?RateDto $userRate,
     )
     {
