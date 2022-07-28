@@ -16,9 +16,9 @@
                         </div>
                         <div class="text-center">
                             <p>Breakfast Name : {{$breakfast->name}}</p>
-                            <p>Date of Breakfast  : {{$breakfast->createdAt}} </p>
-                            <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->users as $user)
-                                    {{$user->name}} |
+                            <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->doers as $doer)
+                                    {{$doer->name}} @if($doer === end($breakfast->doers)) @else | @endif
+
                                 @endforeach</p>
                         </div>
                     </div>

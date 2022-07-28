@@ -6,13 +6,13 @@ use App\Models\Breakfast;
 
 class BreakfastSupportServiceConcrete implements BreakfastSupportService
 {
-    public function __construct(Breakfast $breakfastId)
-    {
-        $this->breakfast = $breakfastId;
-    }
 
-    public function averageRate(): float
+    public function averageRate(Breakfast $breakfast): float|string
     {
-        return $this->breakfast->rates->avg('rate');
+        try {
+            return $breakfast->rates->avg('rate');
+        } catch (\TypeError) {
+            return "No rates Yet ! ";
+        }
     }
 }

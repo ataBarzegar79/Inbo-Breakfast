@@ -7,21 +7,18 @@ use Carbon\Carbon;
 
 interface  JalaliService
 {
-    /**
-     * @param string $format
-     */
-    public function __construct(string $format);
+
 
     /**
      * @return string
      */
-    public function toPersian(): string;
+    public function toPersian(Carbon $carbon): string;
 
 
     /**
      * @return Carbon
      */
-    public function toAd(): Carbon;
+    public function toAd(string $format): Carbon;
 
 
 }

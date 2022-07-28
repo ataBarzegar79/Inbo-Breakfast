@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Dtos\BreakfastDto;
+use App\Dtos\BreakfastDtoDoerFactory;
 use App\Dtos\BreakfastDtoFactory;
+use App\Dtos\BreakfastUpdateDto;
+use App\Dtos\BreakfastUpdateDtoFactory;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
@@ -12,10 +15,14 @@ class  RateCreateService implements RateService
 {
 
     //fixme use camelcase for function parameters :Done
-    public function create(int $breakfastId): BreakfastDto
+    public function create(int $breakfastId): BreakfastUpdateDto
     {
         $breakfast = Breakfast::find($breakfastId);
-        return BreakfastDtoFactory::fromModel($breakfast, null);
+        $breakfastUsers = $breakfast->users;
+        foreach ($breakfastUsers as $user) {
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+        }
+        return BreakfastUpdateDtoFactory::fromModel($breakfast , $doers) ;
     }
 
     //fixme use camelcase for function parameters : Done

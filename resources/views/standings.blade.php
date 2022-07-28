@@ -5,7 +5,7 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Inbo Breakfast Standings  !  ({{averageParticipationUsers()}}  average participating)</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Inbo Breakfast Standings  !  (1) average participating)</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -35,7 +35,7 @@
                             <td class="text-center" style="background-color: {{$user['dto']->color}}">{{$user['dto']->rate}}</td>
                             <td> <span class="font-weight-bolder" >{{$user['dto']->countBreakfast}}</span>  breakfasts</td>
 
-                            @if($user['average'] > averageParticipationUsers())
+                            @if($user['average'] > 1)
                                 <td class="alert-success text-center"><span class="font-weight-bold">{{$user['average']*10 }} XP</span></td>
                             @else
                                 <td class="alert-danger text-center"><span class="font-weight-bold">{{$user['average']*10 }} XP</span></td>

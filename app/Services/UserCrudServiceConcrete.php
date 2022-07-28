@@ -9,14 +9,14 @@ use App\Models\User;
 
 class UserCrudServiceConcrete implements UserService
 {
-    public function index(UserSupportService $service): array
+    public function index(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array
     {
         $users = User::all();
         $userDtos = [];
 
         foreach ($users as $user) {
             $viewAvatar = $service->viewAvatar($user->id);
-            $performance = $service->performance($user->id);
+            $performance = $service->performance($user->id, $breakfastSupportService->averageRate());
             $performanceColor = $service->performanceColor($user->id, $performance);
             $averAgeParticipating = $service->averAgeParticipating($user->id);
             $countBreakfasts = $service->countBreakfasts($user->id);
@@ -91,12 +91,12 @@ class UserCrudServiceConcrete implements UserService
         $deletedUser->delete();
     }
 
-    public function standing(UserSupportService $service): array
+    public function standing(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array
     {
         $users = User::all();
         foreach ($users as $user) {
             $viewAvatar = $service->viewAvatar($user->id);
-            $performance = $service->performance($user->id);
+            $performance = $service->performance($user->id, $breakfastSupportService->averageRate());
             $performanceColor = $service->performanceColor($user->id, $performance);
             $averAgeParticipating = $service->averAgeParticipating($user->id);
             $countBreakfasts = $service->countBreakfasts($user->id);

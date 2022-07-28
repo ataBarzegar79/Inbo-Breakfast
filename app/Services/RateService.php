@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Dtos\BreakfastDto;
+use App\Dtos\BreakfastUpdateDto;
 use App\Http\Requests\StoreVoteRequest;
 
 interface  RateService
@@ -12,7 +13,7 @@ interface  RateService
      * @return BreakfastDto
      */
     //fixme use camelcase for function parameters:Done
-    public function create(int $breakfastId): BreakfastDto;
+    public function create(int $breakfastId): BreakfastUpdateDto;
 
     /**
      * @param StoreVoteRequest $request

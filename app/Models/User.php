@@ -97,7 +97,7 @@ class User extends Authenticatable
         return $this->breakfasts->whereNull('deleted_at')->count();
     }
 
-
+*/
     //fixme define return type for functions *done
     //todo move business logic to service layer
     public function averAgeParticipating(): float
@@ -107,6 +107,6 @@ class User extends Authenticatable
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;
         return round($breakfastCounts / $diff, 3);
-    }*/ // todo Ehsan: Delete this
+    } // todo Ehsan: Delete this
 
 }

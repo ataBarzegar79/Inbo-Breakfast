@@ -31,7 +31,7 @@
                     <td>{{$breakfast->description}}</td>
                     <td>{{$breakfast->createdAt}}</td>
                     <td>@foreach($breakfast->users as $user)
-                        {{$user ->name}} |
+                        {{$user->name}} @if($user === end($breakfast->users)) @else | @endif
                         @endforeach
                     </td>
 

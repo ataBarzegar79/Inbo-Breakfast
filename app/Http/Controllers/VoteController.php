@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVoteRequest;
 use App\Services\RateService;
+use App\Services\UserSupportService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;//fixme cleanup unused imports *done
 
@@ -19,11 +21,11 @@ class VoteController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function create($breakfastId , RateService $service): Factory|View|Application
+    public function create($breakfastId , RateService $service , UserSupportService $userSupportService): Factory|View|Application
     {
         $this->authorize('canVote', $breakfastId) ;
         //fixme add none runtime exceptions to function document with @throw annotation *done
-        return view('vote', ['breakfast' => $service->create($breakfastId)]);
+        return view('vote', ['breakfast' => $service->create($breakfastId) , 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
     }
 
     //fixme use camelcase for function parameters *done

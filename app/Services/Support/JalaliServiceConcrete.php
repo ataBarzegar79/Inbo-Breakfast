@@ -8,19 +8,15 @@ use Morilog\Jalali\Jalalian;
 
 class JalaliServiceConcrete implements JalaliService
 {
-    public function __construct(string $format)
+
+    public function toPersian(Carbon $carbon): string
     {
-        $this->format = $format;
+        return Jalalian::fromCarbon($carbon)->format('%A, %d %B %Y');
     }
 
-    public function toPersian(): string
+    public function toAd(string $format): Carbon
     {
-        return Jalalian::fromCarbon(new Carbon($this->format))->format('%A, %d %B %Y');
-    }
-
-    public function toAd(): Carbon
-    {
-        $persianDate = explode("/", $this->format);
+        $persianDate = explode("/", $format);
         return (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))->toCarbon();
 
     }
