@@ -44,7 +44,7 @@ class BreakfastController extends Controller
         if($editedBreakfast === false) {
             return  redirect()->route('dashboard');
         }
-        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users']]);
+        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users'] ,'avatar' => $userSupportService->viewAvatar(Auth::id())] );
     }
 
     public function update(BreakfastUpdateRequest $request, $breakfastId, BreakfastService $service): RedirectResponse
