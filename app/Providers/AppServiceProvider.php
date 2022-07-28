@@ -12,6 +12,8 @@ use App\Services\BreakfastSupportService;
 use App\Services\BreakfastSupportServiceConcrete;
 use App\Services\RateCreateService;
 use App\Services\RateService;
+use App\Services\Support\AverageParticipateService;
+use App\Services\Support\AverageParticipateServiceConcrete;
 use App\Services\Support\JalaliService;
 use App\Services\Support\JalaliServiceConcrete;
 use Illuminate\Support\Facades\Gate;
@@ -62,6 +64,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(BreakfastSupportService::class, function ($app, $breakfast) {
             return new BreakfastSupportServiceConcrete($breakfast[0]);
         });
+        $this->app->singleton(AverageParticipateService::class , AverageParticipateServiceConcrete::class);
     }
 
 
