@@ -17,9 +17,9 @@ use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application
+    public function index(BreakfastService $service ,  UserSupportService $support): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index($userSupportService), 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
+        return view('dashboard', ['breakfasts' => $service->index() , 'avatar'=>$support->viewAvatar(\Auth::id())]);
     }
 
     public function create(BreakfastService $service, UserSupportService $userSupportService, AverageParticipateService $averageParticipateService): Factory|View|Application
