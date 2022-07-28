@@ -14,5 +14,5 @@ interface  BreakfastSupportService
     /**
      * @return float
      */
-    public function averageRate(): float;
+    public function averageRate(): float|string;
 }
