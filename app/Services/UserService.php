@@ -10,9 +10,10 @@ interface UserService
 {
     /**
      * @param UserSupportService $service
+     * @param BreakfastSupportService $breakfastSupportService
      * @return UserDto[]
      */
-    public function index(UserSupportService $service): array;
+    public function index(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array;
 
     /**
      * @param StoreUserRequest $request
@@ -45,6 +46,6 @@ interface UserService
      * @param UserSupportService $service
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
-    public function standing(UserSupportService $service): array;
+    public function standing(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array;
 
 }
