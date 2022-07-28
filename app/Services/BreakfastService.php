@@ -17,7 +17,7 @@ interface BreakfastService
     /**
      * @return BreakfastDto[]
      */
-    public function index(UserSupportService $userSupportService): array;
+    public function index(): array;
 
     /**
      * @return UserBreakfastDTO[]
