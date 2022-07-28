@@ -16,6 +16,7 @@ class BreakfastUpdateDtoFactory
         return new BreakfastUpdateDto(
             $breakfast->id,
             $breakfast->name,
+            $breakfast->description,
             $doers
         );
     }
