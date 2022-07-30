@@ -58,10 +58,10 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function standings(UserService $service, BreakfastSupportService $breakfastSupportService, UsersParticipateAverageService $usersParticipateAverageService): Factory|View|Application
+    public function standings(UserService $service, BreakfastSupportService $breakfastSupportService, UsersParticipateAverageService $usersParticipateAverageService, UserSupportService $userSupport): Factory|View|Application
     {
         //todo remove unused codes *done
-        return view('standings', ['users' => $service->index($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage()]);
+        return view('standings', ['users' => $service->index($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar'=>$userSupport->viewAvatar(\Auth::id())]);
     }
 
 }
