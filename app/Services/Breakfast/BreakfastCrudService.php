@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Breakfast;
 
-use App\Dtos\BreakfastDtoDoerFactory;
-use App\Dtos\BreakfastDtoFactory;
-use App\Dtos\BreakfastUpdateDtoFactory;
-use App\Dtos\RateDtoFactory;
+use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
+use App\Dtos\Breakfast\BreakfastDtoFactory;
+use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
+use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
+use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
+use function auth;
+use function resolve;
 
 
 class  BreakfastCrudService implements BreakfastService

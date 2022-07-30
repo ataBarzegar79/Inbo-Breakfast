@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\Breakfast;
 
+use App\Dtos\Rate\RateDto;
 use App\Models\Breakfast;
 
 

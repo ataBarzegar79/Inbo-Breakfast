@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
-use App\Services\BreakfastService;
+use App\Services\Breakfast\BreakfastService;
 use App\Services\Support\AverageParticipateService;
-use App\Services\UserSupportService;
+use App\Services\User\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

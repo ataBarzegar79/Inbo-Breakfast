@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\Breakfast;
 
 class BreakfastDoerDto
 {

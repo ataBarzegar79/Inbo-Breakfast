@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Dtos\BreakfastDtoFactory;
-use App\Dtos\RateDto;
 use App\Models\User;
 use Carbon\Carbon;
 use DivisionByZeroError;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use function App\Services\str_contains;
+use function asset;
+use function url;
 
 class UserSupportServiceConcrete implements UserSupportService
 {
@@ -55,7 +55,7 @@ class UserSupportServiceConcrete implements UserSupportService
     {
         $user = User::find($userId);
         $url = url($user->avatar);
-        if (str_contains($url, 'default.svg')) {
+        if (\str_contains($url, 'default.svg')) {
             return $url;
         } else {
             return asset(Storage::url($user->avatar));

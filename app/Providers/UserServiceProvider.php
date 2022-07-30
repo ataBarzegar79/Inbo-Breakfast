@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\UserCrudServiceConcrete;
-use App\Services\UserService;
-use App\Services\UserSupportService;
-use App\Services\UserSupportServiceConcrete;
+use App\Services\User\UserCrudServiceConcrete;
+use App\Services\User\UserService;
+use App\Services\User\UserSupportService;
+use App\Services\User\UserSupportServiceConcrete;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
