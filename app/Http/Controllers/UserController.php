@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\UserRequestDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\Breakfast\BreakfastSupportService;
@@ -27,25 +28,27 @@ class UserController extends Controller
     //fixme define return type for functions *done
     public function store(UserService $service, StoreUserRequest $request): RedirectResponse
     {
-        $service->store($request);
+        $userDto = UserRequestDtoFactory::fromRequest($request);
+        $service->store($userDto);
         return redirect()->route('dashboard');
     }
 
     //fixme define return type for functions *done
-    public function edit(int $id, UserService $service): Factory|View|Application|RedirectResponse
+    public function edit(int $id, UserService $service, UserSupportService $userSupport): Factory|View|Application|RedirectResponse
     {
         $updateUser = $service->edit($id);
         //fixme use camelcase for variable names *done
         if ($updateUser === false) {
             return redirect()->route('dashboard');
         }
-        return view('update-user', ['update_user' => $updateUser]);
+        return view('update-user', ['update_user' => $updateUser, 'avatar'=>$userSupport->viewAvatar(\Auth::id())]);
     }
 
     //fixme define return type for functions *done
     public function update(UserService $service, UpdateUserRequest $request, int $id): RedirectResponse
     {
-        $service->update($request, $id);
+        $userDto = UserRequestDtoFactory::fromRequest($request);
+        $service->update($userDto, $id);
         return redirect()->route('dashboard');//fixme use route method for paths *done
         //todo use consistent spacings *done
     }
