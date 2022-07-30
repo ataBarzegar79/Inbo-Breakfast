@@ -27,7 +27,8 @@ class StoreBreakfastRequest extends FormRequest
      */
     //fixme define return type for functions *done
     //todo use array shape annotation where ever is possible *done
-    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'date' => "array", 'users' => "array"])] public function rules(): array
+    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'date' => "array", 'users' => "array"])]
+    public function rules(): array
     {
         return [
             'name' => ['required', 'max:255'],

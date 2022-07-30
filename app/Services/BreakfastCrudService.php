@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Dtos\BreakfastDtoDoerFactory;
 use App\Dtos\BreakfastDtoFactory;
+use App\Dtos\BreakfastRequestDto;
+use App\Dtos\BreakfastRequestDtoFactory;
 use App\Dtos\BreakfastUpdateDtoFactory;
 use App\Dtos\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
@@ -98,36 +100,39 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    public function store(StoreBreakfastRequest $request): void
+    public function store(BreakfastRequestDto $request): void
+    // todo public function store(BreakfastRequestDto $request): void
     {
+        $requestData = BreakfastRequestDtoFactory::fromRequest($request);
         $service = resolve(JalaliService::class);
-        $createdAt = $service->toAd($request->date);
+        $createdAt = $service->toAd($requestData->date);
 
         $breakfast = Breakfast::create(
             [
-                'name' => $request->name,
-                'description' => $request->description,
+                'name' => $requestData->name,
+                'description' => $requestData->description,
                 'created_at' => $createdAt,
             ]
         );
 
-        $breakfast->users()->sync($request->users);
+        $breakfast->users()->sync($requestData->users);
 
     }
 
 
-    public function update(BreakfastUpdateRequest $request, int $breakfastId): bool
+    public function update(BreakfastRequestDto $request, int $breakfastId): bool
     {
+        $requestData = BreakfastRequestDtoFactory::fromRequest($request);
         $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
             return false;
         }
 
-        $breakfast->name = $request->name;
-        $breakfast->description = $request->description;
+        $breakfast->name = $requestData->name;
+        $breakfast->description = $requestData->description;
         $breakfast->save();
 
-        $breakfast->users()->sync($request->users);
+        $breakfast->users()->sync($requestData->users);
         return true;
 
     }
