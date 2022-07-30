@@ -14,7 +14,7 @@ interface UserService
      * @param BreakfastSupportService $breakfastSupportService
      * @return UserDto[]
      */
-    public function index(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array;
+    public function index(BreakfastSupportService $breakfastSupportService): array;
 
     /**
      * @param StoreUserRequest $request
@@ -24,10 +24,9 @@ interface UserService
 
     /**
      * @param int $id
-     * @param UserSupportService $service
      * @return UserDto|bool
      */
-    public function edit(int $id, UserSupportService $service): object|bool;
+    public function edit(int $id): object|bool;
 
     /**
      * @param UpdateUserRequest $request
@@ -47,6 +46,6 @@ interface UserService
      * @param UserSupportService $service
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
-    public function standing(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array;
+    public function standing(BreakfastSupportService $breakfastSupportService): array;
 
 }
