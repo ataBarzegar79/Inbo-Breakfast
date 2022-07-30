@@ -18,9 +18,9 @@ use function view;
 
 class UserController extends Controller
 {
-    public function index(UserService $service, UserSupportService $userSupportService ,BreakfastSupportService $breakfastSupportService): Factory|View|Application
+    public function index(UserService $service, BreakfastSupportService $breakfastSupportService): Factory|View|Application
     {
-        return view('users', ['users' => $service->index($userSupportService ,$breakfastSupportService )]);
+        return view('users', ['users' => $service->index($breakfastSupportService)]);
     }
 
     //fixme define return type for functions *done
@@ -57,10 +57,10 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function standings(UserService $service, UserSupportService $supportService, BreakfastSupportService $breakfastSupportService): Factory|View|Application
+    public function standings(UserService $service, BreakfastSupportService $breakfastSupportService): Factory|View|Application
     {
         //todo remove unused codes *done
-        return view('standings', ['users' => $service->standing($supportService, $breakfastSupportService)]);
+        return view('standings', ['users' => $service->index($breakfastSupportService)]);
     }
 
 }
