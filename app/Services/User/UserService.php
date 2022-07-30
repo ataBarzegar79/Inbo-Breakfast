@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Dtos\UserDto;
+use App\Dtos\UserRequestDto;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\Breakfast\BreakfastSupportService;
@@ -10,17 +11,16 @@ use App\Services\Breakfast\BreakfastSupportService;
 interface UserService
 {
     /**
-     * @param UserSupportService $service
      * @param BreakfastSupportService $breakfastSupportService
      * @return UserDto[]
      */
     public function index(BreakfastSupportService $breakfastSupportService): array;
 
     /**
-     * @param StoreUserRequest $request
+     * @param UserRequestDto $dto
      * @return void
      */
-    public function store(StoreUserRequest $request): void;
+    public function store(UserRequestDto $dto): void;
 
     /**
      * @param int $id
@@ -29,11 +29,11 @@ interface UserService
     public function edit(int $id): object|bool;
 
     /**
-     * @param UpdateUserRequest $request
+     * @param UserRequestDto $dto
      * @param int $id
      * @return void
      */
-    public function update(UpdateUserRequest $request, int $id): void;
+    public function update(UserRequestDto $dto, int $id): void;
 
     /**
      * @param int $id
@@ -43,7 +43,7 @@ interface UserService
 
 
     /**
-     * @param UserSupportService $service
+     * @param BreakfastSupportService $breakfastSupportService
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
     public function standing(BreakfastSupportService $breakfastSupportService): array;

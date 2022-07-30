@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\VoteRequestDtoFactory;
 use App\Http\Requests\StoreVoteRequest;
 use App\Services\Rate\RateService;
 use App\Services\User\UserSupportService;
@@ -37,9 +38,10 @@ class VoteController extends Controller
      */
     public function store($breakfastId, StoreVoteRequest $request, RateService $service): RedirectResponse
     {
+        $requestDto = VoteRequestDtoFactory::fromRequest($request);
         $this->authorize('canVote', $breakfastId) ;
         //fixme add none runtime exceptions to function document with @throw annotation *done
-        $service->store($request , $breakfastId);
+        $service->store($requestDto , $breakfastId);
         return redirect()->route('dashboard');//fixme use route method for paths *done
     }
 

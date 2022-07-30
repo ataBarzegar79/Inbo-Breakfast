@@ -3,7 +3,7 @@
 namespace App\Dtos;
 
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreBreakfastRequest;
 use JetBrains\PhpStorm\Pure;
 
 /**
@@ -12,11 +12,11 @@ use JetBrains\PhpStorm\Pure;
  * @property $date
  * @property $users
  */
-class BreakfastRequestDtoFactory
+class BreakfastStoreRequestDtoFactory
 {
-    #[Pure] public static function fromRequest(Request $request): BreakfastRequestDto
+    #[Pure] public static function fromRequest(StoreBreakfastRequest $request): BreakfastStoreRequestDto
     {
-        return new BreakfastRequestDto(
+        return new BreakfastStoreRequestDto(
             $request->name,
             $request->description,
             $request->date,

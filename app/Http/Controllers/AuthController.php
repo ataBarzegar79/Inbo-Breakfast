@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\LoginRequestDtoFactory;
 use App\Http\Requests\LoginRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Contracts\Foundation\Application;
@@ -31,7 +32,8 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request, AuthService $service): RedirectResponse
     {
-        $response = $service->login($request);
+        $requestDto = LoginRequestDtoFactory::fromRequest($request);
+        $response = $service->login($requestDto);
         if ($response === true) {
             return redirect()->route('dashboard');
         } else {

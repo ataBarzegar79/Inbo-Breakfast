@@ -2,12 +2,12 @@
 
 namespace App\Dtos;
 
-use Illuminate\Support\Facades\Request;
+use App\Http\Requests\StoreVoteRequest;
 use JetBrains\PhpStorm\Pure;
 
 class VoteRequestDtoFactory
 {
-    #[Pure] public static function fromRequest(Request $request): VoteRequestDto
+    #[Pure] public static function fromRequest(StoreVoteRequest $request): VoteRequestDto
     {
         return new VoteRequestDto(
             $request->rate,

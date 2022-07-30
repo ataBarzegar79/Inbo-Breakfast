@@ -65,7 +65,7 @@
             <input type="file"
                    name="avatar"
                    id="avatar"
-                   value="{{$update_user->avatar}}">
+                   value="">
         </label>
     </div>
 

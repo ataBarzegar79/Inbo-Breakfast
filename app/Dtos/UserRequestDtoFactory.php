@@ -2,12 +2,13 @@
 
 namespace App\Dtos;
 
-use Illuminate\Support\Facades\Request;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use JetBrains\PhpStorm\Pure;
 
 class UserRequestDtoFactory
 {
-    #[Pure] public static function fromRequest(Request $request): UserRequestDto
+    #[Pure] public static function fromRequest(StoreUserRequest|UpdateUserRequest  $request): UserRequestDto
     {
         return new UserRequestDto(
             $request->name,

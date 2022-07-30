@@ -3,9 +3,8 @@
 namespace App\Services\User;
 
 use App\Dtos\UserDtoFactory;
+use App\Dtos\UserRequestDto;
 use App\Dtos\UserUpdateDtoFactory;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 
@@ -29,14 +28,14 @@ class UserCrudServiceConcrete implements UserService
         return $userDtos;
     }
 
-    public function store(StoreUserRequest $request): void
+    public function store(UserRequestDto $dto): void
     {
-        if ($request->avatar !== null) {
-            $avatarExtension = '.' . $request->avatar->extension();
-            $emailPath = $request->email;//fixme use camelcase for variable names   :Done
+        if ($dto->avatar !== null) {
+            $avatarExtension = '.' . $dto->avatar->extension();
+            $emailPath = $dto->email;//fixme use camelcase for variable names   :Done
             $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
             $avatarStorageAddress = $emailPath . $avatarExtension;
-            $request->file('avatar')->storeAs(
+            $dto->avatar->storeAs(
                 'avatars', $avatarStorageAddress, 'public'
             );
         } else {
@@ -44,11 +43,11 @@ class UserCrudServiceConcrete implements UserService
         }
 
         $newUser = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
+            'name' => $dto->name,
+            'email' => $dto->email,
+            'password' => $dto->password,
             'avatar' => $avatarPath,
-            'is_admin' => $request->is_admin
+            'is_admin' => $dto->is_admin
         ]);
         $newUser->save();
     }
@@ -65,14 +64,14 @@ class UserCrudServiceConcrete implements UserService
     }
 
     //fixme define return type for functions :Done
-    public function update(UpdateUserRequest $request, int $id): void
+    public function update(UserRequestDto $dto, int $id): void
     {
-        if ($request->avatar !== null) {
-            $avatarExtension = '.' . $request->avatar->extension();//fixme use camelcase for variable names :Done
-            $emailPath = $request->email;
+        if ($dto->avatar !== null) {
+            $avatarExtension = '.' . $dto->avatar->extension();//fixme use camelcase for variable names :Done
+            $emailPath = $dto->email;
             $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
             $avatarStorageAddress = $emailPath . $avatarExtension;
-            $request->file('avatar')->storeAs(
+            $dto->avatar->storeAs(
                 'avatars', $avatarStorageAddress, 'public'
             );
         } else {
@@ -80,9 +79,9 @@ class UserCrudServiceConcrete implements UserService
         }
 
         $updated_user = User::find($id);
-        $updated_user->name = $request->name;
-        $updated_user->email = $request->email;
-        $updated_user->is_admin = $request->is_admin;
+        $updated_user->name = $dto->name;
+        $updated_user->email = $dto->email;
+        $updated_user->is_admin = $dto->is_admin;
         $updated_user->avatar = $avatarPath;
 
         $updated_user->save();
