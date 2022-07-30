@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\BreakfastRequestDto;
 use App\Dtos\BreakfastRequestDtoFactory;
-use App\Dtos\BreakfastUpdateDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Services\Breakfast\BreakfastService;
@@ -38,7 +38,6 @@ class BreakfastController extends Controller
 
     public function store(BreakfastService $service, StoreBreakfastRequest $request): RedirectResponse
     {
-        $requestData = BreakfastRequestDtoFactory::fromRequest($request);
         $service->store($request);
         return redirect()->route('dashboard');
     }
@@ -60,8 +59,7 @@ class BreakfastController extends Controller
 
     public function update(BreakfastUpdateRequest $request, $breakfastId, BreakfastService $service): RedirectResponse
     {
-        $requestData = BreakfastUpdateDtoFactory::fromModel($request);
-        $service->update($requestData, $breakfastId);
+        $service->update($request, $breakfastId);
         return redirect()->route('dashboard');
     }
 
