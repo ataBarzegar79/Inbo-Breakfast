@@ -3,11 +3,13 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use App\Services\Breakfast\BreakfastSupportService;
 use Carbon\Carbon;
 use DivisionByZeroError;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Storage;
+use TypeError;
 use function App\Services\str_contains;
 use function asset;
 use function url;
@@ -17,14 +19,21 @@ class UserSupportServiceConcrete implements UserSupportService
     //fixme define return type for functions *done
     //todo move business logic to service layer
     //fixme use dtos instead of maps for data transferring
-    public function performance(int $userId, float $averageRate): float|string
+    public function performance(int $userId): float|string
     {
         $breakfastsDone = User::find($userId)->breakfasts;
         $counter = 0;
         $sum = 0;
+
+        $breakfastSupport = resolve(BreakfastSupportService::class);
         foreach ($breakfastsDone as $breakfast) {
-            $counter += 1;
-            $sum += $breakfast->avareageRate();
+            try {
+                $sum += $breakfastSupport->averageRate($breakfast);
+                $counter += 1;
+            }catch (TypeError){
+                continue;
+            }
+
         }
 
         try {

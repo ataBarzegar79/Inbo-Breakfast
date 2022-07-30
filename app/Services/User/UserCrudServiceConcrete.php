@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Dtos\UserDtoFactory;
+use App\Dtos\UserUpdateDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -10,17 +11,18 @@ use App\Services\Breakfast\BreakfastSupportService;
 
 class UserCrudServiceConcrete implements UserService
 {
-    public function index(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array
+    public function index(BreakfastSupportService $breakfastSupportService): array
     {
         $users = User::all();
         $userDtos = [];
 
+        $userSupport = resolve(UserSupportService::class);
         foreach ($users as $user) {
-            $viewAvatar = $service->viewAvatar($user->id);
-            $performance = $service->performance($user->id, $breakfastSupportService->averageRate());
-            $performanceColor = $service->performanceColor($user->id, $performance);
-            $averAgeParticipating = $service->averAgeParticipating($user->id);
-            $countBreakfasts = $service->countBreakfasts($user->id);
+            $viewAvatar = $userSupport->viewAvatar($user->id);
+            $performance = $userSupport->performance($user->id);
+            $performanceColor = $userSupport->performanceColor($user->id, $performance);
+            $averAgeParticipating = $userSupport->averAgeParticipating($user->id);
+            $countBreakfasts = $userSupport->countBreakfasts($user->id);
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
 
@@ -53,13 +55,13 @@ class UserCrudServiceConcrete implements UserService
 
 
     //fixme define return type for functions  :Done
-    public function edit(int $id, UserSupportService $service): object|bool
+    public function edit(int $id): object|bool
     {
         $user = User::find($id);
         if (!$user) {
             return false;
         }
-        return UserDtoFactory::fromModel($user, $service);
+        return UserUpdateDtoFactory::fromModel($user);
     }
 
     //fixme define return type for functions :Done
@@ -92,15 +94,17 @@ class UserCrudServiceConcrete implements UserService
         $deletedUser->delete();
     }
 
-    public function standing(UserSupportService $service, BreakfastSupportService $breakfastSupportService): array
+    public function standing(BreakfastSupportService $breakfastSupportService): array
     {
         $users = User::all();
+
+        $userSupport = resolve(UserSupportService::class);
         foreach ($users as $user) {
-            $viewAvatar = $service->viewAvatar($user->id);
-            $performance = $service->performance($user->id, $breakfastSupportService->averageRate());
-            $performanceColor = $service->performanceColor($user->id, $performance);
-            $averAgeParticipating = $service->averAgeParticipating($user->id);
-            $countBreakfasts = $service->countBreakfasts($user->id);
+            $viewAvatar = $userSupport->viewAvatar($user->id);
+            $performance = $userSupport->performance($user->id);
+            $performanceColor = $userSupport->performanceColor($user->id, $performance);
+            $averAgeParticipating = $userSupport->averAgeParticipating($user->id);
+            $countBreakfasts = $userSupport->countBreakfasts($user->id);
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
         rsort($userDtos);

@@ -11,7 +11,7 @@ interface UserSupportService
      * @param int $userId
      * @return mixed
      */
-    public function performance(int $userId, float $averageRate): mixed;
+    public function performance(int $userId): mixed;
 
     /**
      * @param int $userId

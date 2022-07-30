@@ -3,6 +3,7 @@
 namespace App\Dtos\Breakfast;
 
 use App\Models\Breakfast;
+use JetBrains\PhpStorm\Pure;
 
 class BreakfastUpdateDtoFactory
 {
@@ -11,7 +12,7 @@ class BreakfastUpdateDtoFactory
      * @param array $doers
      * @return BreakfastUpdateDto
      */
-    public static function fromModel(Breakfast $breakfast, array $doers): BreakfastUpdateDto
+    #[Pure] public static function fromModel(Breakfast $breakfast, array $doers): BreakfastUpdateDto
     {
         return new BreakfastUpdateDto(
             $breakfast->id,
