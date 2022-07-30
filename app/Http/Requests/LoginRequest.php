@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
 //fixme start class names with UpperCase *done
+
+/**
+ * @property mixed $name
+ * @property mixed $password
+ */
 class LoginRequest extends FormRequest
 {
 
