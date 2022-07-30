@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
 use App\Dtos\UserDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Services\Breakfast\BreakfastSupportService;
 
 class UserCrudServiceConcrete implements UserService
 {

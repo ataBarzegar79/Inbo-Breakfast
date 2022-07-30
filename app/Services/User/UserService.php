@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
 use App\Dtos\UserDto;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Services\Breakfast\BreakfastSupportService;
 
 interface UserService
 {

@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Breakfast;
 
-use App\Dtos\BreakfastDtoDoerFactory;
-use App\Dtos\BreakfastDtoFactory;
-use App\Dtos\BreakfastRequestDto;
-use App\Dtos\BreakfastRequestDtoFactory;
-use App\Dtos\BreakfastUpdateDtoFactory;
-use App\Dtos\RateDtoFactory;
+use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
+use App\Dtos\Breakfast\BreakfastDtoFactory;
+use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
+use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
+use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
+use function auth;
+use function resolve;
 
 
 class  BreakfastCrudService implements BreakfastService
@@ -100,39 +101,36 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    public function store(BreakfastRequestDto $request): void
-    // todo public function store(BreakfastRequestDto $request): void
+    public function store(StoreBreakfastRequest $request): void
     {
-        $requestData = BreakfastRequestDtoFactory::fromRequest($request);
         $service = resolve(JalaliService::class);
-        $createdAt = $service->toAd($requestData->date);
+        $createdAt = $service->toAd($request->date);
 
         $breakfast = Breakfast::create(
             [
-                'name' => $requestData->name,
-                'description' => $requestData->description,
+                'name' => $request->name,
+                'description' => $request->description,
                 'created_at' => $createdAt,
             ]
         );
 
-        $breakfast->users()->sync($requestData->users);
+        $breakfast->users()->sync($request->users);
 
     }
 
 
-    public function update(BreakfastRequestDto $request, int $breakfastId): bool
+    public function update(BreakfastUpdateRequest $request, int $breakfastId): bool
     {
-        $requestData = BreakfastRequestDtoFactory::fromRequest($request);
         $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
             return false;
         }
 
-        $breakfast->name = $requestData->name;
-        $breakfast->description = $requestData->description;
+        $breakfast->name = $request->name;
+        $breakfast->description = $request->description;
         $breakfast->save();
 
-        $breakfast->users()->sync($requestData->users);
+        $breakfast->users()->sync($request->users);
         return true;
 
     }

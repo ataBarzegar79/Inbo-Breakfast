@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Breakfast;
 
-use App\Dtos\BreakfastDto;
-use App\Dtos\BreakfastRequestDto;
+use App\Dtos\Breakfast\BreakfastDto;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
-
+use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
 
 //fixme start class names with uppercase letter :Done
@@ -27,7 +26,6 @@ interface BreakfastService
 
     /**
      * @param int $breakfastId
-     * @param UserSupportService $userSupportService
      * @return array|boolean array => [UsersDto[] , BreakfastDto]
      */
     //fixme update documents according to functions *done
@@ -35,19 +33,19 @@ interface BreakfastService
     public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean;
 
     /**
-     * @param BreakfastRequestDto $request
+     * @param StoreBreakfastRequest $request
      */
     //fixme do not pass Request objects to service layer; ****
-    public function store(BreakfastRequestDto $request): void;
+    public function store(StoreBreakfastRequest $request): void;
 
     /**
-     * @param BreakfastRequestDto $request
+     * @param BreakfastUpdateRequest $request
      * @param int $breakfastId
      * @return bool => true: update is complete  false: breakfast not found !
      */
     //fixme update documents according to functions :Done
     //fixme use camelcase for function parameters :Done
-    public function update(BreakfastRequestDto $request, int $breakfastId):bool ;
+    public function update(BreakfastUpdateRequest $request, int $breakfastId):bool ;
 
     /**
      * @param int $breakfastId

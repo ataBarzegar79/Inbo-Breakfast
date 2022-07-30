@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVoteRequest;
-use App\Services\RateService;
-use App\Services\UserSupportService;
+use App\Services\Rate\RateService;
+use App\Services\User\UserSupportService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,7 +12,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use function redirect;
-use function view;//fixme cleanup unused imports *done
+use function view;
+
+//fixme cleanup unused imports *done
 
 class VoteController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Rate;
 
-use App\Dtos\BreakfastDto;
-use App\Dtos\BreakfastUpdateDto;
+use App\Dtos\Breakfast\BreakfastDto;
+use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Http\Requests\StoreVoteRequest;
 
 interface  RateService

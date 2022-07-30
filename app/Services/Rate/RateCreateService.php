@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Rate;
 
-use App\Dtos\BreakfastDto;
-use App\Dtos\BreakfastDtoDoerFactory;
-use App\Dtos\BreakfastDtoFactory;
-use App\Dtos\BreakfastUpdateDto;
-use App\Dtos\BreakfastUpdateDtoFactory;
+use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
+use App\Dtos\Breakfast\BreakfastUpdateDto;
+use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
+use function auth;
 
 class  RateCreateService implements RateService
 {
