@@ -3,6 +3,9 @@
 namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDto;
+use App\Dtos\Breakfast\BreakfastUpdateDto;
+use App\Dtos\BreakfastStoreRequestDto;
+use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
@@ -33,19 +36,19 @@ interface BreakfastService
     public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean;
 
     /**
-     * @param StoreBreakfastRequest $request
+     * @param BreakfastStoreRequestDto $dto
      */
     //fixme do not pass Request objects to service layer; ****
-    public function store(StoreBreakfastRequest $request): void;
+    public function store(BreakfastStoreRequestDto $dto): void;
 
     /**
-     * @param BreakfastUpdateRequest $request
+     * @param BreakfastUpdateRequestDto $dto
      * @param int $breakfastId
      * @return bool => true: update is complete  false: breakfast not found !
      */
     //fixme update documents according to functions :Done
     //fixme use camelcase for function parameters :Done
-    public function update(BreakfastUpdateRequest $request, int $breakfastId):bool ;
+    public function update(BreakfastUpdateRequestDto $dto, int $breakfastId): bool;
 
     /**
      * @param int $breakfastId

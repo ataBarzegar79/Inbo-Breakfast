@@ -4,7 +4,10 @@ namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastDtoFactory;
+use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
+use App\Dtos\BreakfastStoreRequestDto;
+use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
@@ -101,36 +104,36 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    public function store(StoreBreakfastRequest $request): void
+    public function store(BreakfastStoreRequestDto $dto): void
     {
         $service = resolve(JalaliService::class);
-        $createdAt = $service->toAd($request->date);
+        $createdAt = $service->toAd($dto->date);
 
         $breakfast = Breakfast::create(
             [
-                'name' => $request->name,
-                'description' => $request->description,
+                'name' => $dto->name,
+                'description' => $dto->description,
                 'created_at' => $createdAt,
             ]
         );
 
-        $breakfast->users()->sync($request->users);
+        $breakfast->users()->sync($dto->users);
 
     }
 
 
-    public function update(BreakfastUpdateRequest $request, int $breakfastId): bool
+    public function update(BreakfastUpdateRequestDto $dto, int $breakfastId): bool
     {
         $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
             return false;
         }
 
-        $breakfast->name = $request->name;
-        $breakfast->description = $request->description;
+        $breakfast->name = $dto->name;
+        $breakfast->description = $dto->description;
         $breakfast->save();
 
-        $breakfast->users()->sync($request->users);
+        $breakfast->users()->sync($dto->users);
         return true;
 
     }
