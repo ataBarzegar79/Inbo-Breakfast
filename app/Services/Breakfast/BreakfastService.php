@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Breakfast;
 
-use App\Dtos\BreakfastDto;
+use App\Dtos\Breakfast\BreakfastDto;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
-
+use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
 
 //fixme start class names with uppercase letter :Done

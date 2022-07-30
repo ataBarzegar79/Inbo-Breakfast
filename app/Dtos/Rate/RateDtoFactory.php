@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\Rate;
 
 use App\Models\Rate;
 use JetBrains\PhpStorm\Pure;
