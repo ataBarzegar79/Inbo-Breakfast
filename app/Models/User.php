@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Dtos\LoginRequestDto;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -77,26 +78,6 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
-/*
-    //todo move business logic to service layer
-    //fixme define return type for functions *done
-    public function viewAvatar(): string|UrlGenerator|Application
-    {
-        $url = url($this->avatar);
-        if (str_contains($url, 'default.svg')) {
-            return $url;
-        } else {
-            return asset(Storage::url($this->avatar));
-        }
-    }
-
-    public function countBreakfasts(): int
-    {
-        //fixme define return type for functions *done
-        return $this->breakfasts->whereNull('deleted_at')->count();
-    }
-
-*/
     //fixme define return type for functions *done
     //todo move business logic to service layer
     public function averAgeParticipating(): float
@@ -107,5 +88,11 @@ class User extends Authenticatable
         $diff = $userCreatedAt->diffInDays($now) + 1;
         return round($breakfastCounts / $diff, 3);
     } // todo Ehsan: Delete this
+
+    public function scopeAuth($query, LoginRequestDto $dto)
+    {
+        $query->where('name', '=', $dto->name)
+            ->where('password', '=', $dto->password);
+    }
 
 }
