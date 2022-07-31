@@ -4,18 +4,16 @@ namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastDtoFactory;
-use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\BreakfastStoreRequestDto;
 use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
-use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
+use JetBrains\PhpStorm\ArrayShape;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
 use function resolve;
@@ -79,11 +77,9 @@ class  BreakfastCrudService implements BreakfastService
 
 
     //fixme define return type for functions : Done
+    #[ArrayShape(['users' => "array", "breakfast" => "\App\Dtos\Breakfast\BreakfastUpdateDto"])]
     public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean
     {
-        if (!$breakfast) {
-            return false;
-        }
         $breakfastUsers = $breakfast->users;
         $doers = [];
         foreach ($breakfastUsers as $user) {
@@ -123,10 +119,6 @@ class  BreakfastCrudService implements BreakfastService
 
     public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
     {
-        if (!$breakfast) {
-            return false;
-        }
-
         $breakfast->name = $dto->name;
         $breakfast->description = $dto->description;
         $breakfast->save();

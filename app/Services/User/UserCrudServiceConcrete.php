@@ -7,6 +7,7 @@ use App\Dtos\UserRequestDto;
 use App\Dtos\UserUpdateDtoFactory;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
+use JetBrains\PhpStorm\Pure;
 
 class UserCrudServiceConcrete implements UserService
 {
@@ -54,11 +55,8 @@ class UserCrudServiceConcrete implements UserService
 
 
     //fixme define return type for functions  :Done
-    public function edit(User $user): object|bool
+    #[Pure] public function edit(User $user): object|bool
     {
-        if (!$user) {
-            return false;
-        }
         return UserUpdateDtoFactory::fromModel($user);
     }
 

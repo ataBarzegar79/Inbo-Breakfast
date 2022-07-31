@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use function back;
 use function redirect;
@@ -45,7 +44,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param AuthService $service
      * @return Redirector|Application|RedirectResponse
      */
     public function logout(AuthService $service): Redirector|Application|RedirectResponse

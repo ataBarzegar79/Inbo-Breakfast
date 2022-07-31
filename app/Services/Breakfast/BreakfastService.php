@@ -3,12 +3,9 @@
 namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDto;
-use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\BreakfastStoreRequestDto;
 use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\UserBreakfastDto;
-use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;

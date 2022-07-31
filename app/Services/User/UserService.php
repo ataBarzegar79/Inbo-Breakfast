@@ -4,8 +4,6 @@ namespace App\Services\User;
 
 use App\Dtos\UserDto;
 use App\Dtos\UserRequestDto;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 

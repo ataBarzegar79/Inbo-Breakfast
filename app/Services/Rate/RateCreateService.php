@@ -6,7 +6,6 @@ use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\VoteRequestDto;
-use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Models\Rate;
 use function auth;
