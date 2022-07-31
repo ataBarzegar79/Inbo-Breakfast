@@ -15,25 +15,24 @@ class  RateCreateService implements RateService
 {
 
     //fixme use camelcase for function parameters :Done
-    public function create(int $breakfastId): BreakfastUpdateDto
+    public function create(Breakfast $breakfsatvote): BreakfastUpdateDto
     {
-        $breakfast = Breakfast::find($breakfastId);
-        $breakfastUsers = $breakfast->users;
+        $breakfastUsers = $breakfsatvote->users;
         foreach ($breakfastUsers as $user) {
-            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user);
         }
-        return BreakfastUpdateDtoFactory::fromModel($breakfast , $doers) ;
+        return BreakfastUpdateDtoFactory::fromModel($breakfsatvote, $doers);
     }
 
     //fixme use camelcase for function parameters : Done
-    public function store(VoteRequestDto $dto, int $breakfastId): void
+    public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void
     {
         $user = auth()->user();
         Rate::create([ //todo clean unused variables :Done
             'user_id' => $user->id, // todo Ehsan: change this to Auth::id()
             'rate' => $dto->rate,
             'description' => $dto->description,
-            'breakfast_id' => $breakfastId
+            'breakfast_id' => $breakfsatvote->id,
         ]);
     }
 
