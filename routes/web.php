@@ -28,9 +28,9 @@ Route:: middleware('can:is_admin')->group(
     function () {
         Route::get('/breakfast/create', [BreakfastController::class, 'create'])->name('breakfast.create');
         Route::post('breakfast/save', [BreakfastController::class, 'store'])->name('breakfast.save');
-        Route::delete('breakfast/delete/{id}', [BreakfastController::class, 'destroy'])->name('breakfast.delete');
-        Route::get('breakfast/update/{id}', [BreakfastController::class, 'edit'])->name('breakfast.update');
-        Route::put('breakfasts/update/{id}/edit', [BreakfastController::class, 'update'])->name('breakfast.edit');
+        Route::delete('breakfast/delete/{breakfast}', [BreakfastController::class, 'destroy'])->name('breakfast.delete');
+        Route::get('breakfast/update/{breakfast}', [BreakfastController::class, 'edit'])->name('breakfast.update');
+        Route::put('breakfast/update/{breakfast}/edit', [BreakfastController::class, 'update'])->name('breakfast.edit');
 
         Route::resource('users', UserController::class);
     }

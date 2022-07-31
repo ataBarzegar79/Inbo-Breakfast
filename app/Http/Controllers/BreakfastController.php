@@ -7,6 +7,7 @@ use App\Dtos\BreakfastStoreRequestDtoFactory;
 use App\Dtos\BreakfastUpdateRequestDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
+use App\Models\Breakfast;
 use App\Services\Breakfast\BreakfastService;
 use App\Services\Support\AverageParticipateService;
 use App\Services\User\UserSupportService;
@@ -20,9 +21,9 @@ use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(BreakfastService $service ,  UserSupportService $support): Factory|View|Application
+    public function index(BreakfastService $service, UserSupportService $support): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index() , 'avatar'=>$support->viewAvatar(\Auth::id())]);
+        return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $support->viewAvatar(\Auth::id())]);
     }
 
     public function create(BreakfastService $service, UserSupportService $userSupportService, AverageParticipateService $averageParticipateService): Factory|View|Application
@@ -43,25 +44,25 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function destroy($id, BreakfastService $service): RedirectResponse
+    public function destroy(Breakfast $breakfast, BreakfastService $service): RedirectResponse
     {
-        $service->destroy($id);
+        $service->destroy($breakfast);
         return redirect()->route('dashboard');
     }
 
-    public function edit($breakfastId, BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application|RedirectResponse
+    public function edit(Breakfast $breakfast, BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application|RedirectResponse
     {
-        $editedBreakfast = $service->edit($breakfastId, $userSupportService);
+        $editedBreakfast = $service->edit($breakfast, $userSupportService);
         if ($editedBreakfast === false) {
             return redirect()->route('dashboard');
         }
         return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users'], 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
     }
 
-    public function update(BreakfastUpdateRequest $request, $breakfastId, BreakfastService $service): RedirectResponse
+    public function update(BreakfastUpdateRequest $request, Breakfast $breakfast, BreakfastService $service): RedirectResponse
     {
         $requestData = BreakfastUpdateRequestDtoFactory::fromRequest($request);
-        $service->update($requestData, $breakfastId);
+        $service->update($requestData, $breakfast);
         return redirect()->route('dashboard');
     }
 

@@ -7,6 +7,7 @@ use App\Dtos\UserRequestDto;
 use App\Dtos\UserUpdateDtoFactory;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
+use JetBrains\PhpStorm\Pure;
 
 class UserCrudServiceConcrete implements UserService
 {
@@ -54,17 +55,13 @@ class UserCrudServiceConcrete implements UserService
 
 
     //fixme define return type for functions  :Done
-    public function edit(int $id): object|bool
+    #[Pure] public function edit(User $user): object|bool
     {
-        $user = User::find($id);
-        if (!$user) {
-            return false;
-        }
         return UserUpdateDtoFactory::fromModel($user);
     }
 
     //fixme define return type for functions :Done
-    public function update(UserRequestDto $dto, int $id): void
+    public function update(UserRequestDto $dto, User $user): void
     {
         if ($dto->avatar !== null) {
             $avatarExtension = '.' . $dto->avatar->extension();//fixme use camelcase for variable names :Done
@@ -78,19 +75,17 @@ class UserCrudServiceConcrete implements UserService
             $avatarPath = "img\default.svg";
         }
 
-        $updated_user = User::find($id);
-        $updated_user->name = $dto->name;
-        $updated_user->email = $dto->email;
-        $updated_user->is_admin = $dto->is_admin;
-        $updated_user->avatar = $avatarPath;
+        $user->name = $dto->name;
+        $user->email = $dto->email;
+        $user->is_admin = $dto->is_admin;
+        $user->avatar = $avatarPath;
 
-        $updated_user->save();
+        $user->save();
     }
 
-    public function destroy(int $id): void
+    public function destroy(User $user): void
     {
-        $deletedUser = User::find($id);
-        $deletedUser->delete();
+        $user->delete();
     }
 
     public function standing(BreakfastSupportService $breakfastSupportService): array

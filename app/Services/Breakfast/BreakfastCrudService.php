@@ -4,18 +4,16 @@ namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastDtoFactory;
-use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\BreakfastStoreRequestDto;
 use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
-use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
+use JetBrains\PhpStorm\ArrayShape;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
 use function resolve;
@@ -79,25 +77,22 @@ class  BreakfastCrudService implements BreakfastService
 
 
     //fixme define return type for functions : Done
-    public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean
+    #[ArrayShape(['users' => "array", "breakfast" => "\App\Dtos\Breakfast\BreakfastUpdateDto"])]
+    public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean
     {
-        $breakfast = Breakfast::find($breakfastId);
-        if (!$breakfast) {
-            return false;
-        }
         $breakfastUsers = $breakfast->users;
-        $doers = [] ;
+        $doers = [];
         foreach ($breakfastUsers as $user) {
-            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
-        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast,$doers);
+        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
         return ['users' => $usersDto, "breakfast" => $breakfastDto];
@@ -122,13 +117,8 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function update(BreakfastUpdateRequestDto $dto, int $breakfastId): bool
+    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
     {
-        $breakfast = Breakfast::find($breakfastId);
-        if (!$breakfast) {
-            return false;
-        }
-
         $breakfast->name = $dto->name;
         $breakfast->description = $dto->description;
         $breakfast->save();
@@ -139,9 +129,8 @@ class  BreakfastCrudService implements BreakfastService
     }
 
     //fixme use camelcase for function parameters : Done
-    public function destroy(int $breakfastId): void
+    public function destroy(Breakfast $breakfast): void
     {
-        $deletedBreakfast = Breakfast::find($breakfastId);//fixme use camelcase for variable names : Done
-        $deletedBreakfast->delete();
+        $breakfast->delete();
     }
 }
