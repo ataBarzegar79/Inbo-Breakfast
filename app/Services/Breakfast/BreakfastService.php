@@ -9,6 +9,7 @@ use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
+use App\Models\Breakfast;
 use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
 
@@ -28,12 +29,13 @@ interface BreakfastService
     public function create(UserSupportService $userSupportService): array;
 
     /**
-     * @param int $breakfastId
+     * @param Breakfast $breakfast
+     * @param UserSupportService $userSupportService
      * @return array|boolean array => [UsersDto[] , BreakfastDto]
      */
     //fixme update documents according to functions *done
     //fixme use camelcase for function parameters *done
-    public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean;
+    public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean;
 
     /**
      * @param BreakfastStoreRequestDto $dto
@@ -43,17 +45,17 @@ interface BreakfastService
 
     /**
      * @param BreakfastUpdateRequestDto $dto
-     * @param int $breakfastId
+     * @param Breakfast $breakfast
      * @return bool => true: update is complete  false: breakfast not found !
      */
     //fixme update documents according to functions :Done
     //fixme use camelcase for function parameters :Done
-    public function update(BreakfastUpdateRequestDto $dto, int $breakfastId): bool;
+    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool;
 
     /**
-     * @param int $breakfastId
+     * @param Breakfast $breakfast
      */
     //fixme use camelcase for function parameters :Done
-    public function destroy(int $breakfastId): void;
+    public function destroy(Breakfast $breakfast): void;
 
 }

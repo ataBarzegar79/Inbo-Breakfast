@@ -79,25 +79,24 @@ class  BreakfastCrudService implements BreakfastService
 
 
     //fixme define return type for functions : Done
-    public function edit(int $breakfastId, UserSupportService $userSupportService): array|boolean
+    public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean
     {
-        $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
             return false;
         }
         $breakfastUsers = $breakfast->users;
-        $doers = [] ;
+        $doers = [];
         foreach ($breakfastUsers as $user) {
-            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
-        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast,$doers);
+        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
         return ['users' => $usersDto, "breakfast" => $breakfastDto];
@@ -122,9 +121,8 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function update(BreakfastUpdateRequestDto $dto, int $breakfastId): bool
+    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
     {
-        $breakfast = Breakfast::find($breakfastId);
         if (!$breakfast) {
             return false;
         }
@@ -139,9 +137,8 @@ class  BreakfastCrudService implements BreakfastService
     }
 
     //fixme use camelcase for function parameters : Done
-    public function destroy(int $breakfastId): void
+    public function destroy(Breakfast $breakfast): void
     {
-        $deletedBreakfast = Breakfast::find($breakfastId);//fixme use camelcase for variable names : Done
-        $deletedBreakfast->delete();
+        $breakfast->delete();
     }
 }
