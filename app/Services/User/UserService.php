@@ -6,6 +6,7 @@ use App\Dtos\UserDto;
 use App\Dtos\UserRequestDto;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 
 interface UserService
@@ -23,23 +24,23 @@ interface UserService
     public function store(UserRequestDto $dto): void;
 
     /**
-     * @param int $id
+     * @param User $user
      * @return UserDto|bool
      */
-    public function edit(int $id): object|bool;
+    public function edit(User $user): object|bool;
 
     /**
      * @param UserRequestDto $dto
-     * @param int $id
+     * @param User $user
      * @return void
      */
-    public function update(UserRequestDto $dto, int $id): void;
+    public function update(UserRequestDto $dto, User $user): void;
 
     /**
-     * @param int $id
+     * @param User $user
      * @return void
      */
-    public function destroy(int $id): void;
+    public function destroy(User $user): void;
 
 
     /**

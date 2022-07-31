@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\UserRequestDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 use App\Services\User\UserService;
 use App\Services\User\UsersParticipateAverageService;
@@ -34,9 +35,9 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function edit(int $id, UserService $service, UserSupportService $userSupport): Factory|View|Application|RedirectResponse
+    public function edit(User $user, UserService $service, UserSupportService $userSupport): Factory|View|Application|RedirectResponse
     {
-        $updateUser = $service->edit($id);
+        $updateUser = $service->edit($user);
         //fixme use camelcase for variable names *done
         if ($updateUser === false) {
             return redirect()->route('dashboard');
@@ -45,18 +46,18 @@ class UserController extends Controller
     }
 
     //fixme define return type for functions *done
-    public function update(UserService $service, UpdateUserRequest $request, int $id): RedirectResponse
+    public function update(UserService $service, UpdateUserRequest $request, User $user): RedirectResponse
     {
         $userDto = UserRequestDtoFactory::fromRequest($request);
-        $service->update($userDto, $id);
+        $service->update($userDto, $user);
         return redirect()->route('dashboard');//fixme use route method for paths *done
         //todo use consistent spacings *done
     }
 
     //fixme define return type for functions *done
-    public function destroy($id, UserService $service): RedirectResponse
+    public function destroy(User $user, UserService $service): RedirectResponse
     {
-        $service->destroy($id);
+        $service->destroy($user);
         return redirect()->route('dashboard');//fixme use route method for paths *done
     }
 
