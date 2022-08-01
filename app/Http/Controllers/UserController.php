@@ -10,7 +10,7 @@ use App\Services\Breakfast\BreakfastSupportService;
 use App\Services\User\UserService;
 use App\Services\User\UsersParticipateAverageService;
 use App\Services\User\UserSupportService;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

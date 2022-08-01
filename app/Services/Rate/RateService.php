@@ -16,11 +16,11 @@ interface  RateService
     public function create(Breakfast $breakfsatvote): BreakfastUpdateDto;
 
     /**
-     * @param VoteRequestDto $request
+     * @param VoteRequestDto $dto
      * @param Breakfast $breakfsatvote
      * @return void
      */
     //fixme use camelcase for function parameters:Done
-    public function store(VoteRequestDto $request, Breakfast $breakfsatvote): void;
+    public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void;
 
 }
