@@ -2,6 +2,8 @@
 
 namespace App\Services\User;
 
+use App\Dtos\Pagination\Pagination;
+use App\Dtos\Pagination\UserPaginationDto;
 use App\Dtos\UserDtoFactory;
 use App\Dtos\UserUpdateDtoFactory;
 use App\Http\Requests\StoreUserRequest;
@@ -11,9 +13,9 @@ use App\Services\Breakfast\BreakfastSupportService;
 
 class UserCrudServiceConcrete implements UserService
 {
-    public function index(BreakfastSupportService $breakfastSupportService): array
+    public function index(BreakfastSupportService $breakfastSupportService): Pagination
     {
-        $users = User::all();
+        $users = User::paginate(10);
         $userDtos = [];
 
         $userSupport = resolve(UserSupportService::class);
@@ -26,7 +28,7 @@ class UserCrudServiceConcrete implements UserService
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
 
-        return $userDtos;
+        return UserPaginationDto::fromModelPaginatorAndData($users,$userDtos);
     }
 
     public function store(StoreUserRequest $request): void

@@ -19,9 +19,9 @@ use function view;
 
 class UserController extends Controller
 {
-    public function index(UserService $service, BreakfastSupportService $breakfastSupportService ,UserSupportService $userSupport): Factory|View|Application
+    public function index(UserService $service, BreakfastSupportService $breakfastSupportService, UserSupportService $userSupport): Factory|View|Application
     {
-        return view('users', ['users' => $service->index($breakfastSupportService) , 'avatar'=>$userSupport->viewAvatar(\Auth::id())]);
+        return view('users', ['users' => $service->index($breakfastSupportService), 'avatar' => $userSupport->viewAvatar(\Auth::id())]);
     }
 
     //fixme define return type for functions *done
@@ -54,14 +54,14 @@ class UserController extends Controller
     public function destroy($id, UserService $service): RedirectResponse
     {
         $service->destroy($id);
-        return redirect()->route('dashboard');//fixme use route method for paths *done
+        return redirect()->route('dashboard');
     }
 
-    //fixme define return type for functions *done
+
     public function standings(UserService $service, BreakfastSupportService $breakfastSupportService, UsersParticipateAverageService $usersParticipateAverageService, UserSupportService $userSupport): Factory|View|Application
     {
-        //todo remove unused codes *done
-        return view('standings', ['users' => $service->index($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar'=>$userSupport->viewAvatar(\Auth::id())]);
+
+        return view('standings', ['users' => $service->index($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar' => $userSupport->viewAvatar(\Auth::id())]);
     }
 
 }
