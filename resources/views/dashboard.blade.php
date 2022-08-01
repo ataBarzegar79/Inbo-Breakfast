@@ -9,7 +9,7 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                <tr>
+                <tr style="text-align: center">
                     <th>Name</th>
                     <th>Description</th>
                     <th>Date of Operation</th>
@@ -27,23 +27,24 @@
                 <tr>
                 @foreach($breakfasts->data as $breakfast)
 
-                    <td>{{$breakfast->name}}</td>
-                    <td>{{$breakfast->description}}</td>
-                    <td>{{$breakfast->createdAt}}</td>
-                    <td>@foreach($breakfast->users as $user)
+                    <td style="text-align: center">{{$breakfast->name}}</td>
+                    <td style="text-align: center">{{$breakfast->description}}</td>
+                    <td style="text-align: center">{{$breakfast->createdAt}}</td>
+                    <td style="text-align: center">
+                        @foreach($breakfast->users as $user)
                         {{$user->name}} @if($user === end($breakfast->users)) @else | @endif
                         @endforeach
                     </td>
 
-                    <td>{{$breakfast->averageRate}}</td>
-                    <td>
+                    <td style="text-align: center">{{$breakfast->averageRate}}</td>
+                    <td style="text-align: center">
                         @if( $breakfast->userRate !== null )
                             {{$breakfast->userRate->rate}}
                         @else
                             <p> Vote! From This  <a href='{{route('breakfsatvotes.vote.create', $breakfast->id )}}'>Link</a> .</p>
                         @endif
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         @if($breakfast->userRate !== null)
                             {{$breakfast->userRate->description}}
                         @endif
