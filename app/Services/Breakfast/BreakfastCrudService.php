@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
 use JetBrains\PhpStorm\ArrayShape;
+use Illuminate\Pagination\Paginator;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
 use function resolve;
@@ -25,6 +26,25 @@ class  BreakfastCrudService implements BreakfastService
 
     public function index(): array
     {
+//        $user = auth()->user();
+//        $breakfasts = Breakfast::paginate(3);
+//
+//        $breakfastDtos = [];
+//        $breakfasts->items()->each(function ($breakfast) use($user, $breakfastDtos) {
+//            $rates = $breakfast->rates
+//                ->filter(function ($rate) use ($user) {
+//                    return $rate->user->id === $user->id;
+//                })
+//                ->map(fn($rate) => RateDtoFactory::fromModel($rate));
+//            $doers = $breakfast->users->map(fn($user) => BreakfastDtoDoerFactory::fromModel($user))->toArray();
+//            $userRate = null;
+//            $persianCreatedAt = resolve(JalaliService::class)->toPersian($breakfast->created_at);
+//            $breakfastSupport = resolve(BreakfastSupportService::class);
+//            $breakfastAverage = $breakfastSupport->averageRate($breakfast);
+//
+//            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianCreatedAt, $breakfastAverage, $doers, $userRate);
+//        });
+
         $user = auth()->user();
         $breakfasts = Breakfast::all();
         $breakfastDtos = [];
@@ -50,8 +70,7 @@ class  BreakfastCrudService implements BreakfastService
             }
             $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers, $userRate);
         }
-
-        return $breakfastDtos;
+        return BreakfastPaginationDto::fromModelPaginatorAndData($breakfasts, $breakfastDtos);
     }
 
 

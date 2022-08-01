@@ -11,7 +11,8 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "morilog/jalali": "3.*"
+        "morilog/jalali": "3.*",
+        "spatie/data-transfer-object": "^3.8"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
