@@ -6,15 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-
-//todo document model parameters *done: anyway needs checking
 
 /**
  * @method static find(int $breakfast_id)
  * @method static create(array $array)
+ * @method static paginate(int $int)
  * @property mixed $rates
  * @property mixed $users
  * @property mixed $created_at
@@ -25,9 +22,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Breakfast extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'breakfasts';
 
-    //todo table name is redundant *done: deleted protected $table = 'breakfasts';
+    protected $table = 'breakfasts'; // fixme data base names must be according to psr principles
+
     protected $fillable = [
         'name',
         'description',
@@ -35,19 +32,14 @@ class Breakfast extends Model
         'user_id'
     ];
 
-    //fixme define return type for functions *done
     public function rates(): HasMany
     {
         return $this->hasMany(Rate::class);
     }
 
-    //fixme define return type for functions *done
-    //fixme: pay attention to indentations *done
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTrashed();
     }
-
-
 
 }

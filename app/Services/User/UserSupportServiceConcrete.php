@@ -16,9 +16,6 @@ use function url;
 
 class UserSupportServiceConcrete implements UserSupportService
 {
-    //fixme define return type for functions *done
-    //todo move business logic to service layer
-    //fixme use dtos instead of maps for data transferring
     public function performance(int $userId): float|string
     {
         $breakfastsDone = User::find($userId)->breakfasts;

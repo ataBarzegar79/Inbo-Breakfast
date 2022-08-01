@@ -1,7 +1,7 @@
 @extends('layout.form')
 
 @section('form-subject')
-    Create New User !
+    Create New User!
 @endsection
 @section('form')
 
@@ -17,7 +17,7 @@
                    name="name"
                    value="{{old('name')}}"
                    aria-describedby="emailHelp"
-                   placeholder="Enter Username...">
+                   placeholder="Enter Username">
         </div>
         @error('name')
         <p style="color: red">
@@ -109,7 +109,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
+                    <tr style="text-align: center">
                         <th>Name</th>
                         <th>Email</th>
                         <th>Creation Time</th>
@@ -124,13 +124,16 @@
                     <tr>
                         @foreach($users->data as $user)
 
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->createdAt}}</td>
-                            <td>{{$user->isAdmin}}</td>
-                            <td style="background-color: {{$user->color}}">{{$user->rate}}</td>
-                            <td><img class=" center img-profile rounded-circle " width="60" height="60"
-                                     src={{$user->avatar}} alt=""></td>
+                            <td style="text-align: center">{{$user->name}}</td>
+                            <td style="text-align: center">{{$user->email}}</td>
+                            <td style="text-align: center">{{$user->createdAt}}</td>
+                            <td style="text-align: center">{{$user->isAdmin}}</td>
+                            <td style="background-color: {{$user->color}}; text-align: center; color: black">{{$user->rate}}</td>
+                            <td style="text-align: center">
+                                <img class=" center img-profile rounded-circle " width="60"
+                                     height="60"
+                                     src={{$user->avatar}} alt="">
+                            </td>
 
                             <td>
                                 <div>

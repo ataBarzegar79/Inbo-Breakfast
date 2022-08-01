@@ -1,7 +1,7 @@
 @extends('layout.form')
 
 @section('form-subject')
-    Vote !
+    Vote!
 @endsection
 
 @section('form')
@@ -39,7 +39,7 @@
                        name="rate"
                        value="{{old('rate')}}"
                        aria-describedby="emailHelp"
-                       placeholder="Enter your Rate.. ">
+                       placeholder="Enter your Rate">
             </div>
             @error('rate')
             <p style="color: red">
@@ -55,7 +55,7 @@
                         name="description"
                         value="{{old('description')}}"
                         aria-describedby="emailHelp"
-                        placeholder="Enter your Description "></textarea>
+                        placeholder="Enter your Description"></textarea>
             </div>
             @error('description')
                 <p style="color: red">

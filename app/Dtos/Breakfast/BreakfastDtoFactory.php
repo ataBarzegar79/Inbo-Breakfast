@@ -4,12 +4,12 @@ namespace App\Dtos\Breakfast;
 
 use App\Dtos\Rate\RateDto;
 use App\Models\Breakfast;
+use JetBrains\PhpStorm\Pure;
 
 
 class BreakfastDtoFactory
 {
-    //todo use static methods in dto facilities *done
-    public static function fromModel(
+    #[Pure] public static function fromModel(
         Breakfast    $breakfast,
         string       $persianCreatedAt,
         string|float $averageRate,
@@ -27,7 +27,7 @@ class BreakfastDtoFactory
             $rateDto
         );
 
-
+// todo delete commented code
 //        $jalaliService = resolve(JalaliService::class, [$model->created_at]);
 //        $createdAt = $jalaliService->toPersian();
 //

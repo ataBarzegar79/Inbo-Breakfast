@@ -7,7 +7,7 @@ class BreakfastStoreRequestDto
     public function __construct(
         public string $name,
         public string $description,
-        public string $date, // fixme date datatype
+        public string $date,
         public array  $users
     )
     {

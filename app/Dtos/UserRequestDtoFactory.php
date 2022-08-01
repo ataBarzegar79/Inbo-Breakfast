@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\Pure;
 
 class UserRequestDtoFactory
 {
-    #[Pure] public static function fromRequest(StoreUserRequest|UpdateUserRequest  $request): UserRequestDto
+    #[Pure] public static function fromRequest(StoreUserRequest|UpdateUserRequest $request): UserRequestDto
     {
         return new UserRequestDto(
             $request->name,

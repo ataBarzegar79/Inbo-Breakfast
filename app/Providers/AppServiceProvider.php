@@ -19,7 +19,6 @@ use App\Services\Support\JalaliServiceConcrete;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -64,7 +63,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BreakfastSupportService::class, function () {
             return new BreakfastSupportServiceConcrete();
         });
-        $this->app->singleton(AverageParticipateService::class , AverageParticipateServiceConcrete::class);
+        $this->app->singleton(AverageParticipateService::class, AverageParticipateServiceConcrete::class);
     }
 
 

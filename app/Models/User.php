@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
+use App\Dtos\LoginRequestDto;
 use Carbon\Carbon;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
-use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
-
-//todo document model parameters *done: anyway needs checking
 
 /**
  * @property mixed $is_admin
@@ -28,12 +23,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property mixed $password
  * @method static find(int $id)
  * @method static create(array $array)
+ * @method static auth(LoginRequestDto $dto)
+ * @method static where(string $string, int $userId)
  */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $table = 'users';
+    protected $table = 'users'; // fixme data base names must be according to psr principles
     /**
      * The attributes that are mass assignable.
      *
@@ -67,38 +64,14 @@ class User extends Authenticatable
 
     public function breakfasts(): BelongsToMany
     {
-        //fixme define return type for functions *done
         return $this->belongsToMany(Breakfast::class)->withTrashed();
     }
 
     public function rates(): HasMany
     {
-        //fixme define return type for functions *done
         return $this->hasMany(Rate::class);
     }
 
-/*
-    //todo move business logic to service layer
-    //fixme define return type for functions *done
-    public function viewAvatar(): string|UrlGenerator|Application
-    {
-        $url = url($this->avatar);
-        if (str_contains($url, 'default.svg')) {
-            return $url;
-        } else {
-            return asset(Storage::url($this->avatar));
-        }
-    }
-
-    public function countBreakfasts(): int
-    {
-        //fixme define return type for functions *done
-        return $this->breakfasts->whereNull('deleted_at')->count();
-    }
-
-*/
-    //fixme define return type for functions *done
-    //todo move business logic to service layer
     public function averAgeParticipating(): float
     {
         $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();
@@ -107,5 +80,11 @@ class User extends Authenticatable
         $diff = $userCreatedAt->diffInDays($now) + 1;
         return round($breakfastCounts / $diff, 3);
     } // todo Ehsan: Delete this
+
+    public function scopeAuth($query, LoginRequestDto $dto)
+    {
+        $query->where('name', '=', $dto->name)
+            ->where('password', '=', $dto->password);
+    }
 
 }

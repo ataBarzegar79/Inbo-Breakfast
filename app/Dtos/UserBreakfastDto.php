@@ -2,8 +2,6 @@
 
 namespace App\Dtos;
 
-//fixme cleanup unused imports *done
-
 class UserBreakfastDto
 {
     /**
@@ -14,7 +12,7 @@ class UserBreakfastDto
     public function __construct(
         public int    $id,
         public string $name,
-        public ?float  $average,
+        public ?float $average,
     )
     {
     }

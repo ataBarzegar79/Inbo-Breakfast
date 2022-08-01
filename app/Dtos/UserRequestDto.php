@@ -7,11 +7,11 @@ use Illuminate\Http\UploadedFile;
 class UserRequestDto
 {
     public function __construct(
-        public string $name,
-        public string $email,
-        public string $password,
+        public string       $name,
+        public string       $email,
+        public string       $password,
         public UploadedFile $avatar,
-        public string $is_admin,
+        public string       $is_admin,
     )
     {
     }

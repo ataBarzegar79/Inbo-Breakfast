@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Dtos\BreakfastStoreRequestDtoFactory;
+use App\Dtos\BreakfastUpdateRequestDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
@@ -22,7 +24,7 @@ class BreakfastController extends Controller
 {
     public function index(BreakfastService $service, UserSupportService $support): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $support->viewAvatar(\Auth::id())]);
+        return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $support->viewAvatar(Auth::id())]);
     }
 
     public function create(BreakfastService $service, UserSupportService $userSupportService, UsersParticipateAverageService $averageParticipateService): Factory|View|Application
