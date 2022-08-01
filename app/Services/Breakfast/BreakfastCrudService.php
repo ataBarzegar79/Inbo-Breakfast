@@ -15,6 +15,7 @@ use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
+use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\ArrayShape;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
@@ -47,7 +48,7 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::orderby('created_at','desc')->paginate(3);
+        $breakfasts = Breakfast::ordering()->paginate(3);
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
             $doers = [];

@@ -73,14 +73,14 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
-    public function averAgeParticipating(): float
+/*    public function averAgeParticipating(): float
     {
         $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();
         $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $this->created_at);
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;
         return round($breakfastCounts / $diff, 3);
-    } // todo Ehsan: Delete this
+    } // todo Ehsan: Delete this*/
 
     public function scopeAuth($query, LoginRequestDto $dto)
     {
