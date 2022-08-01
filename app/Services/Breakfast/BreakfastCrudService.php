@@ -95,8 +95,6 @@ class  BreakfastCrudService implements BreakfastService
         return $usersDto;
     }
 
-
-    //fixme define return type for functions : Done
     #[ArrayShape(['users' => "array", "breakfast" => "\App\Dtos\Breakfast\BreakfastUpdateDto"])]
     public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean
     {
@@ -137,7 +135,7 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function update(BreakfastUpdateRequestDto $dto , Breakfast $breakfast): bool
+    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
     {
         $breakfast->name = $dto->name;
         $breakfast->description = $dto->description;
@@ -148,7 +146,6 @@ class  BreakfastCrudService implements BreakfastService
 
     }
 
-    //fixme use camelcase for function parameters : Done
     public function destroy(Breakfast $breakfast): void
     {
         $breakfast->delete();
