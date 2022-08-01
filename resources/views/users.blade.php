@@ -1,7 +1,7 @@
 @extends('layout.form')
 
 @section('form-subject')
-    Create New User !
+    Create New User!
 @endsection
 @section('form')
 
@@ -128,14 +128,14 @@
                             <td style="text-align: center">{{$user->email}}</td>
                             <td style="text-align: center">{{$user->createdAt}}</td>
                             <td style="text-align: center">{{$user->isAdmin}}</td>
-                            <td style="background-color: {{$user->color}}; text-align: center">{{$user->rate}}</td>
+                            <td style="background-color: {{$user->color}}; text-align: center; color: black">{{$user->rate}}</td>
                             <td style="text-align: center">
                                 <img class=" center img-profile rounded-circle " width="60"
                                      height="60"
                                      src={{$user->avatar}} alt="">
                             </td>
 
-                            <td style="text-align: center">
+                            <td>
                                 <div>
                                     <form method="POST" action="{{route('users.destroy' , $user->id)}}">
 
