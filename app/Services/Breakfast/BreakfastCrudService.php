@@ -7,6 +7,7 @@ use App\Dtos\Breakfast\BreakfastDtoFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\BreakfastStoreRequestDto;
 use App\Dtos\BreakfastUpdateRequestDto;
+use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
@@ -24,7 +25,7 @@ class  BreakfastCrudService implements BreakfastService
 {
 
 
-    public function index(): array
+    public function index(): Pagination
     {
 //        $user = auth()->user();
 //        $breakfasts = Breakfast::paginate(3);
