@@ -78,7 +78,11 @@
 </div>
 <span>
 </span>
-<div >
+<div>
+    <ul class="-pager">
+        <li class="previous"><a @if($breakfasts->links->prev)href="{{$breakfasts->links ->prev}}" @endif>Previous</a></li>
+        <li class="next"><a @if($breakfasts->links->next)href="{{$breakfasts->links->next}}" @endif>Next</a></li>
+    </ul>
 </div>
 
 @endsection

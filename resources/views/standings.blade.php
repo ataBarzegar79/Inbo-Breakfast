@@ -27,7 +27,7 @@
                         @php
                         $counter = 0 ;
                         @endphp
-                        @foreach($users as $user)
+                        @foreach($users->data as $user)
                             <td>{{$counter+=1}}</td>
                             <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user->avatar}} alt=""> </td>
                             <td>{{$user->name}}</td>
@@ -46,6 +46,12 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div>
+        <ul class="-pager">
+            <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
+            <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
+        </ul>
     </div>
 
 @endsection
