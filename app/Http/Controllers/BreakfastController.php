@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
+use App\Models\Breakfast;
 use App\Services\Breakfast\BreakfastService;
 use App\Services\Support\AverageParticipateService;
+use App\Services\User\UsersParticipateAverageService;
 use App\Services\User\UserSupportService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,13 +25,13 @@ class BreakfastController extends Controller
         return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $support->viewAvatar(\Auth::id())]);
     }
 
-    public function create(BreakfastService $service, UserSupportService $userSupportService, AverageParticipateService $averageParticipateService): Factory|View|Application
+    public function create(BreakfastService $service, UserSupportService $userSupportService, UsersParticipateAverageService $averageParticipateService): Factory|View|Application
     {
         return view('breakfast-create',
             [
                 'users' => $service->create($userSupportService),
                 'avatar' => $userSupportService->viewAvatar(Auth::id()),
-                'averageParticipate' => $averageParticipateService->averageParticipate()
+                'averageParticipate' => $averageParticipateService->participateAverage()
             ]
         );
     }

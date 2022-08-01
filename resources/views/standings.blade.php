@@ -5,7 +5,8 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Inbo Breakfast Standings  !  ({{ $usersAverage * 10 }}) average participating)</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Inbo Breakfast Standings ! ({{ $usersAverage * 10 }}) average
+                participating</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -17,7 +18,7 @@
                         <th>Name</th>
                         <th>Joind From :</th>
                         <th>Performance</th>
-                        <th>Has Role </th>
+                        <th>Has Role</th>
                         <th>Avarage Participation</th>
                     </tr>
                     </thead>
@@ -25,20 +26,24 @@
                     <tbody>
                     <tr>
                         @php
-                        $counter = 0 ;
+                            $counter = 0 ;
                         @endphp
                         @foreach($users->data as $user)
                             <td>{{$counter+=1}}</td>
-                            <td> <img class= " center img-profile rounded-circle " width="60" height="60" src = {{$user->avatar}} alt=""> </td>
+                            <td><img class=" center img-profile rounded-circle " width="60" height="60"
+                                     src={{$user->avatar}} alt=""></td>
                             <td>{{$user->name}}</td>
                             <td class="text-center">{{$user->createdAt}}</td>
-                            <td class="text-center" style="background-color: {{-- $user->color --}}">{{$user->rate}}</td>
-                            <td> <span class="font-weight-bolder" >{{$user->countBreakfast}}</span>  breakfasts</td>
+                            <td class="text-center"
+                                style="background-color: {{-- $user->color --}}">{{$user->rate}}</td>
+                            <td><span class="font-weight-bolder">{{$user->countBreakfast}}</span> breakfasts</td>
 
                             @if($user->averageParticipating > $usersAverage)
-                                <td class="alert-success text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span></td>
+                                <td class="alert-success text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span>
+                                </td>
                             @else
-                                <td class="alert-danger text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span></td>
+                                <td class="alert-danger text-center"><span class="font-weight-bold">{{$user->averageParticipating*10 }} XP</span>
+                                </td>
                             @endif
                     </tr>
                     @endforeach
@@ -47,11 +52,16 @@
             </div>
         </div>
     </div>
-    <div>
-        <ul class="-pager">
-            <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
-            <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
-        </ul>
-    </div>
+    @if(!$users->links->prev && !$users->links->next)
+    @else
+        <div>
+
+            <ul class="-pager">
+                <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
+                <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
+            </ul>
+
+        </div>
+    @endif
 
 @endsection
