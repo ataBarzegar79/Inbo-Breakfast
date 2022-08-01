@@ -25,6 +25,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static create(array $array)
  * @method static auth(LoginRequestDto $dto)
  * @method static where(string $string, int $userId)
+ * @method static paginate(int $int)
  */
 class User extends Authenticatable
 {

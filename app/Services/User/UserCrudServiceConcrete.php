@@ -28,22 +28,13 @@ class UserCrudServiceConcrete implements UserService
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
 
-        return UserPaginationDto::fromModelPaginatorAndData($users,$userDtos);
+        return UserPaginationDto::fromModelPaginatorAndData($users, $userDtos);
     }
 
     public function store(UserRequestDto $dto): void
     {
-        if ($dto->avatar !== null) {
-            $avatarExtension = '.' . $dto->avatar->extension();
-            $emailPath = $dto->email;//fixme use camelcase for variable names   :Done
-            $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
-            $avatarStorageAddress = $emailPath . $avatarExtension;
-            $dto->avatar->storeAs(
-                'avatars', $avatarStorageAddress, 'public'
-            );
-        } else {
-            $avatarPath = "img\default.svg";
-        }
+
+        $avatarPath = $this->storeAvatar($dto);
 
         $newUser = User::create([
             'name' => $dto->name,
@@ -65,17 +56,8 @@ class UserCrudServiceConcrete implements UserService
     //fixme define return type for functions :Done
     public function update(UserRequestDto $dto, User $user): void
     {
-        if ($dto->avatar !== null) {
-            $avatarExtension = '.' . $dto->avatar->extension();//fixme use camelcase for variable names :Done
-            $emailPath = $dto->email;
-            $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
-            $avatarStorageAddress = $emailPath . $avatarExtension;
-            $dto->avatar->storeAs(
-                'avatars', $avatarStorageAddress, 'public'
-            );
-        } else {
-            $avatarPath = "img\default.svg";
-        }
+
+        $avatarPath = $this->storeAvatar($dto);
 
         $user->name = $dto->name;
         $user->email = $dto->email;
@@ -90,21 +72,21 @@ class UserCrudServiceConcrete implements UserService
         $user->delete();
     }
 
-    public function standing(BreakfastSupportService $breakfastSupportService): array
+    public function storeAvatar(UserRequestDto $dto): string
     {
-        $users = User::all();
-
-        $userSupport = resolve(UserSupportService::class);
-        foreach ($users as $user) {
-            $viewAvatar = $userSupport->viewAvatar($user->id);
-            $performance = $userSupport->performance($user->id);
-            $performanceColor = $userSupport->performanceColor($user->id, $performance);
-            $averAgeParticipating = $userSupport->averAgeParticipating($user->id);
-            $countBreakfasts = $userSupport->countBreakfasts($user->id);
-            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
+        if ($dto->avatar !== null) {
+            $avatarExtension = '.' . $dto->avatar->extension();//fixme use camelcase for variable names :Done
+            $emailPath = $dto->email;
+            $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
+            $avatarStorageAddress = $emailPath . $avatarExtension;
+            $dto->avatar->storeAs(
+                'avatars', $avatarStorageAddress, 'public'
+            );
+        } else {
+            $avatarPath = "img\default.jpg";
         }
-        rsort($userDtos);
-        return $userDtos;
+
+        return $avatarPath;
     }
 
 }

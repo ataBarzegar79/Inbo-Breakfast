@@ -10,7 +10,7 @@ class UserRequestDto
         public string       $name,
         public string       $email,
         public string       $password,
-        public UploadedFile $avatar,
+        public ?UploadedFile $avatar,
         public string       $is_admin,
     )
     {

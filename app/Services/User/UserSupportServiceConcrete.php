@@ -61,7 +61,7 @@ class UserSupportServiceConcrete implements UserSupportService
     {
         $user = User::find($userId);
         $url = url($user->avatar);
-        if (\str_contains($url, 'default.svg')) {
+        if (\str_contains($url, 'default.jpg')) {
             return $url;
         } else {
             return asset(Storage::url($user->avatar));
