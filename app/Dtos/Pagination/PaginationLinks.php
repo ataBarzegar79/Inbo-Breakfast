@@ -3,9 +3,10 @@
 namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Spatie\DataTransferObject\DataTransferObject;
 
 
-class PaginationLinks
+class PaginationLinks extends DataTransferObject
 {
     public string $first;
     public string $last;
