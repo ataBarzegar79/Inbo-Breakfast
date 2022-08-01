@@ -81,7 +81,7 @@ class  BreakfastCrudService implements BreakfastService
         $usersDto = [];
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            $averAgeParticipating = $userSupportService->userAverAgeParticipating($user->id);
             $userDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
@@ -137,7 +137,7 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function update(BreakfastUpdateRequestDto $dto , Breakfast $breakfast): bool
+    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
     {
         $breakfast->name = $dto->name;
         $breakfast->description = $dto->description;
