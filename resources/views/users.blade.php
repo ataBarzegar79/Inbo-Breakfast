@@ -122,7 +122,7 @@
 
                     <tbody>
                     <tr>
-                        @foreach($users as $user)
+                        @foreach($users->data as $user)
 
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
@@ -159,6 +159,11 @@
             </div>
         </div>
     </div>
-
+    <div>
+        <ul class="-pager">
+            <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
+            <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
+        </ul>
+    </div>
 
 @endsection
