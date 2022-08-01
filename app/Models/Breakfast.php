@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static find(int $breakfast_id)
  * @method static create(array $array)
+ * @method static paginate(int $int)
  * @property mixed $rates
  * @property mixed $users
  * @property mixed $created_at
