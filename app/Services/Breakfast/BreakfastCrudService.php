@@ -47,7 +47,7 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::paginate(3);
+        $breakfasts = Breakfast::orderby('created_at','desc')->paginate(3);
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
             $doers = [];
@@ -77,11 +77,11 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        $users = User::all();
-        $usersDto = [];
+        $users = User::select('id', 'name')->get();
+
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
+            $averAgeParticipating = $userSupportService->userAverAgeParticipating($user->id);
             $userDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
@@ -106,8 +106,7 @@ class  BreakfastCrudService implements BreakfastService
 
         $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
-        $users = User::all();
-        $usersDto = [];
+        $users = User::select('id', 'name')->get();
 
         foreach ($users as $user) {
             $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);

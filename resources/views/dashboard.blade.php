@@ -9,7 +9,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr style="text-align: center">
+                    <tr>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Date of Operation</th>
@@ -27,17 +27,16 @@
                     <tr>
                         @foreach($breakfasts->data as $breakfast)
 
-                            <td style="text-align: center">{{$breakfast->name}}</td>
-                            <td style="text-align: center">{{$breakfast->description}}</td>
-                            <td style="text-align: center">{{$breakfast->createdAt}}</td>
-                            <td style="text-align: center">
-                                @foreach($breakfast->users as $user)
+                            <td>{{$breakfast->name}}</td>
+                            <td>{{$breakfast->description}}</td>
+                            <td>{{$breakfast->createdAt}}</td>
+                            <td>@foreach($breakfast->users as $user)
                                     {{$user->name}} @if($user === end($breakfast->users)) @else | @endif
                                 @endforeach
                             </td>
 
-                            <td style="text-align: center">{{$breakfast->averageRate}}</td>
-                            <td style="text-align: center">
+                            <td>{{$breakfast->averageRate}}</td>
+                            <td>
                                 @if( $breakfast->userRate !== null )
                                     {{$breakfast->userRate->rate}}
                                 @else
@@ -46,7 +45,7 @@
                                     </p>
                                 @endif
                             </td>
-                            <td style="text-align: center">
+                            <td>
                                 @if($breakfast->userRate !== null)
                                     {{$breakfast->userRate->description}}
                                 @endif
@@ -81,14 +80,16 @@
             </div>
         </div>
     </div>
-    <span>
-</span>
-    <div>
-        <ul class="-pager">
-            <li class="previous"><a
-                    @if($breakfasts->links->prev)href="{{$breakfasts->links ->prev}}" @endif>Previous</a></li>
-            <li class="next"><a @if($breakfasts->links->next)href="{{$breakfasts->links->next}}" @endif>Next</a></li>
-        </ul>
-    </div>
 
+    @if(!$breakfasts->links->prev && !$breakfasts->links->next)
+    @else
+        <div>
+            <ul class="-pager">
+                <li class="previous"><a @if($breakfasts->links->prev)href="{{$breakfasts->links ->prev}}" @endif>Previous</a>
+                </li>
+                <li class="next"><a @if($breakfasts->links->next)href="{{$breakfasts->links->next}}" @endif>Next</a>
+                </li>
+            </ul>
+        </div>
+    @endif
 @endsection

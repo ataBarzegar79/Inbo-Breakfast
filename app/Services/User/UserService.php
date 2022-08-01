@@ -41,4 +41,11 @@ interface UserService
      */
     public function destroy(User $user): void;
 
+
+//    /**
+//     * @param BreakfastSupportService $breakfastSupportService
+//     * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
+//     */
+//    public function standing(BreakfastSupportService $breakfastSupportService): array;
+
 }

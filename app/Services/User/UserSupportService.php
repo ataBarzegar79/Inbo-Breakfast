@@ -36,5 +36,5 @@ interface UserSupportService
      * @param int $userId
      * @return float
      */
-    public function averAgeParticipating(int $userId): float;
+    public function userAverAgeParticipating(int $userId): float;
 }

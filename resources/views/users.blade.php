@@ -162,11 +162,14 @@
             </div>
         </div>
     </div>
-    <div>
-        <ul class="-pager">
-            <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
-            <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
-        </ul>
-    </div>
+    @if(!$users->links->prev && !$users->links->next)
+    @else
+        <div>
+            <ul class="-pager">
+                <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
+                <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
+            </ul>
+        </div>
+    @endif
 
 @endsection

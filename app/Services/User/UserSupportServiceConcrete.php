@@ -74,7 +74,7 @@ class UserSupportServiceConcrete implements UserSupportService
         return $user->breakfasts->whereNull('deleted_at')->count();
     }
 
-    public function averAgeParticipating(int $userId): float
+    public function userAverAgeParticipating(int $userId): float
     {
         $user = User::where('id', $userId)->first();
         $breakfastCounts = $user->breakfasts->whereNull('deleted_at')->count();
