@@ -5,8 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-//fixme start class names with UpperCase *done
-
 /**
  * @property mixed $avatar
  * @property mixed $email
@@ -16,15 +14,13 @@ use JetBrains\PhpStorm\ArrayShape;
 class UpdateUserRequest extends FormRequest
 {
 
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
      */
-    //fixme define return type for functions *done
-    //todo use array shape annotation where ever is possible *done
-    #[ArrayShape(['name' => "string[]", 'email' => "string[]", 'password' => "string[]", 'avatar' => "string[]", 'is_admin' => "string[]"])] public function rules(): array
+    #[ArrayShape(['name' => "string[]", 'email' => "string[]", 'password' => "string[]", 'avatar' => "string[]", 'is_admin' => "string[]"])]
+    public function rules(): array
     {
         return [
             'name' => ['required', 'max:255'],

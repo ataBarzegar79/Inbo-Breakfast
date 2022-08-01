@@ -3,9 +3,8 @@
 namespace App\Dtos\Breakfast;
 
 
-
-
 use App\Models\User;
+use JetBrains\PhpStorm\Pure;
 
 class BreakfastDtoDoerFactory
 {
@@ -13,7 +12,7 @@ class BreakfastDtoDoerFactory
      * @param User $user
      * @return BreakfastDoerDto
      */
-    public static function fromModel(User $user): BreakfastDoerDto
+    #[Pure] public static function fromModel(User $user): BreakfastDoerDto
     {
         return new BreakfastDoerDto(
             $user->id,

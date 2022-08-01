@@ -10,7 +10,7 @@ use function request;
 class AuthServiceConcrete implements AuthService
 {
 
-    public function login(LoginRequestDto $dto):bool
+    public function login(LoginRequestDto $dto): bool
     {
         $user = User::auth($dto)->first();
         if ($user) {
@@ -18,12 +18,11 @@ class AuthServiceConcrete implements AuthService
             request()->session()->regenerate();
             return true;
         }
-
         return false;
 
     }
 
-    public function logout():void
+    public function logout(): void
     {
         Auth::logout();
         request()->session()->invalidate();

@@ -12,8 +12,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-//todo document model parameters *done: anyway needs checking
-
 /**
  * @property mixed $is_admin
  * @property mixed $id
@@ -25,12 +23,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property mixed $password
  * @method static find(int $id)
  * @method static create(array $array)
+ * @method static auth(LoginRequestDto $dto)
+ * @method static where(string $string, int $userId)
  */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $table = 'users';
+    protected $table = 'users'; // fixme data base names must be according to psr principles
     /**
      * The attributes that are mass assignable.
      *
@@ -64,18 +64,14 @@ class User extends Authenticatable
 
     public function breakfasts(): BelongsToMany
     {
-        //fixme define return type for functions *done
         return $this->belongsToMany(Breakfast::class)->withTrashed();
     }
 
     public function rates(): HasMany
     {
-        //fixme define return type for functions *done
         return $this->hasMany(Rate::class);
     }
 
-    //fixme define return type for functions *done
-    //todo move business logic to service layer
     public function averAgeParticipating(): float
     {
         $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-//todo document model parameters *done: anyway needs checking
-
 /**
  * @method static create(array $array)
  * @property mixed $id
@@ -18,7 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Rate extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'ratings';
+
+    protected $table = 'ratings'; // fixme data base names must be according to psr principles
 
     protected $fillable = [
         'rate',
@@ -27,12 +26,12 @@ class Rate extends Model
         'breakfast_id'
     ];
 
-    public function breakfast(): BelongsTo //fixme define return type for functions *done
+    public function breakfast(): BelongsTo
     {
         return $this->belongsTo(Breakfast::class);
     }
 
-    public function user(): BelongsTo //fixme define return type for functions *done
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -19,9 +19,8 @@ class BreakfastUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    //fixme define return type for functions *done
-    //todo use array shape annotation where ever is possible *done
-    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'users' => "array"])] public function rules(): array
+    #[ArrayShape(['name' => "string[]", 'description' => "string[]", 'users' => "array"])]
+    public function rules(): array
     {
         return [
             'name' => ['required', 'max:255'],

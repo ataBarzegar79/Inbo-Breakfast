@@ -12,7 +12,6 @@ interface  RateService
      * @param Breakfast $breakfsatvote
      * @return BreakfastUpdateDto
      */
-    //fixme use camelcase for function parameters:Done
     public function create(Breakfast $breakfsatvote): BreakfastUpdateDto;
 
     /**
@@ -20,7 +19,6 @@ interface  RateService
      * @param Breakfast $breakfsatvote
      * @return void
      */
-    //fixme use camelcase for function parameters:Done
     public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void;
 
 }

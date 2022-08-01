@@ -9,8 +9,8 @@ class BreakfastDoerDto
      * @param string $name
      */
     public function __construct(
-        public int      $id,
-        public string   $name,
+        public int    $id,
+        public string $name,
     )
     {
     }
