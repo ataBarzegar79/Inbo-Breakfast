@@ -3,7 +3,8 @@
 namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDto;
-use App\Dtos\Pagination\BreakfastPaginationDto;
+use App\Dtos\BreakfastStoreRequestDto;
+use App\Dtos\BreakfastUpdateRequestDto;
 use App\Dtos\Pagination\Pagination;
 use App\Dtos\UserBreakfastDto;
 use App\Models\Breakfast;
