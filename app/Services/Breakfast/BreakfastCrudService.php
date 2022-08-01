@@ -7,6 +7,8 @@ use App\Dtos\Breakfast\BreakfastDtoFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\BreakfastStoreRequestDto;
 use App\Dtos\BreakfastUpdateRequestDto;
+use App\Dtos\Pagination\BreakfastPaginationDto;
+use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
@@ -14,7 +16,6 @@ use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
 use JetBrains\PhpStorm\ArrayShape;
-use Illuminate\Pagination\Paginator;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
 use function resolve;
@@ -24,7 +25,7 @@ class  BreakfastCrudService implements BreakfastService
 {
 
 
-    public function index(): array
+    public function index(): Pagination
     {
 //        $user = auth()->user();
 //        $breakfasts = Breakfast::paginate(3);
@@ -46,7 +47,7 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::all();
+        $breakfasts = Breakfast::paginate(3);
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
             $doers = [];
@@ -136,7 +137,7 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function update(BreakfastUpdateRequestDto $dto, Breakfast $breakfast): bool
+    public function update(BreakfastUpdateRequestDto $dto , Breakfast $breakfast): bool
     {
         $breakfast->name = $dto->name;
         $breakfast->description = $dto->description;

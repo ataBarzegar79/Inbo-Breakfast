@@ -5,7 +5,7 @@ namespace App\Dtos\Pagination;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class PaginationMeta
+class PaginationMeta extends DataTransferObject
 {
     public int $current_page;
     public ?int $from;

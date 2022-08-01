@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Dtos\Pagination\Pagination;
 use App\Dtos\UserDto;
 use App\Dtos\UserRequestDto;
 use App\Models\User;
@@ -13,7 +14,7 @@ interface UserService
      * @param BreakfastSupportService $breakfastSupportService
      * @return UserDto[]
      */
-    public function index(BreakfastSupportService $breakfastSupportService): array;
+    public function index(BreakfastSupportService $breakfastSupportService): Pagination;
 
     /**
      * @param UserRequestDto $dto
