@@ -23,7 +23,7 @@ class UserCrudServiceConcrete implements UserService
             $viewAvatar = $userSupport->viewAvatar($user->id);
             $performance = $userSupport->performance($user->id);
             $performanceColor = $userSupport->performanceColor($user->id, $performance);
-            $averAgeParticipating = $userSupport->averAgeParticipating($user->id);
+            $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
             $countBreakfasts = $userSupport->countBreakfasts($user->id);
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
         }
