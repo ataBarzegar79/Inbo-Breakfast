@@ -77,8 +77,8 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        $users = User::all();
-        $usersDto = [];
+        $users = User::select('id', 'name')->get();
+
 
         foreach ($users as $user) {
             $averAgeParticipating = $userSupportService->userAverAgeParticipating($user->id);
@@ -108,8 +108,7 @@ class  BreakfastCrudService implements BreakfastService
 
         $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
-        $users = User::all();
-        $usersDto = [];
+        $users = User::select('id', 'name')->get();
 
         foreach ($users as $user) {
             $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);

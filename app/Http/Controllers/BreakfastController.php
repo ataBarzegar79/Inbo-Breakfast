@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
+use App\Models\Breakfast;
 use App\Services\Breakfast\BreakfastService;
 use App\Services\Support\AverageParticipateService;
 use App\Services\User\UsersParticipateAverageService;
