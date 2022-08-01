@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\dto\Api\v1\Pagination;
+namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\DataTransferObject\DataTransferObject;

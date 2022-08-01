@@ -3,6 +3,8 @@
 namespace App\Services\Breakfast;
 
 use App\Dtos\Breakfast\BreakfastDto;
+use App\Dtos\Pagination\BreakfastPaginationDto;
+use App\Dtos\Pagination\Pagination;
 use App\Dtos\UserBreakfastDto;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
@@ -17,7 +19,7 @@ interface BreakfastService
     /**
      * @return BreakfastDto[]
      */
-    public function index(): array;
+    public function index(): Pagination;
 
     /**
      * @return UserBreakfastDTO[]

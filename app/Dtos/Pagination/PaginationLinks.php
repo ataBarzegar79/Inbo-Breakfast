@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos\Pagination ;
+namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -12,9 +12,7 @@ class PaginationLinks
     public ?string $prev;
     public ?string $next;
 
-    /**
-     * @throws \Spatie\DataTransferObject\Exceptions\UnknownProperties
-     */
+
     public static function fromPaginator(LengthAwarePaginator $paginator): PaginationLinks
     {
         $urls = $paginator->getUrlRange(1, $paginator->lastPage());

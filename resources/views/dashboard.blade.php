@@ -25,7 +25,7 @@
 
                 <tbody>
                 <tr>
-                @foreach($breakfasts as $breakfast)
+                @foreach($breakfasts->data as $breakfast)
 
                     <td>{{$breakfast->name}}</td>
                     <td>{{$breakfast->description}}</td>
@@ -75,6 +75,10 @@
             </table>
         </div>
     </div>
+</div>
+<span>
+</span>
+<div >
 </div>
 
 @endsection

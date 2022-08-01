@@ -5,6 +5,9 @@ namespace App\Services\Breakfast;
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastDtoFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
+use App\Dtos\Pagination\BreakfastPaginationDto;
+use App\Dtos\Pagination\Pagination;
+use App\Dtos\Pagination\PaginationLinks;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
@@ -13,6 +16,7 @@ use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
+use Illuminate\Pagination\Paginator;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
 use function resolve;
@@ -22,10 +26,29 @@ class  BreakfastCrudService implements BreakfastService
 {
 
 
-    public function index(): array
+    public function index(): Pagination
     {
+//        $user = auth()->user();
+//        $breakfasts = Breakfast::paginate(3);
+//
+//        $breakfastDtos = [];
+//        $breakfasts->items()->each(function ($breakfast) use($user, $breakfastDtos) {
+//            $rates = $breakfast->rates
+//                ->filter(function ($rate) use ($user) {
+//                    return $rate->user->id === $user->id;
+//                })
+//                ->map(fn($rate) => RateDtoFactory::fromModel($rate));
+//            $doers = $breakfast->users->map(fn($user) => BreakfastDtoDoerFactory::fromModel($user))->toArray();
+//            $userRate = null;
+//            $persianCreatedAt = resolve(JalaliService::class)->toPersian($breakfast->created_at);
+//            $breakfastSupport = resolve(BreakfastSupportService::class);
+//            $breakfastAverage = $breakfastSupport->averageRate($breakfast);
+//
+//            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianCreatedAt, $breakfastAverage, $doers, $userRate);
+//        });
+
         $user = auth()->user();
-        $breakfasts = Breakfast::all();
+        $breakfasts = Breakfast::paginate(3);
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
             $doers = [];
@@ -49,8 +72,7 @@ class  BreakfastCrudService implements BreakfastService
             }
             $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers, $userRate);
         }
-
-        return $breakfastDtos;
+        return BreakfastPaginationDto::fromModelPaginatorAndData($breakfasts, $breakfastDtos);
     }
 
 
@@ -83,18 +105,18 @@ class  BreakfastCrudService implements BreakfastService
             return false;
         }
         $breakfastUsers = $breakfast->users;
-        $doers = [] ;
+        $doers = [];
         foreach ($breakfastUsers as $user) {
-            $doers[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $doers[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
-        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast,$doers);
+        $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
         $users = User::all();
         $usersDto = [];
 
         foreach ($users as $user) {
-            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user) ;
+            $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);
         }
 
         return ['users' => $usersDto, "breakfast" => $breakfastDto];

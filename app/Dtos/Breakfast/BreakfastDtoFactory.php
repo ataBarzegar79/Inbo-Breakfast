@@ -9,7 +9,13 @@ use App\Models\Breakfast;
 class BreakfastDtoFactory
 {
     //todo use static methods in dto facilities *done
-    public static function fromModel(Breakfast $breakfast,string $persianCreatedAt , string|float $averageRate , array $doers , ?RateDto $rateDto): BreakfastDto
+    public static function fromModel(
+        Breakfast    $breakfast,
+        string       $persianCreatedAt,
+        string|float $averageRate,
+        array        $doers,
+        ?RateDto     $rateDto
+    ): BreakfastDto
     {
         return new BreakfastDto(
             $breakfast->id,
@@ -20,26 +26,6 @@ class BreakfastDtoFactory
             $averageRate,
             $rateDto
         );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        $jalaliService = resolve(JalaliService::class, [$model->created_at]);
