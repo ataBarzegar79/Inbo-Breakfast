@@ -7,7 +7,7 @@ use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
 use App\Dtos\Request\VoteRequestDto;
 use App\Models\Breakfast;
-use App\Models\Rate;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use JetBrains\PhpStorm\Pure;
 
@@ -24,7 +24,7 @@ class  RateCreateService implements RateService
 
     public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void
     {
-        Rate::create([
+        Rating::create([
             'user_id' => Auth::id(),
             'rate' => $dto->rate,
             'description' => $dto->description,
