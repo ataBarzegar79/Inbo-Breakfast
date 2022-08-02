@@ -53,13 +53,11 @@ class UserCrudServiceConcrete implements UserService
     }
 
 
-    //fixme define return type for functions  :Done
     #[Pure] public function edit(User $user): object|bool
     {
         return UserUpdateDtoFactory::fromModel($user);
     }
 
-    //fixme define return type for functions :Done
     public function update(UserRequestDto $dto, User $user): void
     {
 
@@ -81,7 +79,7 @@ class UserCrudServiceConcrete implements UserService
     public function storeAvatar(UserRequestDto $dto): string
     {
         if ($dto->avatar !== null) {
-            $avatarExtension = '.' . $dto->avatar->extension();//fixme use camelcase for variable names :Done
+            $avatarExtension = '.' . $dto->avatar->extension();
             $emailPath = $dto->email;
             $avatarPath = 'avatars\\' . $emailPath . $avatarExtension;
             $avatarStorageAddress = $emailPath . $avatarExtension;
