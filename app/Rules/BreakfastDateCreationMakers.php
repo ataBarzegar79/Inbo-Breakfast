@@ -27,10 +27,11 @@ class BreakfastDateCreationMakers implements Rule
      */
     public function passes($attribute, $value): bool
     {
+//        dd($value);
         $numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         $input = str_split($value);
         if (count($input) > 10) {
-            dd('false-len');
+            return false ;
         }
 
         foreach ($input as $word) {
@@ -45,8 +46,8 @@ class BreakfastDateCreationMakers implements Rule
 
 
         try {
-            $persianDate = explode("/", request()->date);
-            $createdAt = (new Jalalian($persianDate[0], $persianDate[1], $persianDate[2], 0, 0, 0))
+            $persianDate = explode("/", $value);
+            $createdAt = (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))
                 ->toCarbon()->toDateTimeString();
         } catch (ErrorException) {
 

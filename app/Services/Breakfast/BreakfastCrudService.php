@@ -33,7 +33,7 @@ class  BreakfastCrudService implements BreakfastService
         $breakfasts = Breakfast::ordering()->paginate(3); // scope using
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
-
+            $doers = [];
             $userRate = null;
             $rate = Rating::findByUser($user->id)->findByBreakfast($breakfast->id)->first(); //scope using
             if ($rate) {

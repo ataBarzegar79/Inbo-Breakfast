@@ -85,7 +85,7 @@ class UserCrudServiceConcrete implements UserService
                 'avatars', $avatarStorageAddress, 'public'
             );
         } else {
-            $avatarPath = "img\logo.jpg";
+            $avatarPath = "img\default.jpg";
         }
 
         return $avatarPath;

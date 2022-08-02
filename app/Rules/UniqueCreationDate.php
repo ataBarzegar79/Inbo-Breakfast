@@ -30,7 +30,7 @@ class UniqueCreationDate implements Rule
     {
 
         $persianDate = explode("/", $value);
-        $formDate = (new Jalalian($persianDate[0], $persianDate[1], $persianDate[2], 0, 0, 0))
+        $formDate = (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))
             ->toCarbon();
         $breakfasts = Breakfast::all();
         foreach ($breakfasts as $breakfast) {
