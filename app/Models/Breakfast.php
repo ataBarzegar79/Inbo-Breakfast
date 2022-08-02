@@ -44,4 +44,19 @@ class Breakfast extends Model
         return $this->belongsToMany(User::class)->withTrashed();
     }
 
+    public function scopeOrdering(Builder $query)
+    {
+        $query->orderby('created_at','desc');
+    }
+
+//    public function scopeNotDeleted(Builder $query): Builder
+//    {
+//        return $query->where('deleted_at',null);
+//    }
+//
+//    public function scopeFindByUser(Builder $query, int $userId): Builder
+//    {
+//        return $query->where('breakfast_users.id', $userId);
+//    }
+
 }

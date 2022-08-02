@@ -41,6 +41,7 @@ class UserSupportServiceConcrete implements UserSupportService
         return $performance;
     }
 
+    // todo $userId is unused
     public function performanceColor(int $userId, float|string $performance): string
     {
 
