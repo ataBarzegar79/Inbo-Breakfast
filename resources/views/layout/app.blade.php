@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>Inbo Breakfast</title>
 
     <!-- Custom fonts for this template-->
     <link rel="icon" href="{{asset('img/logo.svg')}}">
