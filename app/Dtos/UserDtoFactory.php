@@ -3,6 +3,7 @@
 namespace App\Dtos;
 
 use App\Models\User;
+use App\Services\Support\JalaliService;
 use Carbon\Carbon;
 use Morilog\Jalali\Jalalian;
 
@@ -19,7 +20,8 @@ class UserDtoFactory
     {
 
         // fixme persianFormat helper class did not work correctly, I had to handle it DASTY
-        $createdAt = Jalalian::fromCarbon(new Carbon($user->created_at))->format('%A, %d %B %Y');
+        $jalaliService = resolve(JalaliService::class);
+        $persianDateFormat = $jalaliService->toPersian($user->created_at);
 
         return new UserDto(
             $averageParticipating, // used it as first element for sorting
@@ -27,7 +29,7 @@ class UserDtoFactory
             $user->name,
             $user->email,
             $user->password,
-            $createdAt,
+            $persianDateFormat,
             $user->is_admin,
             $avatar,
             $userRate,
