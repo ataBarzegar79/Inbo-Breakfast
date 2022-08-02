@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static paginate(int $int)
  * @method static ordering()
  * @method static notDeleted()
+ * @method static findByUser(int $userId)
  * @property mixed $rates
  * @property mixed $users
  * @property mixed $created_at
