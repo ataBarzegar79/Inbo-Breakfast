@@ -57,11 +57,11 @@ class Breakfast extends Model
 
     public function scopeFindByUser(Builder $query, int $userId): Builder
     {
-        $pivot = $this->users()->getTable();
 
-        return $query->whereHas('users', function ($q) use ($userId, $pivot) {
-            $q->where("{$pivot}.user_id", $userId);
+        return $query->whereHas('users', function (Builder $q) use ($userId) {
+            $q->where("user_id", $userId);
         });
+
     }
 
 }
