@@ -3,7 +3,7 @@
 namespace App\Dtos\Pagination;
 
 
-use App\Dtos\UserDto;
+use App\Dtos\User\UserDto;
 
 
 class UserPaginationDto extends Pagination

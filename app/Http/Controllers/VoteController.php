@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\VoteRequestDtoFactory;
+use App\Dtos\Request\VoteRequestDtoFactory;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Breakfast;
 use App\Services\Rate\RateService;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\LoginRequestDtoFactory;
+use App\Dtos\Request\LoginRequestDtoFactory;
 use App\Http\Requests\LoginRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Contracts\Foundation\Application;

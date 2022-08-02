@@ -5,7 +5,7 @@ namespace App\Services\Rate;
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
-use App\Dtos\VoteRequestDto;
+use App\Dtos\Request\VoteRequestDto;
 use App\Models\Breakfast;
 use App\Models\Rate;
 use Illuminate\Support\Facades\Auth;

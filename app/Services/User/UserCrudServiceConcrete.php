@@ -4,9 +4,9 @@ namespace App\Services\User;
 
 use App\Dtos\Pagination\Pagination;
 use App\Dtos\Pagination\UserPaginationDto;
-use App\Dtos\UserDtoFactory;
-use App\Dtos\UserRequestDto;
-use App\Dtos\UserUpdateDtoFactory;
+use App\Dtos\Request\UserRequestDto;
+use App\Dtos\User\UserDtoFactory;
+use App\Dtos\User\UserUpdateDtoFactory;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 use JetBrains\PhpStorm\Pure;

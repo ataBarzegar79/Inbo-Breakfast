@@ -3,8 +3,8 @@
 namespace App\Services\User;
 
 use App\Dtos\Pagination\Pagination;
-use App\Dtos\UserDto;
-use App\Dtos\UserRequestDto;
+use App\Dtos\Request\UserRequestDto;
+use App\Dtos\User\UserDto;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 

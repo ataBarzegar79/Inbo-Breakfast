@@ -2,10 +2,10 @@
 
 namespace App\Services\Breakfast;
 
-use App\Dtos\BreakfastStoreRequestDto;
-use App\Dtos\BreakfastUpdateRequestDto;
+use App\Dtos\Breakfast_User\UserBreakfastDto;
 use App\Dtos\Pagination\Pagination;
-use App\Dtos\UserBreakfastDto;
+use App\Dtos\Request\BreakfastStoreRequestDto;
+use App\Dtos\Request\BreakfastUpdateRequestDto;
 use App\Models\Breakfast;
 use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;

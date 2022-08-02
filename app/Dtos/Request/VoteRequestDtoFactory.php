@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\Request;
 
 use App\Http\Requests\StoreVoteRequest;
 use JetBrains\PhpStorm\Pure;

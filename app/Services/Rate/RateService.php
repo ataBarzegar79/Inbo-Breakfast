@@ -3,7 +3,7 @@
 namespace App\Services\Rate;
 
 use App\Dtos\Breakfast\BreakfastUpdateDto;
-use App\Dtos\VoteRequestDto;
+use App\Dtos\Request\VoteRequestDto;
 use App\Models\Breakfast;
 
 interface  RateService

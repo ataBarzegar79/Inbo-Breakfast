@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Dtos\LoginRequestDto;
+use App\Dtos\Request\LoginRequestDto;
 
 interface AuthService
 {

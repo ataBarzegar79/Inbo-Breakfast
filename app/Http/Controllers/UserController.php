@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\UserRequestDtoFactory;
+use App\Dtos\Request\UserRequestDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -10,11 +10,11 @@ use App\Services\Breakfast\BreakfastSupportService;
 use App\Services\User\UserService;
 use App\Services\User\UsersParticipateAverageService;
 use App\Services\User\UserSupportService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 

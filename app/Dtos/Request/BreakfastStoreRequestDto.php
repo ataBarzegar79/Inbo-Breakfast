@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\Request;
 
-class BreakfastUpdateRequestDto
+class BreakfastStoreRequestDto
 {
     public function __construct(
         public string $name,
         public string $description,
+        public string $date,
         public array  $users
     )
     {

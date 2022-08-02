@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Dtos\BreakfastStoreRequestDtoFactory;
-use App\Dtos\BreakfastUpdateRequestDtoFactory;
+use App\Dtos\Request\BreakfastStoreRequestDtoFactory;
+use App\Dtos\Request\BreakfastUpdateRequestDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
 use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;

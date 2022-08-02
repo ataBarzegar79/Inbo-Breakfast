@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Dtos\LoginRequestDto;
+use App\Dtos\Request\LoginRequestDto;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use function request;

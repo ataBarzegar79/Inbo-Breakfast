@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Dtos\User;
 
 use App\Services\User\UsersParticipateAverageService;
+use function resolve;
 
 class UsersParticipateDtoFactory
 {
