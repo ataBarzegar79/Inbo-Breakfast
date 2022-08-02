@@ -2,59 +2,66 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use \Morilog\Jalali\Jalalian ;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-
+/**
+ * @method static find(int $breakfast_id)
+ * @method static create(array $array)
+ * @method static paginate(int $int)
+ * @method static ordering()
+ * @method static notDeleted()
+ * @method static findByUser(int $userId)
+ * @property mixed $rates
+ * @property mixed $users
+ * @property mixed $created_at
+ * @property mixed $description
+ * @property mixed $name
+ * @property mixed $id
+ */
 class Breakfast extends Model
 {
-    use HasFactory;
-    use SoftDeletes ;
-    protected  $table = 'breakfasts' ;
+    use HasFactory, SoftDeletes;
+
+
     protected $fillable = [
         'name',
         'description',
         'created_at',
         'user_id'
     ];
-//
-//    protected $casts = [
-//        'created_at' => 'datetime',
-//    ];
 
-    public function rates()
+    public function rates(): HasMany
     {
-        return $this->hasMany(Rate::class) ;
+        return $this->hasMany(Rating::class);
     }
 
-        public function users(){
-
-        return $this->belongsToMany(User::class)->withTrashed() ;
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->withTrashed();
     }
 
-    public function avareageRate()
+    public function scopeOrdering(Builder $query)
+    {
+        $query->orderby('created_at','desc');
+    }
+
+    public function scopeNotDeleted(Builder $query): Builder
+    {
+        return $query->where('deleted_at',null);
+    }
+
+    public function scopeFindByUser(Builder $query, int $userId): Builder
     {
 
-        $rates = $this ->rates->avg('rate') ;
-        return round($rates,2) ;
+        return $query->whereHas('users', function (Builder $q) use ($userId) {
+            $q->where("user_id", $userId);
+        });
 
-    }
-
-    public function userRate(){
-        $user = Auth::user() ;
-        $rates = $this->rates ;
-        foreach ($rates as $rate){
-            if($rate->user_id == $user ->id){
-                return ['rate' => $rate->rate , 'description'=> $rate->description] ;
-            }
-        }
-        return null;
     }
 
 }

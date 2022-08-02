@@ -1,7 +1,7 @@
 @extends('layout.form')
 
 @section('form-subject')
-    Vote !
+    Vote!
 @endsection
 
 @section('form')
@@ -17,9 +17,8 @@
                             </div>
                             <div class="text-center">
                                 <p>Breakfast Name : {{$breakfast->name}}</p>
-                                <p>Date of Breakfast  : {{persianFormat($breakfast->created_at)}}  </p>
-                                <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->users as $user)
-                                        {{$user->name}}
+                                <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->doers as $doer)
+                                        {{$doer->name}} @if($doer === end($breakfast->doers)) @else | @endif
                                     @endforeach</p>
 
                             </div>
@@ -40,7 +39,7 @@
                        name="rate"
                        value="{{old('rate')}}"
                        aria-describedby="emailHelp"
-                       placeholder="Enter your Rate.. ">
+                       placeholder="Enter your Rate">
             </div>
             @error('rate')
             <p style="color: red">
@@ -56,7 +55,7 @@
                         name="description"
                         value="{{old('description')}}"
                         aria-describedby="emailHelp"
-                        placeholder="Enter your Description "></textarea>
+                        placeholder="Enter your Description"></textarea>
             </div>
             @error('description')
                 <p style="color: red">

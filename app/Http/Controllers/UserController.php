@@ -2,66 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
+use App\Dtos\Request\UserRequestDtoFactory;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Services\UserService;
+use App\Services\Breakfast\BreakfastSupportService;
+use App\Services\User\UserService;
+use App\Services\User\UsersParticipateAverageService;
+use App\Services\User\UserSupportService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 
-
 class UserController extends Controller
 {
-
-    public function index(UserService $service)
+    public function index
+    (
+        UserService             $service,
+        BreakfastSupportService $breakfastSupportService,
+        UserSupportService      $userSupport
+    ): Factory|View|Application
     {
-        return view('users', ['users' => $service->index()]);
-    }
-//    public function index()
-//    {
-//        $users = User::all();
-//        return view('users', [ 'users' => $users]);
-//    }
-
-
-    public function store(UserService $service, storeUserRequest $request)
-    {
-        $service->store($request);
-        return  redirect()->route('dashboard');
+        return view('users', [
+                'users' => $service->index($breakfastSupportService),
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
     }
 
 
-    public function edit(int $id, UserService $service)
+    public function store(UserService $service, StoreUserRequest $request): RedirectResponse
     {
-
-       $update_user = $service->edit($id);
-       return view('update-user' , ['update_user'=>$update_user ]) ;
-
-    }
-
-
-    public function update(UserService $service, updateUserRequest $request, int $id)
-    {
-        $service->update($request , $id ) ;
-        return  redirect()->route('dashboard') ;
-    }
-
-
-    public function destroy($id, UserService $service)
-    {
-        $service->destroy($id);
+        $userDto = UserRequestDtoFactory::fromRequest($request);
+        $service->store($userDto);
         return redirect()->route('dashboard');
     }
 
-    public function standings(UserService $service)
+
+    public function edit
+    (
+        User               $user,
+        UserService        $service,
+        UserSupportService $userSupport
+    ): Factory|View|Application|RedirectResponse
     {
-/*        $users = User::all() ;
-        $list = [];
-        foreach ($users as $user){
-            $list[] = [$user->averAgeParticipating(), $user  ];
+        $updateUser = $service->edit($user);
+        if ($updateUser === false) {
+            return redirect()->route('dashboard');
         }
-        rsort($list);*/
-        return view('standings' ,['users' => $service->standing() ]  ) ;
+        return view('update-user', [
+                'update_user' => $updateUser,
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
     }
+
+
+    public function update(UserService $service, UpdateUserRequest $request, User $user): RedirectResponse
+    {
+        $userDto = UserRequestDtoFactory::fromRequest($request);
+        $service->update($userDto, $user);
+        return redirect()->route('dashboard');
+    }
+
+
+    public function destroy(User $user, UserService $service): RedirectResponse
+    {
+        $service->destroy($user);
+        return redirect()->route('dashboard');
+    }
+
+
+    public function standings
+    (
+        UserService                    $service,
+        BreakfastSupportService        $breakfastSupportService,
+        UsersParticipateAverageService $usersParticipateAverageService,
+        UserSupportService             $userSupport
+    ): Factory|View|Application
+    {
+        return view('standings', [
+                'users' => $service->standing($breakfastSupportService),
+                'usersAverage' => $usersParticipateAverageService->participateAverage(),
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
+    }
+
 }

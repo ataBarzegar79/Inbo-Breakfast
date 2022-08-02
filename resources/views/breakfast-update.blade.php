@@ -16,11 +16,10 @@
                         </div>
                         <div class="text-center">
                             <p>Breakfast Name : {{$breakfast->name}}</p>
-                            <p>Date of Breakfast  : {{persianFormat($breakfast->created_at)}} </p>
-                            <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->users as $user)
-                                    {{$user->name}} |
-                                @endforeach</p>
+                            <p class="font-weight-bolder  ">Done by :  @foreach($breakfast->doers as $doer)
+                                    {{$doer->name}} @if($doer === end($breakfast->doers)) @else | @endif
 
+                                @endforeach</p>
                         </div>
                     </div>
                 </div>

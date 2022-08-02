@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Services\User;
+
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\UrlGenerator;
+
+interface UserSupportService
+{
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public function performance(int $userId): mixed;
+
+
+
+    /**
+     * @param int $userId
+     * @return string|UrlGenerator|Application
+     */
+    public function viewAvatar(int $userId): string|UrlGenerator|Application;
+
+    /**
+     * @param int $userId
+     * @return int
+     */
+    public function countBreakfasts(int $userId): int;
+
+    /**
+     * @param int $userId
+     * @return float
+     */
+    public function userAverAgeParticipating(int $userId): float;
+}

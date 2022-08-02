@@ -77,17 +77,6 @@
                                             {{$message}}
                                         </p>
                                         @enderror
-{{--                                        <div class="form-group">--}}
-{{--                                            <div class="custom-control custom-checkbox small">--}}
-{{--                                                <input type="checkbox"--}}
-{{--                                                       class="custom-control-input"--}}
-{{--                                                       name="remember"--}}
-{{--                                                       id="remember">--}}
-
-{{--                                                <label class="custom-control-label" for="remember">Remember--}}
-{{--                                                    Me</label>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
 
                                        <input class="btn btn-primary btn-user btn-block" type="submit" value="Login">
 

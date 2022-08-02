@@ -2,57 +2,87 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\BreakfastCreateRequest;
+
+use App\Dtos\Request\BreakfastStoreRequestDtoFactory;
+use App\Dtos\Request\BreakfastUpdateRequestDtoFactory;
 use App\Http\Requests\BreakfastUpdateRequest;
-use App\Http\Requests\storeBreakfastRequest;
+use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
-use App\Models\User;
-use App\Services\breakfastService;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Services\Breakfast\BreakfastService;
+use App\Services\Support\AverageParticipateService;
+use App\Services\User\UsersParticipateAverageService;
+use App\Services\User\UserSupportService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Morilog\Jalali\Jalalian;
 use function redirect;
 use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(breakfastService $service)
+    public function index(BreakfastService $service, UserSupportService $support): Factory|View|Application
     {
-        return view('dashboard' ,  ['breakfasts'=>$service->index()]);
+        return view('dashboard',
+            ['breakfasts' => $service->index(),
+                'avatar' => $support->viewAvatar(Auth::id())]);
     }
 
-    public function create(breakfastService $service)
+    public function create(
+        BreakfastService               $service,
+        UserSupportService             $userSupportService,
+        UsersParticipateAverageService $averageParticipateService
+    ): Factory|View|Application
     {
-
-        return view('breakfast-create' , [ 'users'=>$service->create()]);
+        return view('breakfast-create',
+            [
+                'users' => $service->create($userSupportService),
+                'avatar' => $userSupportService->viewAvatar(Auth::id()),
+                'averageParticipate' => $averageParticipateService->participateAverage()
+            ]
+        );
     }
 
-
-    public function store(breakfastService $service , storeBreakfastRequest $request){
-        $service->store($request);
-        return redirect()->route('dashboard') ;
-    }
-
-    public function destroy($id , breakfastService $service)
+    public function store(BreakfastService $service, StoreBreakfastRequest $request): RedirectResponse
     {
-        $service->destroy($id);
-        return redirect()->route('dashboard') ;
+        $breakfastDto = BreakfastStoreRequestDtoFactory::fromRequest($request);
+        $service->store($breakfastDto);
+        return redirect()->route('dashboard');
     }
 
-    public function  edit( $breakfast_id , breakfastService $service  ){
-
-        $edited_breakfast = $service->edit($breakfast_id) ;
-        return view('breakfast-update' , ['breakfast'=>$edited_breakfast["breakfast"] , 'users'=>$edited_breakfast['users'] ]) ;
-    }
-
-
-    public function update(BreakfastUpdateRequest $request , $breakfast_id , breakfastService $service)
+    public function destroy(Breakfast $breakfast, BreakfastService $service): RedirectResponse
     {
-        $service ->update($request , $breakfast_id ) ;
-        return redirect()->route('dashboard') ;
+        $service->destroy($breakfast);
+        return redirect()->route('dashboard');
+    }
 
+    public function edit(
+        Breakfast          $breakfast,
+        BreakfastService   $service,
+        UserSupportService $userSupportService
+    ): Factory|View|Application|RedirectResponse
+    {
+        $editedBreakfast = $service->edit($breakfast, $userSupportService);
+        if ($editedBreakfast === false) {
+            return redirect()->route('dashboard');
+        }
+        return view('breakfast-update',
+            ['breakfast' => $editedBreakfast["breakfast"],
+                'users' => $editedBreakfast['users'],
+                'avatar' => $userSupportService->viewAvatar(Auth::id())
+            ]
+        );
+    }
 
+    public function update(
+        BreakfastUpdateRequest $request,
+        Breakfast              $breakfast,
+        BreakfastService       $service): RedirectResponse
+    {
+        $requestData = BreakfastUpdateRequestDtoFactory::fromRequest($request);
+        $service->update($requestData, $breakfast);
+        return redirect()->route('dashboard');
     }
 
 }

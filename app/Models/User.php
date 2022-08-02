@@ -2,23 +2,35 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Dtos\Request\LoginRequestDto;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
-use \Morilog\Jalali\Jalalian ;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
-
+/**
+ * @property mixed $is_admin
+ * @property mixed $id
+ * @property mixed $breakfasts
+ * @property mixed $avatar
+ * @property mixed $created_at
+ * @property mixed $name
+ * @property mixed $email
+ * @property mixed $password
+ * @method static find(int $id)
+ * @method static create(array $array)
+ * @method static auth(LoginRequestDto $dto)
+ * @method static where(string $string, int $userId)
+ * @method static paginate(int $int)
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'users';
-    use SoftDeletes ;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,7 +50,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -51,72 +62,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function breakfasts(){
-        return $this->belongsToMany(Breakfast::class)->withTrashed() ;
-    }
-
-    public function rates(){
-        return $this->hasMany(Rate::class);
-    }
-
-    public function performance(){
-        $breakfasts_done = $this -> breakfasts ;
-        $counter = 0 ;
-        $sum = 0 ;
-        foreach ($breakfasts_done as $breakfast){
-            $counter += 1 ;
-            $sum += $breakfast->avareageRate() ;
-        }
-
-        try {
-            $performance =  round($sum/$counter , 2 ) ;
-        }catch (\DivisionByZeroError ){
-            $performance =  "No rates yet !";
-        }
-
-        if($performance >=1  && $performance <= 4) {
-            return ['rate'=>$performance , 'color'=>"#ff8080"] ;
-        }
-        elseif ($performance >4  && $performance <= 6){
-            return ['rate'=>$performance , 'color'=>"#f6c23e"] ;
-        }
-        elseif ($performance >6  && $performance <= 10){
-            return ['rate'=>$performance , 'color'=>"#1cc88a"] ;
-        }
-        else{
-            return  ['rate'=>$performance , 'color'=>"#f8f9fc"] ;
-        }
-
-    }
-
-    public function viewAvatar(){
-
-       $url =url($this->avatar);
-       if(str_contains($url , 'default.svg')){
-           return $url ;
-       }
-       else{
-           return asset(Storage::url($this->avatar)) ;
-       }
-    }
-
-    public function countBreakfasts(){
-        return $this->breakfasts->whereNull('deleted_at')->count() ;
-//           return $this ->breakfasts->count() ;
-    }
-
-
-    public function averAgeParticipating()
+    public function breakfasts(): BelongsToMany
     {
+        return $this->belongsToMany(Breakfast::class)->withTrashed();
+    }
 
-        $berakfast_counts = $this->breakfasts->whereNull('deleted_at')->count();
-        $user_created_at = Carbon::createFromFormat('Y-m-d  H:i:s' , $this->created_at );
-        $now = Carbon::now();
-        $diff = $user_created_at->diffInDays($now) + 1;
-        return round($berakfast_counts/$diff,3) ;
-
+    public function rates(): HasMany
+    {
+        return $this->hasMany(Rating::class);
     }
 
 
+
+    public function scopeAuth(Builder $query, LoginRequestDto $dto)
+    {
+        $query->where('name', '=', $dto->name)
+            ->where('password', '=', $dto->password);
+    }
+
+    public function scopeName(Builder $query): void
+    {
+        $query->select('id', 'name');
+    }
 
 }

@@ -2,45 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\loginRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Dtos\Request\LoginRequestDtoFactory;
+use App\Http\Requests\LoginRequest;
+use App\Services\Auth\AuthService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use function back;
 use function redirect;
 use function view;
 
 class AuthController extends Controller
 {
-    public function show(){
-            return view('login') ;
+    /**
+     * @return Factory|View|Application shows login page
+     */
+    public function show(): Factory|View|Application
+    {
+        return view('login');
     }
 
-    public function login(loginRequest $request){
-
-        $user = \App\Models\User::where('name','=',$request->get('name'))
-            ->where('password','=',$request->get('password'))
-            ->first();
-        if($user){
-            Auth::login($user);
-            $request->session()->regenerate();
-            return redirect()->intended('') ;
+    /**
+     * @param LoginRequest $request
+     * @param AuthService $service
+     * @return RedirectResponse
+     */
+    public function login(LoginRequest $request, AuthService $service): RedirectResponse
+    {
+        $requestDto = LoginRequestDtoFactory::fromRequest($request);
+        $response = $service->login($requestDto);
+        if ($response === true) {
+            return redirect()->route('dashboard');
+        } else {
+            return back()->withErrors([
+                'notfound' => 'The provided credentials do not match our records.',
+            ]);
         }
 
-        return back()->withErrors([
-            'notfound' => 'The provided credentials do not match our records.',
-        ]);
-     }
+    }
 
-
-     public function logout(Request $request)
+    /**
+     * @param AuthService $service
+     * @return Redirector|Application|RedirectResponse
+     */
+    public function logout(AuthService $service): Redirector|Application|RedirectResponse
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        $service->logout();
+        return redirect()->route('dashboard');
     }
 
 

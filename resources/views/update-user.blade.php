@@ -65,8 +65,7 @@
             <input type="file"
                    name="avatar"
                    id="avatar"
-                   value="{{old('avatar')}}"
-            >
+                   value="">
         </label>
     </div>
 
