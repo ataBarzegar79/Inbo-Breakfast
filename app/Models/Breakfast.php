@@ -27,7 +27,6 @@ class Breakfast extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'breakfasts'; // fixme data base names must be according to psr principles
 
     protected $fillable = [
         'name',
@@ -38,7 +37,7 @@ class Breakfast extends Model
 
     public function rates(): HasMany
     {
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Rating::class);
     }
 
     public function users(): BelongsToMany
