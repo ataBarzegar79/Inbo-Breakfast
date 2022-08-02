@@ -12,7 +12,7 @@ interface UserService
 {
     /**
      * @param BreakfastSupportService $breakfastSupportService
-     * @return UserDto[]
+     * @return Pagination
      */
     public function index(BreakfastSupportService $breakfastSupportService): Pagination;
 
