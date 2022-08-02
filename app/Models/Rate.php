@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed $id
  * @property mixed $rate
  * @property mixed $description
+ * @method static Builder|Rate findByUser(int $userId)
+ * @method static Builder|Rate findByBreakfast(int $breakfastId)
  */
 class Rate extends Model
 {
@@ -36,4 +39,13 @@ class Rate extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeFindByUser(Builder $query, int $userId): Builder
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeFindByBreakfast(Builder $query, int $breakfastId): Builder
+    {
+        return $query->where('breakfast_id', $breakfastId);
+    }
 }

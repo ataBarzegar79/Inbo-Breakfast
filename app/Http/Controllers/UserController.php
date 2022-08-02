@@ -20,10 +20,20 @@ use function view;
 
 class UserController extends Controller
 {
-    public function index(UserService $service, BreakfastSupportService $breakfastSupportService, UserSupportService $userSupport): Factory|View|Application
+    public function index
+    (
+        UserService             $service,
+        BreakfastSupportService $breakfastSupportService,
+        UserSupportService      $userSupport
+    ): Factory|View|Application
     {
-        return view('users', ['users' => $service->index($breakfastSupportService), 'avatar' => $userSupport->viewAvatar(Auth::id())]);
+        return view('users', [
+                'users' => $service->index($breakfastSupportService),
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
     }
+
 
     public function store(UserService $service, StoreUserRequest $request): RedirectResponse
     {
@@ -32,14 +42,25 @@ class UserController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function edit(User $user, UserService $service, UserSupportService $userSupport): Factory|View|Application|RedirectResponse
+
+    public function edit
+    (
+        User               $user,
+        UserService        $service,
+        UserSupportService $userSupport
+    ): Factory|View|Application|RedirectResponse
     {
         $updateUser = $service->edit($user);
         if ($updateUser === false) {
             return redirect()->route('dashboard');
         }
-        return view('update-user', ['update_user' => $updateUser, 'avatar' => $userSupport->viewAvatar(Auth::id())]);
+        return view('update-user', [
+                'update_user' => $updateUser,
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
     }
+
 
     public function update(UserService $service, UpdateUserRequest $request, User $user): RedirectResponse
     {
@@ -48,15 +69,28 @@ class UserController extends Controller
         return redirect()->route('dashboard');
     }
 
+
     public function destroy(User $user, UserService $service): RedirectResponse
     {
         $service->destroy($user);
         return redirect()->route('dashboard');
     }
 
-    public function standings(UserService $service, BreakfastSupportService $breakfastSupportService, UsersParticipateAverageService $usersParticipateAverageService, UserSupportService $userSupport): Factory|View|Application
+
+    public function standings
+    (
+        UserService                    $service,
+        BreakfastSupportService        $breakfastSupportService,
+        UsersParticipateAverageService $usersParticipateAverageService,
+        UserSupportService             $userSupport
+    ): Factory|View|Application
     {
-        return view('standings', ['users' => $service->standing($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar' => $userSupport->viewAvatar(Auth::id())]);
+        return view('standings', [
+                'users' => $service->standing($breakfastSupportService),
+                'usersAverage' => $usersParticipateAverageService->participateAverage(),
+                'avatar' => $userSupport->viewAvatar(Auth::id())
+            ]
+        );
     }
 
 }

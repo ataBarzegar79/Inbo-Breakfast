@@ -12,10 +12,10 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
+use App\Models\Rate;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
-use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\ArrayShape;
 use phpDocumentor\Reflection\Types\Boolean;
 use function auth;
@@ -48,29 +48,34 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::ordering()->paginate(3);
+        $breakfasts = Breakfast::ordering()->paginate(3); // scope using
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
-            $doers = [];
-            $rates = $breakfast->rates;
-            $users = $breakfast->users;
+
             $userRate = null;
+            $rate = Rate::findByUser($user->id)->findByBreakfast($breakfast->id)->first(); //scope using
+            if ($rate) {
+                $userRate = RateDtoFactory::fromModel($rate);
+            }
+
             $persianService = resolve(JalaliService::class);
             $persianService = $persianService->toPersian($breakfast->created_at);
+
             $breakfastSupport = resolve(BreakfastSupportService::class);
             $breakfastAverage = $breakfastSupport->averageRate($breakfast);
 
-            foreach ($users as $doer) {
+            $breakfastDoers = $breakfast->users;
+            foreach ($breakfastDoers as $doer) {
                 $doers[] = BreakfastDtoDoerFactory::fromModel($doer);
-
             }
 
-            foreach ($rates as $rate) {
-                if ($rate->user->id == $user->id) {
-                    $userRate = RateDtoFactory::fromModel($rate);
-                }
-            }
-            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers, $userRate);
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel(
+                $breakfast,
+                $persianService,
+                $breakfastAverage,
+                $doers,
+                $userRate
+            );
         }
         return BreakfastPaginationDto::fromModelPaginatorAndData($breakfasts, $breakfastDtos);
     }
@@ -78,7 +83,7 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        $users = User::select('id', 'name')->get();
+        $users = User::name()->get();
 
 
         foreach ($users as $user) {

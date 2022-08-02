@@ -78,7 +78,7 @@ class UserSupportServiceConcrete implements UserSupportService
     public function userAverAgeParticipating(int $userId): float
     {
         $user = User::where('id', $userId)->first();
-        $breakfastCounts = Breakfast::notDeleted()->findByUser($userId)->count();
+        $breakfastCounts = Breakfast::notDeleted()->findByUser($userId)->count(); //scopes
         $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $user->created_at);
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;

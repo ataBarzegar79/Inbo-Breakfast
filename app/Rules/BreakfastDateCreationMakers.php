@@ -46,7 +46,8 @@ class BreakfastDateCreationMakers implements Rule
 
         try {
             $persianDate = explode("/", request()->date);
-            $createdAt = (new Jalalian($persianDate[0], $persianDate[1], $persianDate[2], 0, 0, 0))->toCarbon()->toDateTimeString();
+            $createdAt = (new Jalalian($persianDate[0], $persianDate[1], $persianDate[2], 0, 0, 0))
+                ->toCarbon()->toDateTimeString();
         } catch (ErrorException) {
 
             return false;

@@ -17,7 +17,12 @@ class JalaliServiceConcrete implements JalaliService
     public function toAd(string $format): Carbon
     {
         $persianDate = explode("/", $format);
-        return (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))->toCarbon();
+        return (
+        new Jalalian((int)$persianDate[0],
+            (int)$persianDate[1],
+            (int)$persianDate[2],
+            0, 0, 0)
+        )->toCarbon();
 
     }
 

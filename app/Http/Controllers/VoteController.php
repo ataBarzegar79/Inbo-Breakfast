@@ -21,16 +21,29 @@ class VoteController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function create(Breakfast $breakfsatvote, RateService $service, UserSupportService $userSupportService): Factory|View|Application
+    public function create(
+        Breakfast          $breakfsatvote,
+        RateService        $service,
+        UserSupportService $userSupportService
+    ): Factory|View|Application
     {
         $this->authorize('canVote', $breakfsatvote->id);
-        return view('vote', ['breakfast' => $service->create($breakfsatvote), 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
+        return view('vote', [
+                'breakfast' => $service->create($breakfsatvote),
+                'avatar' => $userSupportService->viewAvatar(Auth::id())
+            ]
+        );
     }
+
 
     /**
      * @throws AuthorizationException
      */
-    public function store(Breakfast $breakfsatvote, StoreVoteRequest $request, RateService $service): RedirectResponse
+    public function store(
+        Breakfast        $breakfsatvote,
+        StoreVoteRequest $request,
+        RateService      $service
+    ): RedirectResponse
     {
         $requestDto = VoteRequestDtoFactory::fromRequest($request);
         $this->authorize('canVote', $breakfsatvote->id);

@@ -24,10 +24,16 @@ class BreakfastController extends Controller
 {
     public function index(BreakfastService $service, UserSupportService $support): Factory|View|Application
     {
-        return view('dashboard', ['breakfasts' => $service->index(), 'avatar' => $support->viewAvatar(Auth::id())]);
+        return view('dashboard',
+            ['breakfasts' => $service->index(),
+                'avatar' => $support->viewAvatar(Auth::id())]);
     }
 
-    public function create(BreakfastService $service, UserSupportService $userSupportService, UsersParticipateAverageService $averageParticipateService): Factory|View|Application
+    public function create(
+        BreakfastService               $service,
+        UserSupportService             $userSupportService,
+        UsersParticipateAverageService $averageParticipateService
+    ): Factory|View|Application
     {
         return view('breakfast-create',
             [
@@ -51,16 +57,28 @@ class BreakfastController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function edit(Breakfast $breakfast, BreakfastService $service, UserSupportService $userSupportService): Factory|View|Application|RedirectResponse
+    public function edit(
+        Breakfast          $breakfast,
+        BreakfastService   $service,
+        UserSupportService $userSupportService
+    ): Factory|View|Application|RedirectResponse
     {
         $editedBreakfast = $service->edit($breakfast, $userSupportService);
         if ($editedBreakfast === false) {
             return redirect()->route('dashboard');
         }
-        return view('breakfast-update', ['breakfast' => $editedBreakfast["breakfast"], 'users' => $editedBreakfast['users'], 'avatar' => $userSupportService->viewAvatar(Auth::id())]);
+        return view('breakfast-update',
+            ['breakfast' => $editedBreakfast["breakfast"],
+                'users' => $editedBreakfast['users'],
+                'avatar' => $userSupportService->viewAvatar(Auth::id())
+            ]
+        );
     }
 
-    public function update(BreakfastUpdateRequest $request, Breakfast $breakfast, BreakfastService $service): RedirectResponse
+    public function update(
+        BreakfastUpdateRequest $request,
+        Breakfast              $breakfast,
+        BreakfastService       $service): RedirectResponse
     {
         $requestData = BreakfastUpdateRequestDtoFactory::fromRequest($request);
         $service->update($requestData, $breakfast);
