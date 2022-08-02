@@ -91,9 +91,9 @@ class UserCrudServiceConcrete implements UserService
         return $avatarPath;
     }
 
-    public function standing(BreakfastSupportService $breakfastSupportService): Pagination
+    public function standing(BreakfastSupportService $breakfastSupportService): array
     {
-        $users = User::paginate(10);
+        $users = User::all();
 
         $userSupport = resolve(UserSupportService::class);
         foreach ($users as $user) {
@@ -105,7 +105,7 @@ class UserCrudServiceConcrete implements UserService
         }
         rsort($userDtos);
 
-        return UserPaginationDto::fromModelPaginatorAndData($users, $userDtos);
+        return $userDtos;
     }
 
 }

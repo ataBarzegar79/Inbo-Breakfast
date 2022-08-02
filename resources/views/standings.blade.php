@@ -28,7 +28,7 @@
                         @php
                             $counter = 0 ;
                         @endphp
-                        @foreach($users->data as $user)
+                        @foreach($users as $user)
                             <td style="text-align: center">{{$counter+=1}}</td>
                             <td style="text-align: center">
                                 <img class=" center img-profile rounded-circle " width="60" height="60"
@@ -65,16 +65,6 @@
             </div>
         </div>
     </div>
-    @if(!$users->links->prev && !$users->links->next)
-    @else
-        <div>
 
-            <ul class="-pager">
-                <li class="previous"><a @if($users->links->prev)href="{{$users->links ->prev}}" @endif>Previous</a></li>
-                <li class="next"><a @if($users->links->next)href="{{$users->links->next}}" @endif>Next</a></li>
-            </ul>
-
-        </div>
-    @endif
 
 @endsection
