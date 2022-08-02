@@ -86,7 +86,7 @@ class UserController extends Controller
     ): Factory|View|Application
     {
         return view('standings', [
-                'users' => $service->index($breakfastSupportService),
+                'users' => $service->standing($breakfastSupportService),
                 'usersAverage' => $usersParticipateAverageService->participateAverage(),
                 'avatar' => $userSupport->viewAvatar(Auth::id())
             ]

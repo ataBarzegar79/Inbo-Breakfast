@@ -95,23 +95,22 @@ class UserCrudServiceConcrete implements UserService
         return $avatarPath;
     }
 
-//    public function standing(BreakfastSupportService $breakfastSupportService): array
-//    {
-//        $users = User::all();
-//
-//        $userSupport = resolve(UserSupportService::class);
-//        foreach ($users as $user) {
-//            $viewAvatar = $userSupport->viewAvatar($user->id);
-//            $performance = $userSupport->performance($user->id);
-//            $performanceColor = $userSupport->performanceColor($user->id, $performance);
-//            $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
-//            $countBreakfasts = $userSupport->countBreakfasts($user->id);
-//            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
-//        }
-//
-//        rsort($userDtos);
-//        dd($userDtos);
-//        return $userDtos;
-//    }
+    public function standing(BreakfastSupportService $breakfastSupportService): Pagination
+    {
+        $users = User::paginate(10);
+
+        $userSupport = resolve(UserSupportService::class);
+        foreach ($users as $user) {
+            $viewAvatar = $userSupport->viewAvatar($user->id);
+            $performance = $userSupport->performance($user->id);
+            $performanceColor = $userSupport->performanceColor($user->id, $performance);
+            $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
+            $countBreakfasts = $userSupport->countBreakfasts($user->id);
+            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
+        }
+        rsort($userDtos);
+
+        return UserPaginationDto::fromModelPaginatorAndData($users, $userDtos);
+    }
 
 }
