@@ -12,6 +12,7 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
+use App\Models\Rate;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
@@ -47,29 +48,33 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::orderby('created_at','desc')->paginate(3);
-        $breakfastDtos = [];
+        $breakfasts = Breakfast::orderby('created_at', 'desc')->paginate(3);
+
         foreach ($breakfasts as $breakfast) {
-            $doers = [];
-            $rates = $breakfast->rates;
-            $users = $breakfast->users;
+
             $userRate = null;
+            $rate = Rate::findByUser($user->id)->findByBreakfast($breakfast->id)->first();
+            if ($rate) {
+                $userRate = RateDtoFactory::fromModel($rate);
+            }
+
             $persianService = resolve(JalaliService::class);
             $persianService = $persianService->toPersian($breakfast->created_at);
             $breakfastSupport = resolve(BreakfastSupportService::class);
             $breakfastAverage = $breakfastSupport->averageRate($breakfast);
 
-            foreach ($users as $doer) {
+            $breakfastDoers = $breakfast->users;
+            foreach ($breakfastDoers as $doer) {
                 $doers[] = BreakfastDtoDoerFactory::fromModel($doer);
-
             }
 
-            foreach ($rates as $rate) {
-                if ($rate->user->id == $user->id) {
-                    $userRate = RateDtoFactory::fromModel($rate);
-                }
-            }
-            $breakfastDtos[] = BreakfastDtoFactory::fromModel($breakfast, $persianService, $breakfastAverage, $doers, $userRate);
+            $breakfastDtos[] = BreakfastDtoFactory::fromModel(
+                $breakfast,
+                $persianService,
+                $breakfastAverage,
+                $doers,
+                $userRate
+            );
         }
         return BreakfastPaginationDto::fromModelPaginatorAndData($breakfasts, $breakfastDtos);
     }
