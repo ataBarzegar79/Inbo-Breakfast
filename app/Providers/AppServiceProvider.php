@@ -63,7 +63,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BreakfastSupportService::class, function () {
             return new BreakfastSupportServiceConcrete();
         });
-        $this->app->singleton(AverageParticipateService::class, AverageParticipateServiceConcrete::class);
+        $this->app->singleton(
+            AverageParticipateService::class,
+            AverageParticipateServiceConcrete::class
+        );
     }
 
 

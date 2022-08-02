@@ -31,6 +31,9 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserService::class, UserCrudServiceConcrete::class);
         $this->app->singleton(UserSupportService::class, UserSupportServiceConcrete::class);
-        $this->app->singleton(UsersParticipateAverageService::class, UsersParticipateAverageServiceConcrete::class);
+        $this->app->singleton(
+            UsersParticipateAverageService::class,
+            UsersParticipateAverageServiceConcrete::class
+        );
     }
 }
