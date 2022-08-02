@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\Breakfast;
 use App\Models\User;
 use App\Services\Breakfast\BreakfastSupportService;
 use Carbon\Carbon;
@@ -18,7 +19,7 @@ class UserSupportServiceConcrete implements UserSupportService
 {
     public function performance(int $userId): float|string
     {
-        $breakfastsDone = User::find($userId)->breakfasts;
+        $breakfastsDone = Breakfast::findByUser($userId)->get();
         $counter = 0;
         $sum = 0;
 
@@ -71,14 +72,13 @@ class UserSupportServiceConcrete implements UserSupportService
 
     public function countBreakfasts(int $userId): int
     {
-        $user = User::find($userId);
-        return $user->breakfasts->whereNull('deleted_at')->count();
+        return Breakfast::notDeleted()->findByUser($userId)->count();
     }
 
     public function userAverAgeParticipating(int $userId): float
     {
         $user = User::where('id', $userId)->first();
-        $breakfastCounts = $user->breakfasts->whereNull('deleted_at')->count();
+        $breakfastCounts = Breakfast::notDeleted()->findByUser($userId)->count();
         $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $user->created_at);
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;

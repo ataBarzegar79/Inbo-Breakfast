@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static create(array $array)
  * @method static paginate(int $int)
  * @method static ordering()
+ * @method static notDeleted()
  * @property mixed $rates
  * @property mixed $users
  * @property mixed $created_at
@@ -49,14 +50,18 @@ class Breakfast extends Model
         $query->orderby('created_at','desc');
     }
 
-//    public function scopeNotDeleted(Builder $query): Builder
-//    {
-//        return $query->where('deleted_at',null);
-//    }
-//
-//    public function scopeFindByUser(Builder $query, int $userId): Builder
-//    {
-//        return $query->where('breakfast_users.id', $userId);
-//    }
+    public function scopeNotDeleted(Builder $query): Builder
+    {
+        return $query->where('deleted_at',null);
+    }
+
+    public function scopeFindByUser(Builder $query, int $userId): Builder
+    {
+        $pivot = $this->users()->getTable();
+
+        return $query->whereHas('users', function ($q) use ($userId, $pivot) {
+            $q->where("{$pivot}.user_id", $userId);
+        });
+    }
 
 }
