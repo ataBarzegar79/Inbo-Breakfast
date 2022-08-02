@@ -25,7 +25,13 @@ class UserCrudServiceConcrete implements UserService
             $performanceColor = $userSupport->performanceColor($user->id, $performance);
             $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
             $countBreakfasts = $userSupport->countBreakfasts($user->id);
-            $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance, $performanceColor, $averAgeParticipating, $countBreakfasts);
+            $userDtos[] = UserDtoFactory::fromModel(
+                $user,
+                $viewAvatar,
+                $performance,
+                $performanceColor,
+                $averAgeParticipating,
+                $countBreakfasts);
         }
 
         return UserPaginationDto::fromModelPaginatorAndData($users, $userDtos);
@@ -83,7 +89,7 @@ class UserCrudServiceConcrete implements UserService
                 'avatars', $avatarStorageAddress, 'public'
             );
         } else {
-            $avatarPath = "img\default.jpg";
+            $avatarPath = "img\logo.jpg";
         }
 
         return $avatarPath;
