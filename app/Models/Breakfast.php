@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static find(int $breakfast_id)
  * @method static create(array $array)
  * @method static paginate(int $int)
+ * @method static ordering()
  * @property mixed $rates
  * @property mixed $users
  * @property mixed $created_at
@@ -41,5 +43,20 @@ class Breakfast extends Model
     {
         return $this->belongsToMany(User::class)->withTrashed();
     }
+
+    public function scopeOrdering(Builder $query)
+    {
+        $query->orderby('created_at','desc');
+    }
+
+//    public function scopeNotDeleted(Builder $query): Builder
+//    {
+//        return $query->where('deleted_at',null);
+//    }
+//
+//    public function scopeFindByUser(Builder $query, int $userId): Builder
+//    {
+//        return $query->where('breakfast_users.id', $userId);
+//    }
 
 }

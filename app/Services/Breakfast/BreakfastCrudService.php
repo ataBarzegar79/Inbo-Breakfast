@@ -12,7 +12,6 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
-use App\Models\Rate;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
@@ -48,8 +47,8 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::orderby('created_at', 'desc')->paginate(3);
-
+        $breakfasts = Breakfast::ordering()->paginate(3);
+        $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
 
             $userRate = null;

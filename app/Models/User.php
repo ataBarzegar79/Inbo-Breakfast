@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Dtos\LoginRequestDto;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -73,16 +74,16 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
-    public function averAgeParticipating(): float
-    {
-        $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();
-        $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $this->created_at);
-        $now = Carbon::now();
-        $diff = $userCreatedAt->diffInDays($now) + 1;
-        return round($breakfastCounts / $diff, 3);
-    } // todo Ehsan: Delete this
+    /*    public function averAgeParticipating(): float
+        {
+            $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();
+            $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $this->created_at);
+            $now = Carbon::now();
+            $diff = $userCreatedAt->diffInDays($now) + 1;
+            return round($breakfastCounts / $diff, 3);
+        } // todo Ehsan: Delete this*/
 
-    public function scopeAuth($query, LoginRequestDto $dto)
+    public function scopeAuth(Builder $query, LoginRequestDto $dto)
     {
         $query->where('name', '=', $dto->name)
             ->where('password', '=', $dto->password);
