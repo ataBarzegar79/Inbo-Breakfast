@@ -13,13 +13,11 @@ class UserDtoFactory
         User         $user,
         string       $avatar,
         float|string $userRate,
-        string       $userPerformanceColor,
         float        $averageParticipating,
         int          $countBreakfast
     ): UserDto
     {
 
-        // fixme persianFormat helper class did not work correctly, I had to handle it DASTY
         $jalaliService = resolve(JalaliService::class);
         $persianDateFormat = $jalaliService->toPersian($user->created_at);
 
@@ -33,7 +31,6 @@ class UserDtoFactory
             $user->is_admin,
             $avatar,
             $userRate,
-            $userPerformanceColor,
             $countBreakfast,
         );
     }
