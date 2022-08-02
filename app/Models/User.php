@@ -89,4 +89,9 @@ class User extends Authenticatable
             ->where('password', '=', $dto->password);
     }
 
+    public function scopeName(Builder $query): void
+    {
+        $query->select('id', 'name');
+    }
+
 }

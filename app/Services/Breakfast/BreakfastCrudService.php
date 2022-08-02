@@ -12,6 +12,7 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
 use App\Dtos\UserBreakfastDtoFactory;
 use App\Models\Breakfast;
+use App\Models\Rate;
 use App\Models\User;
 use App\Services\Support\JalaliService;
 use App\Services\User\UserSupportService;
@@ -47,18 +48,19 @@ class  BreakfastCrudService implements BreakfastService
 //        });
 
         $user = auth()->user();
-        $breakfasts = Breakfast::ordering()->paginate(3);
+        $breakfasts = Breakfast::ordering()->paginate(3); // scope using
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
 
             $userRate = null;
-            $rate = Rate::findByUser($user->id)->findByBreakfast($breakfast->id)->first();
+            $rate = Rate::findByUser($user->id)->findByBreakfast($breakfast->id)->first(); //scope using
             if ($rate) {
                 $userRate = RateDtoFactory::fromModel($rate);
             }
 
             $persianService = resolve(JalaliService::class);
             $persianService = $persianService->toPersian($breakfast->created_at);
+
             $breakfastSupport = resolve(BreakfastSupportService::class);
             $breakfastAverage = $breakfastSupport->averageRate($breakfast);
 
@@ -81,7 +83,7 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        $users = User::select('id', 'name')->get();
+        $users = User::name()->get();
 
 
         foreach ($users as $user) {
