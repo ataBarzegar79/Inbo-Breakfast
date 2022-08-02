@@ -27,32 +27,7 @@ class BreakfastDtoFactory
             $rateDto
         );
 
-// todo delete commented code
-//        $jalaliService = resolve(JalaliService::class, [$model->created_at]);
-//        $createdAt = $jalaliService->toPersian();
-//
-//
-//        $breakfastSupport = resolve(BreakfastSupportService::class, [$model]);
-//        $averageRate = $breakfastSupport->averageRate();
-//
-//
-//        $users = $model->users;
-//
-//        if ($rate !== null) {
-//            $rateDto = RateDtoFactory::fromModel($rate);
-//        } else {
-//            $rateDto = null;
-//        }
-//
-//        foreach ($users as $user) {
-//            if ($userSupportService === null) {
-//                $averAgeParticipating = null;
-//            } else {
-//                $averAgeParticipating = $userSupportService->averAgeParticipating($user->id);
-//            }
-//
-//            $doers[] = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
-//        }
+
     }
 }
 
