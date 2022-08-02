@@ -56,7 +56,7 @@ class UserController extends Controller
 
     public function standings(UserService $service, BreakfastSupportService $breakfastSupportService, UsersParticipateAverageService $usersParticipateAverageService, UserSupportService $userSupport): Factory|View|Application
     {
-        return view('standings', ['users' => $service->index($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar' => $userSupport->viewAvatar(Auth::id())]);
+        return view('standings', ['users' => $service->standing($breakfastSupportService), 'usersAverage' => $usersParticipateAverageService->participateAverage(), 'avatar' => $userSupport->viewAvatar(Auth::id())]);
     }
 
 }

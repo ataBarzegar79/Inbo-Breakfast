@@ -5,6 +5,7 @@ namespace App\Dtos;
 class UserDto
 {
     public function __construct(
+        public float  $averageParticipating,
         public int    $id,
         public string $name,
         public string $email,
@@ -14,7 +15,6 @@ class UserDto
         public string $avatar,
         public string $rate,
         public string $color,
-        public float  $averageParticipating,
         public int    $countBreakfast,
     )
     {
