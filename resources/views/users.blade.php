@@ -128,7 +128,16 @@
                             <td style="text-align: center">{{$user->email}}</td>
                             <td style="text-align: center">{{$user->createdAt}}</td>
                             <td style="text-align: center">{{$user->isAdmin}}</td>
-                            <td style="background-color: {{$user->color}}; text-align: center; color: black">{{$user->rate}}</td>
+                            <td style="background-color:
+                            @if($user->rate >=1 && $user->rate<=4 )
+                                #ff8080
+                            @elseif($user->rate >4 && $user->rate<=6)
+                                #f6c23e
+                            @elseif($user->rate >6 && $user->rate<=10)
+                                #1cc88a
+                            @else
+                                #f8f9fc
+                            @endif; text-align: center; color: black">{{$user->rate}}</td>
                             <td style="text-align: center">
                                 <img class=" center img-profile rounded-circle " width="60"
                                      height="60"

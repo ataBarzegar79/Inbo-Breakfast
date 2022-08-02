@@ -42,22 +42,6 @@ class UserSupportServiceConcrete implements UserSupportService
         return $performance;
     }
 
-    // todo $userId is unused
-    public function performanceColor(int $userId, float|string $performance): string
-    {
-
-        if ($performance >= 1 && $performance <= 4) {
-            $color = "#ff8080"; //todo move view elements to view layer
-        } elseif ($performance > 4 && $performance <= 6) {
-            $color = "#f6c23e";
-        } elseif ($performance > 6 && $performance <= 10) {
-            $color = "#1cc88a";
-        } else {
-            $color = "#f8f9fc";
-        }
-
-        return $color;
-    }
 
     public function viewAvatar(int $userId): string|UrlGenerator|Application
     {

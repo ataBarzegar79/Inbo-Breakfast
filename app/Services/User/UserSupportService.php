@@ -13,12 +13,7 @@ interface UserSupportService
      */
     public function performance(int $userId): mixed;
 
-    /**
-     * @param int $userId
-     * @param float|string $performance
-     * @return mixed
-     */
-    public function performanceColor(int $userId, float|string $performance): mixed;
+
 
     /**
      * @param int $userId

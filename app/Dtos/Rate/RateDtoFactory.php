@@ -2,12 +2,12 @@
 
 namespace App\Dtos\Rate;
 
-use App\Models\Rate;
+use App\Models\Rating;
 use JetBrains\PhpStorm\Pure;
 
 class RateDtoFactory
 {
-    #[Pure] public static function fromModel(Rate $rate): RateDto
+    #[Pure] public static function fromModel(Rating $rate): RateDto
     {
         return new RateDto(
             $rate->id,

@@ -31,7 +31,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $table = 'users'; // fixme data base names must be according to psr principles
     /**
      * The attributes that are mass assignable.
      *
@@ -70,17 +69,10 @@ class User extends Authenticatable
 
     public function rates(): HasMany
     {
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Rating::class);
     }
 
-    /*    public function averAgeParticipating(): float
-        {
-            $breakfastCounts = $this->breakfasts->whereNull('deleted_at')->count();
-            $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $this->created_at);
-            $now = Carbon::now();
-            $diff = $userCreatedAt->diffInDays($now) + 1;
-            return round($breakfastCounts / $diff, 3);
-        } // todo Ehsan: Delete this*/
+
 
     public function scopeAuth(Builder $query, LoginRequestDto $dto)
     {

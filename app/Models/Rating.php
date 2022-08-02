@@ -13,14 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed $id
  * @property mixed $rate
  * @property mixed $description
- * @method static Builder|Rate findByUser(int $userId)
- * @method static Builder|Rate findByBreakfast(int $breakfastId)
+ * @method static Builder|Rating findByUser(int $userId)
+ * @method static Builder|Rating findByBreakfast(int $breakfastId)
  */
-class Rate extends Model
+class Rating extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'ratings'; // fixme data base names must be according to psr principles
 
     protected $fillable = [
         'rate',

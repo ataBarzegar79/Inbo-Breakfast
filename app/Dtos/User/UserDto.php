@@ -14,7 +14,6 @@ class UserDto
         public string $isAdmin,
         public string $avatar,
         public string $rate,
-        public string $color,
         public int    $countBreakfast,
     )
     {
