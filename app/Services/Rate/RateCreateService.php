@@ -5,7 +5,7 @@ namespace App\Services\Rate;
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDto;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
-use App\Dtos\Request\VoteRequestDto;
+use App\Dtos\Request\RateRequestDto;
 use App\Models\Breakfast;
 use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class  RateCreateService implements RateService
         return BreakfastUpdateDtoFactory::fromModel($breakfsatvote, $doers);
     }
 
-    public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void
+    public function store(RateRequestDto $dto, Breakfast $breakfsatvote): void
     {
         Rating::create([
             'user_id' => Auth::id(),

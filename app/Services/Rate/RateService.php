@@ -3,7 +3,7 @@
 namespace App\Services\Rate;
 
 use App\Dtos\Breakfast\BreakfastUpdateDto;
-use App\Dtos\Request\VoteRequestDto;
+use App\Dtos\Request\RateRequestDto;
 use App\Models\Breakfast;
 
 interface  RateService
@@ -15,10 +15,10 @@ interface  RateService
     public function create(Breakfast $breakfsatvote): BreakfastUpdateDto;
 
     /**
-     * @param VoteRequestDto $dto
+     * @param RateRequestDto $dto
      * @param Breakfast $breakfsatvote
      * @return void
      */
-    public function store(VoteRequestDto $dto, Breakfast $breakfsatvote): void;
+    public function store(RateRequestDto $dto, Breakfast $breakfsatvote): void;
 
 }

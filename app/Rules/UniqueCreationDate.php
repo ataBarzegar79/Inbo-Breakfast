@@ -3,10 +3,9 @@
 namespace App\Rules;
 
 use App\Models\Breakfast;
+use App\Services\Support\JalaliService;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
-use Morilog\Jalali\Jalalian;
-
 class UniqueCreationDate implements Rule
 {
     /**
@@ -29,9 +28,9 @@ class UniqueCreationDate implements Rule
     public function passes($attribute, $value): bool
     {
 
-        $persianDate = explode("/", $value);
-        $formDate = (new Jalalian((int)$persianDate[0], (int)$persianDate[1], (int)$persianDate[2], 0, 0, 0))
-            ->toCarbon();
+
+        $jalaliService = resolve(JalaliService::class);
+        $formDate = $jalaliService->toAdFormat($value);
         $breakfasts = Breakfast::all();
         foreach ($breakfasts as $breakfast) {
             $registeredDate = Carbon::createFromFormat('Y-m-d  H:i:s', $breakfast->created_at);

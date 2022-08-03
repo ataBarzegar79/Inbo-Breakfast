@@ -4,14 +4,13 @@ namespace App\Services\User;
 
 use App\Models\Breakfast;
 use App\Models\User;
-use App\Services\Breakfast\BreakfastSupportService;
+use App\Services\Breakfast\BreakfastAverageRateService;
 use Carbon\Carbon;
 use DivisionByZeroError;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Storage;
 use TypeError;
-use function App\Services\str_contains;
 use function asset;
 use function url;
 
@@ -23,7 +22,7 @@ class UserSupportServiceConcrete implements UserSupportService
         $counter = 0;
         $sum = 0;
 
-        $breakfastSupport = resolve(BreakfastSupportService::class);
+        $breakfastSupport = resolve(BreakfastAverageRateService::class);
         foreach ($breakfastsDone as $breakfast) {
             try {
                 $sum += $breakfastSupport->averageRate($breakfast);
@@ -47,7 +46,7 @@ class UserSupportServiceConcrete implements UserSupportService
     {
         $user = User::find($userId);
         $url = url($user->avatar);
-        if (\str_contains($url, 'default.jpg')) {
+        if (str_contains($url, 'default.jpg')) {
             return $url;
         } else {
             return asset(Storage::url($user->avatar));

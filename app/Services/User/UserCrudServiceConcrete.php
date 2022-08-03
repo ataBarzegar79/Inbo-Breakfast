@@ -8,12 +8,15 @@ use App\Dtos\Request\UserRequestDto;
 use App\Dtos\User\UserDtoFactory;
 use App\Dtos\User\UserUpdateDtoFactory;
 use App\Models\User;
-use App\Services\Breakfast\BreakfastSupportService;
 use JetBrains\PhpStorm\Pure;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class UserCrudServiceConcrete implements UserService
 {
-    public function index(BreakfastSupportService $breakfastSupportService): Pagination
+    /**
+     * @throws UnknownProperties
+     */
+    public function index(): Pagination
     {
         $users = User::paginate(10);
         $userDtos = [];
@@ -91,7 +94,7 @@ class UserCrudServiceConcrete implements UserService
         return $avatarPath;
     }
 
-    public function standing(BreakfastSupportService $breakfastSupportService): array
+    public function standing(): array
     {
         $users = User::all();
 
