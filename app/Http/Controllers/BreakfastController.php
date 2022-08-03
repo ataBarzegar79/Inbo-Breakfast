@@ -10,7 +10,7 @@ use App\Http\Requests\StoreBreakfastRequest;
 use App\Models\Breakfast;
 use App\Services\Breakfast\BreakfastService;
 use App\Services\User\UsersParticipateAverageService;
-use App\Services\User\UserSupportService;
+use App\Services\User\UserViewAvatarService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,23 +21,23 @@ use function view;
 
 class BreakfastController extends Controller
 {
-    public function index(BreakfastService $service, UserSupportService $support): Factory|View|Application
+    public function index(BreakfastService $service, UserViewAvatarService $userViewAvatarService): Factory|View|Application
     {
         return view('dashboard',
             ['breakfasts' => $service->index(),
-                'avatar' => $support->viewAvatar(Auth::user())]);
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())]);
     }
 
     public function create(
         BreakfastService               $service,
-        UserSupportService             $userSupportService,
+        UserViewAvatarService          $userViewAvatarService,
         UsersParticipateAverageService $averageParticipateService
     ): Factory|View|Application
     {
         return view('breakfast-create',
             [
-                'users' => $service->create($userSupportService),
-                'avatar' => $userSupportService->viewAvatar(Auth::user()),
+                'users' => $service->create(),
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user()),
                 'averageParticipate' => $averageParticipateService->participateAverage()
             ]
         );
@@ -57,19 +57,19 @@ class BreakfastController extends Controller
     }
 
     public function edit(
-        Breakfast          $breakfast,
-        BreakfastService   $service,
-        UserSupportService $userSupportService
+        Breakfast             $breakfast,
+        BreakfastService      $service,
+        UserViewAvatarService $userViewAvatarService,
     ): Factory|View|Application|RedirectResponse
     {
-        $editedBreakfast = $service->edit($breakfast, $userSupportService);
+        $editedBreakfast = $service->edit($breakfast);
         if ($editedBreakfast === false) {
             return redirect()->route('dashboard');
         }
         return view('breakfast-update',
             ['breakfast' => $editedBreakfast["breakfast"],
                 'users' => $editedBreakfast['users'],
-                'avatar' => $userSupportService->viewAvatar(Auth::user())
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())
             ]
         );
     }

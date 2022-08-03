@@ -7,7 +7,6 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Request\BreakfastStoreRequestDto;
 use App\Dtos\Request\BreakfastUpdateRequestDto;
 use App\Models\Breakfast;
-use App\Services\User\UserSupportService;
 use phpDocumentor\Reflection\Types\Boolean;
 
 interface BreakfastService
@@ -21,14 +20,13 @@ interface BreakfastService
     /**
      * @return UserBreakfastDTO[]
      */
-    public function create(UserSupportService $userSupportService): array;
+    public function create(): array;
 
     /**
      * @param Breakfast $breakfast
-     * @param UserSupportService $userSupportService
      * @return array|boolean array => [UsersDto[] , BreakfastDto]
      */
-    public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean;
+    public function edit(Breakfast $breakfast): array|boolean;
 
     /**
      * @param BreakfastStoreRequestDto $dto

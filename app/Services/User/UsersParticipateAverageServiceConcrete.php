@@ -10,10 +10,10 @@ class UsersParticipateAverageServiceConcrete implements UsersParticipateAverageS
     {
         $users = User::all();
         $usersCount = count($users);
-        $userSupport = resolve(UserSupportService::class);
+        $userParticipatingPerTimeService = resolve(UserParticipatingPerTimeService::class);
         $sum = 0;
         foreach ($users as $user) {
-            $sum += $userSupport->userAverAgeParticipating($user);
+            $sum += $userParticipatingPerTimeService->userParticipatingPerTime($user);
         }
         return round($sum / $usersCount, 2);
     }

@@ -15,9 +15,10 @@ use App\Models\Breakfast;
 use App\Models\Rating;
 use App\Models\User;
 use App\Services\Support\JalaliService;
-use App\Services\User\UserSupportService;
+use App\Services\User\UserParticipatingPerTimeService;
 use JetBrains\PhpStorm\ArrayShape;
 use phpDocumentor\Reflection\Types\Boolean;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use function auth;
 use function resolve;
 
@@ -27,7 +28,7 @@ class  BreakfastCrudService implements BreakfastService
 
 
     /**
-     * @throws \Spatie\DataTransferObject\Exceptions\UnknownProperties
+     * @throws UnknownProperties
      */
     public function index(): Pagination
     {
@@ -66,13 +67,15 @@ class  BreakfastCrudService implements BreakfastService
     }
 
 
-    public function create(UserSupportService $userSupportService): array
+    public function create(): array
     {
         $users = User::all();
 
+        $userParticipatingPerTimeService = resolve(UserParticipatingPerTimeService::class);
+
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->userAverAgeParticipating($user);
+            $averAgeParticipating = $userParticipatingPerTimeService->userParticipatingPerTime($user);
             $userDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
@@ -87,7 +90,7 @@ class  BreakfastCrudService implements BreakfastService
     }
 
     #[ArrayShape(['users' => "array", "breakfast" => "\App\Dtos\Breakfast\BreakfastUpdateDto"])]
-    public function edit(Breakfast $breakfast, UserSupportService $userSupportService): array|boolean
+    public function edit(Breakfast $breakfast): array|boolean
     {
         $breakfastUsers = $breakfast->users;
         $doers = [];

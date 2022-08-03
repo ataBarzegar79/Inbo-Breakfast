@@ -7,7 +7,7 @@ use App\Dtos\Request\UserRequestDto;
 use App\Dtos\User\UserDto;
 use App\Models\User;
 
-interface UserService
+interface UserCrudService
 {
     /**
      * @return Pagination

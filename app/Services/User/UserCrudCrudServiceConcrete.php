@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use JetBrains\PhpStorm\Pure;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-class UserCrudServiceConcrete implements UserService
+class UserCrudCrudServiceConcrete implements UserCrudService
 {
     /**
      * @throws UnknownProperties
@@ -22,12 +22,15 @@ class UserCrudServiceConcrete implements UserService
         $users = User::paginate(10);
         $userDtos = [];
 
-        $userSupport = resolve(UserSupportService::class);
+        $userViewAvatarService = resolve(UserViewAvatarService::class);
+        $userPerformanceService = resolve(UserPerformanceService::class);
+        $userParticipatingPerTimeService = resolve(UserParticipatingPerTimeService::class);
+        $userCountBreakfastService = resolve(UserCountBreakfastsService::class);
         foreach ($users->items() as $user) {
-            $viewAvatar = $userSupport->viewAvatar($user);
-            $performance = $userSupport->performance($user);
-            $averAgeParticipating = $userSupport->userAverAgeParticipating($user);
-            $countBreakfasts = $userSupport->countBreakfasts($user);
+            $viewAvatar = $userViewAvatarService->viewAvatar($user);
+            $performance = $userPerformanceService->performance($user);
+            $averAgeParticipating = $userParticipatingPerTimeService->userParticipatingPerTime($user);
+            $countBreakfasts = $userCountBreakfastService->countBreakfasts($user);
             $userDtos[] = UserDtoFactory::fromModel(
                 $user,
                 $viewAvatar,
@@ -100,12 +103,15 @@ class UserCrudServiceConcrete implements UserService
     {
         $users = User::all();
 
-        $userSupport = resolve(UserSupportService::class);
+        $userViewAvatarService = resolve(UserViewAvatarService::class);
+        $userPerformanceService = resolve(UserPerformanceService::class);
+        $userParticipatingPerTimeService = resolve(UserParticipatingPerTimeService::class);
+        $userCountBreakfastService = resolve(UserCountBreakfastsService::class);
         foreach ($users as $user) {
-            $viewAvatar = $userSupport->viewAvatar($user);
-            $performance = $userSupport->performance($user);
-            $averAgeParticipating = $userSupport->userAverAgeParticipating($user);
-            $countBreakfasts = $userSupport->countBreakfasts($user);
+            $viewAvatar = $userViewAvatarService->viewAvatar($user);
+            $performance = $userPerformanceService->performance($user);
+            $averAgeParticipating = $userParticipatingPerTimeService->userParticipatingPerTime($user);
+            $countBreakfasts = $userCountBreakfastService->countBreakfasts($user);
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance,  $averAgeParticipating, $countBreakfasts);
         }
         rsort($userDtos);

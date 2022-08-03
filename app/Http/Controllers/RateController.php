@@ -6,7 +6,7 @@ use App\Dtos\Request\RateRequestDtoFactory;
 use App\Http\Requests\StoreRateRequest;
 use App\Models\Breakfast;
 use App\Services\Rate\RateService;
-use App\Services\User\UserSupportService;
+use App\Services\User\UserViewAvatarService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -22,15 +22,15 @@ class RateController extends Controller
      * @throws AuthorizationException
      */
     public function create(
-        Breakfast          $breakfsatvote,
-        RateService        $service,
-        UserSupportService $userSupportService
+        Breakfast             $breakfsatvote,
+        RateService           $service,
+        UserViewAvatarService $userViewAvatarService
     ): Factory|View|Application
     {
         $this->authorize('canVote', $breakfsatvote->id);
         return view('vote', [
                 'breakfast' => $service->create($breakfsatvote),
-                'avatar' => $userSupportService->viewAvatar(Auth::user())
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())
             ]
         );
     }

@@ -6,9 +6,9 @@ use App\Dtos\Request\UserRequestDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Services\User\UserService;
+use App\Services\User\UserCrudService;
 use App\Services\User\UsersParticipateAverageService;
-use App\Services\User\UserSupportService;
+use App\Services\User\UserViewAvatarService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,19 +21,19 @@ class UserController extends Controller
 {
     public function index
     (
-        UserService                 $service,
-        UserSupportService          $userSupport
+        UserCrudService       $service,
+        UserViewAvatarService $userViewAvatarService
     ): Factory|View|Application
     {
         return view('users', [
                 'users' => $service->index(),
-                'avatar' => $userSupport->viewAvatar(Auth::user())
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())
             ]
         );
     }
 
 
-    public function store(UserService $service, StoreUserRequest $request): RedirectResponse
+    public function store(UserCrudService $service, StoreUserRequest $request): RedirectResponse
     {
         $userDto = UserRequestDtoFactory::fromRequest($request);
         $service->store($userDto);
@@ -43,9 +43,9 @@ class UserController extends Controller
 
     public function edit
     (
-        User               $user,
-        UserService        $service,
-        UserSupportService $userSupport
+        User                  $user,
+        UserCrudService       $service,
+        UserViewAvatarService $userViewAvatarService
     ): Factory|View|Application|RedirectResponse
     {
         $updateUser = $service->edit($user);
@@ -54,13 +54,13 @@ class UserController extends Controller
         }
         return view('update-user', [
                 'update_user' => $updateUser,
-                'avatar' => $userSupport->viewAvatar(Auth::user())
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())
             ]
         );
     }
 
 
-    public function update(UserService $service, UpdateUserRequest $request, User $user): RedirectResponse
+    public function update(UserCrudService $service, UpdateUserRequest $request, User $user): RedirectResponse
     {
         $userDto = UserRequestDtoFactory::fromRequest($request);
         $service->update($userDto, $user);
@@ -68,7 +68,7 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user, UserService $service): RedirectResponse
+    public function destroy(User $user, UserCrudService $service): RedirectResponse
     {
         $service->destroy($user);
         return redirect()->route('users.index');
@@ -77,15 +77,15 @@ class UserController extends Controller
 
     public function standings
     (
-        UserService                    $service,
+        UserCrudService                $service,
         UsersParticipateAverageService $usersParticipateAverageService,
-        UserSupportService             $userSupport
+        UserViewAvatarService          $userViewAvatarService
     ): Factory|View|Application
     {
         return view('standings', [
                 'users' => $service->standing(),
                 'usersAverage' => $usersParticipateAverageService->participateAverage(),
-                'avatar' => $userSupport->viewAvatar(Auth::user())
+                'avatar' => $userViewAvatarService->viewAvatar(Auth::user())
             ]
         );
     }
