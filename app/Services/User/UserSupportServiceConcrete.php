@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Models\Breakfast;
+
 use App\Models\User;
 use App\Services\Breakfast\BreakfastAverageRateService;
 use Carbon\Carbon;
@@ -16,9 +16,9 @@ use function url;
 
 class UserSupportServiceConcrete implements UserSupportService
 {
-    public function performance(int $userId): float|string
+    public function performance(User $user): float|string
     {
-        $breakfastsDone = Breakfast::findByUser($userId)->get();
+        $breakfastsDone = $user->breakfasts;
         $counter = 0;
         $sum = 0;
 
@@ -42,9 +42,8 @@ class UserSupportServiceConcrete implements UserSupportService
     }
 
 
-    public function viewAvatar(int $userId): string|UrlGenerator|Application
+    public function viewAvatar(User $user): string|UrlGenerator|Application
     {
-        $user = User::find($userId);
         $url = url($user->avatar);
         if (str_contains($url, 'default.jpg')) {
             return $url;
@@ -53,15 +52,14 @@ class UserSupportServiceConcrete implements UserSupportService
         }
     }
 
-    public function countBreakfasts(int $userId): int
+    public function countBreakfasts(User $user): int
     {
-        return Breakfast::notDeleted()->findByUser($userId)->count();
+        return $user->breakfasts->count();
     }
 
-    public function userAverAgeParticipating(int $userId): float
+    public function userAverAgeParticipating(User $user): float
     {
-        $user = User::where('id', $userId)->first();
-        $breakfastCounts = Breakfast::notDeleted()->findByUser($userId)->count(); //scopes
+        $breakfastCounts = $user->breakfasts->count(); //scopes
         $userCreatedAt = Carbon::createFromFormat('Y-m-d  H:i:s', $user->created_at);
         $now = Carbon::now();
         $diff = $userCreatedAt->diffInDays($now) + 1;

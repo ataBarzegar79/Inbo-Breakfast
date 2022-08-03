@@ -30,7 +30,7 @@ class RateController extends Controller
         $this->authorize('canVote', $breakfsatvote->id);
         return view('vote', [
                 'breakfast' => $service->create($breakfsatvote),
-                'avatar' => $userSupportService->viewAvatar(Auth::id())
+                'avatar' => $userSupportService->viewAvatar(Auth::user())
             ]
         );
     }

@@ -2,7 +2,7 @@
 
 namespace App\Services\Breakfast;
 
-use App\Dtos\Breakfast_User\UserBreakfastDto;
+use App\Dtos\BreakfastUser\UserBreakfastDto;
 use App\Dtos\Pagination\Pagination;
 use App\Dtos\Request\BreakfastStoreRequestDto;
 use App\Dtos\Request\BreakfastUpdateRequestDto;
