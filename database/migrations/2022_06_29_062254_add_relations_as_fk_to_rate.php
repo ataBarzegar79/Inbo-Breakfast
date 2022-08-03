@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('ratings', function (Blueprint $table) {
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('breakfast_id')->references('id')->on('breakfasts')->onDelete('cascade');
-            $table->primary(['user_id' , 'breakfast_id']) ;
+            $table->unique(['user_id' , 'breakfast_id']) ;
         });
     }
 
@@ -28,7 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('ratings', function (Blueprint $table) {
-
+            $table->dropForeign('ratings_user_id_foreign') ;
+            $table->dropForeign('ratings_breakfast_id_foreign');
         });
     }
 };

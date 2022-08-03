@@ -4,6 +4,7 @@ namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 
 class PaginationLinks extends DataTransferObject
@@ -14,6 +15,9 @@ class PaginationLinks extends DataTransferObject
     public ?string $next;
 
 
+    /**
+     * @throws UnknownProperties
+     */
     public static function fromPaginator(LengthAwarePaginator $paginator): PaginationLinks
     {
         $urls = $paginator->getUrlRange(1, $paginator->lastPage());

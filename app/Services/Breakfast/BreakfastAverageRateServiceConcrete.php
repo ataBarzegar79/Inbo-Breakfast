@@ -5,7 +5,7 @@ namespace App\Services\Breakfast;
 use App\Models\Breakfast;
 use TypeError;
 
-class BreakfastSupportServiceConcrete implements BreakfastSupportService
+class BreakfastAverageRateServiceConcrete implements BreakfastAverageRateService
 {
     public function averageRate(Breakfast $breakfast): float|string
     {

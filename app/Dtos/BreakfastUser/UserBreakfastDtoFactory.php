@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos\Breakfast_User;
+namespace App\Dtos\BreakfastUser;
 
 use App\Models\User;
 use JetBrains\PhpStorm\Pure;
