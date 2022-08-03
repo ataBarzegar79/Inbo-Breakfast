@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Models\Breakfast;
+
 use App\Models\User;
 use App\Services\Breakfast\BreakfastAverageRateService;
 use Carbon\Carbon;
