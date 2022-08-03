@@ -4,6 +4,7 @@ namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class PaginationMeta extends DataTransferObject
 {
@@ -17,6 +18,9 @@ class PaginationMeta extends DataTransferObject
     public int $total;
 
 
+    /**
+     * @throws UnknownProperties
+     */
     public static function fromPaginator(LengthAwarePaginator $paginator): PaginationMeta
     {
         return new static([

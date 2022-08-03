@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property mixed $rate
  * @property mixed $description
  */
-class StoreVoteRequest extends FormRequest
+class StoreRateRequest extends FormRequest
 {
 
     /**

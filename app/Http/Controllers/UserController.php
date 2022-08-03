@@ -6,7 +6,6 @@ use App\Dtos\Request\UserRequestDtoFactory;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Services\Breakfast\BreakfastSupportService;
 use App\Services\User\UserService;
 use App\Services\User\UsersParticipateAverageService;
 use App\Services\User\UserSupportService;
@@ -22,13 +21,12 @@ class UserController extends Controller
 {
     public function index
     (
-        UserService             $service,
-        BreakfastSupportService $breakfastSupportService,
-        UserSupportService      $userSupport
+        UserService                 $service,
+        UserSupportService          $userSupport
     ): Factory|View|Application
     {
         return view('users', [
-                'users' => $service->index($breakfastSupportService),
+                'users' => $service->index(),
                 'avatar' => $userSupport->viewAvatar(Auth::id())
             ]
         );
@@ -39,7 +37,7 @@ class UserController extends Controller
     {
         $userDto = UserRequestDtoFactory::fromRequest($request);
         $service->store($userDto);
-        return redirect()->route('dashboard');
+        return redirect()->route('users.index');
     }
 
 
@@ -66,27 +64,26 @@ class UserController extends Controller
     {
         $userDto = UserRequestDtoFactory::fromRequest($request);
         $service->update($userDto, $user);
-        return redirect()->route('dashboard');
+        return redirect()->route('users.index');
     }
 
 
     public function destroy(User $user, UserService $service): RedirectResponse
     {
         $service->destroy($user);
-        return redirect()->route('dashboard');
+        return redirect()->route('users.index');
     }
 
 
     public function standings
     (
         UserService                    $service,
-        BreakfastSupportService        $breakfastSupportService,
         UsersParticipateAverageService $usersParticipateAverageService,
         UserSupportService             $userSupport
     ): Factory|View|Application
     {
         return view('standings', [
-                'users' => $service->standing($breakfastSupportService),
+                'users' => $service->standing(),
                 'usersAverage' => $usersParticipateAverageService->participateAverage(),
                 'avatar' => $userSupport->viewAvatar(Auth::id())
             ]

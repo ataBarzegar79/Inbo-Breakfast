@@ -14,7 +14,7 @@ class JalaliServiceConcrete implements JalaliService
         return Jalalian::fromCarbon($carbon)->format('%A, %d %B %Y');
     }
 
-    public function toAd(string $format): Carbon
+    public function toAdFormat(string $format): Carbon
     {
         $persianDate = explode("/", $format);
         return (

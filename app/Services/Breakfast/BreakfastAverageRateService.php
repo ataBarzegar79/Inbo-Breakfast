@@ -4,7 +4,7 @@ namespace App\Services\Breakfast;
 
 use App\Models\Breakfast;
 
-interface  BreakfastSupportService
+interface  BreakfastAverageRateService
 {
     /**
      * @param Breakfast $breakfast

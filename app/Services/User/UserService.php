@@ -6,15 +6,15 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Request\UserRequestDto;
 use App\Dtos\User\UserDto;
 use App\Models\User;
-use App\Services\Breakfast\BreakfastSupportService;
+use App\Services\Breakfast\BreakfastAverageRateService;
 
 interface UserService
 {
     /**
-     * @param BreakfastSupportService $breakfastSupportService
+     * @param BreakfastAverageRateService $breakfastSupportService
      * @return Pagination
      */
-    public function index(BreakfastSupportService $breakfastSupportService): Pagination;
+    public function index(): Pagination;
 
     /**
      * @param UserRequestDto $dto
@@ -43,9 +43,8 @@ interface UserService
 
 
     /**
-     * @param BreakfastSupportService $breakfastSupportService
      * @return array [[float average ,UserDto userdto],[float average , userdto],.....]
      */
-    public function standing(BreakfastSupportService $breakfastSupportService): array;
+    public function standing(): array;
 
 }

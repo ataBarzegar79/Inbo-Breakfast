@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
                 'password' => 'admin',
-                'avatar' => 'img\default.svg',
+                'avatar' => 'img\default.jpg',
                 'is_admin' => 'yes'
             ]
         );

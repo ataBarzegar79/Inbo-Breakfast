@@ -5,7 +5,7 @@ namespace App\Services\Breakfast;
 use App\Dtos\Breakfast\BreakfastDtoDoerFactory;
 use App\Dtos\Breakfast\BreakfastDtoFactory;
 use App\Dtos\Breakfast\BreakfastUpdateDtoFactory;
-use App\Dtos\Breakfast_User\UserBreakfastDtoFactory;
+use App\Dtos\BreakfastUser\UserBreakfastDtoFactory;
 use App\Dtos\Pagination\BreakfastPaginationDto;
 use App\Dtos\Pagination\Pagination;
 use App\Dtos\Rate\RateDtoFactory;
@@ -43,7 +43,7 @@ class  BreakfastCrudService implements BreakfastService
             $persianService = resolve(JalaliService::class);
             $persianService = $persianService->toPersian($breakfast->created_at);
 
-            $breakfastSupport = resolve(BreakfastSupportService::class);
+            $breakfastSupport = resolve(BreakfastAverageRateService::class);
             $breakfastAverage = $breakfastSupport->averageRate($breakfast);
 
             $breakfastDoers = $breakfast->users;
@@ -107,7 +107,7 @@ class  BreakfastCrudService implements BreakfastService
     public function store(BreakfastStoreRequestDto $dto): void
     {
         $service = resolve(JalaliService::class);
-        $createdAt = $service->toAd($dto->date);
+        $createdAt = $service->toAdFormat($dto->date);
 
         $breakfast = Breakfast::create(
             [

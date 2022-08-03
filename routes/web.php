@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BreakfastController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VoteController;
+use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +37,7 @@ Route:: middleware('can:is_admin')->group(
 );
 
 
-Route::resource('breakfsatvotes.vote', VoteController::class)->middleware('auth');
+Route::resource('breakfsatvotes.vote', RateController::class)->middleware('auth');
 
 Route::get('standings', [UserController::class, 'standings'])->name('standings')->middleware('auth');
 

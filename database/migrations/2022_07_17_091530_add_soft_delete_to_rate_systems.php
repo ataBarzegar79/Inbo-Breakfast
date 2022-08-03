@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('rates', function (Blueprint $table) {
+        Schema::table('ratings', function (Blueprint $table) {
            $table->dropColumn('deleted_at') ;
         });
     }

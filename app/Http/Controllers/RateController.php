@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\Request\VoteRequestDtoFactory;
-use App\Http\Requests\StoreVoteRequest;
+use App\Dtos\Request\RateRequestDtoFactory;
+use App\Http\Requests\StoreRateRequest;
 use App\Models\Breakfast;
 use App\Services\Rate\RateService;
 use App\Services\User\UserSupportService;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use function redirect;
 use function view;
 
-class VoteController extends Controller
+class RateController extends Controller
 {
     /**
      * @throws AuthorizationException
@@ -41,11 +41,11 @@ class VoteController extends Controller
      */
     public function store(
         Breakfast        $breakfsatvote,
-        StoreVoteRequest $request,
+        StoreRateRequest $request,
         RateService      $service
     ): RedirectResponse
     {
-        $requestDto = VoteRequestDtoFactory::fromRequest($request);
+        $requestDto = RateRequestDtoFactory::fromRequest($request);
         $this->authorize('canVote', $breakfsatvote->id);
         $service->store($requestDto, $breakfsatvote);
         return redirect()->route('dashboard');

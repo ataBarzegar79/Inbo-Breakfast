@@ -16,6 +16,6 @@ interface  JalaliService
      * @param string $format
      * @return Carbon
      */
-    public function toAd(string $format): Carbon;
+    public function toAdFormat(string $format): Carbon;
 
 }

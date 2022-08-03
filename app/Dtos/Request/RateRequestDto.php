@@ -2,7 +2,7 @@
 
 namespace App\Dtos\Request;
 
-class VoteRequestDto
+class RateRequestDto
 {
     public function __construct(
         public float  $rate,

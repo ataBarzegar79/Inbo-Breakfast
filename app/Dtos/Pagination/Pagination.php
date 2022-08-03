@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Dtos\Pagination ;
+namespace App\Dtos\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 
 class Pagination extends DataTransferObject
@@ -13,6 +14,9 @@ class Pagination extends DataTransferObject
     public array $data;
     public PaginationMeta $meta;
 
+    /**
+     * @throws UnknownProperties
+     */
     public static function fromModelPaginatorAndData(LengthAwarePaginator $paginator, array $data): Pagination
     {
 
