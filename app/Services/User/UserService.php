@@ -6,12 +6,10 @@ use App\Dtos\Pagination\Pagination;
 use App\Dtos\Request\UserRequestDto;
 use App\Dtos\User\UserDto;
 use App\Models\User;
-use App\Services\Breakfast\BreakfastAverageRateService;
 
 interface UserService
 {
     /**
-     * @param BreakfastAverageRateService $breakfastSupportService
      * @return Pagination
      */
     public function index(): Pagination;

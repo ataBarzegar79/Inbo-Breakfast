@@ -26,6 +26,9 @@ class  BreakfastCrudService implements BreakfastService
 {
 
 
+    /**
+     * @throws \Spatie\DataTransferObject\Exceptions\UnknownProperties
+     */
     public function index(): Pagination
     {
 
@@ -65,11 +68,11 @@ class  BreakfastCrudService implements BreakfastService
 
     public function create(UserSupportService $userSupportService): array
     {
-        $users = User::name()->get();
+        $users = User::all();
 
 
         foreach ($users as $user) {
-            $averAgeParticipating = $userSupportService->userAverAgeParticipating($user->id);
+            $averAgeParticipating = $userSupportService->userAverAgeParticipating($user);
             $userDto = UserBreakfastDtoFactory::fromModel($user, $averAgeParticipating);
             $usersDtoAverage[] = [$userDto->average, $userDto];
         }
@@ -95,7 +98,6 @@ class  BreakfastCrudService implements BreakfastService
         $breakfastDto = BreakfastUpdateDtoFactory::fromModel($breakfast, $doers);
 
         $users = User::select('id', 'name')->get();
-
         foreach ($users as $user) {
             $usersDto[] = BreakfastDtoDoerFactory::fromModel($user);
         }

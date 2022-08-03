@@ -8,6 +8,7 @@ use App\Dtos\Request\UserRequestDto;
 use App\Dtos\User\UserDtoFactory;
 use App\Dtos\User\UserUpdateDtoFactory;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use JetBrains\PhpStorm\Pure;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -23,10 +24,10 @@ class UserCrudServiceConcrete implements UserService
 
         $userSupport = resolve(UserSupportService::class);
         foreach ($users->items() as $user) {
-            $viewAvatar = $userSupport->viewAvatar($user->id);
-            $performance = $userSupport->performance($user->id);
-            $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
-            $countBreakfasts = $userSupport->countBreakfasts($user->id);
+            $viewAvatar = $userSupport->viewAvatar($user);
+            $performance = $userSupport->performance($user);
+            $averAgeParticipating = $userSupport->userAverAgeParticipating($user);
+            $countBreakfasts = $userSupport->countBreakfasts($user);
             $userDtos[] = UserDtoFactory::fromModel(
                 $user,
                 $viewAvatar,
@@ -46,7 +47,7 @@ class UserCrudServiceConcrete implements UserService
         $newUser = User::create([
             'name' => $dto->name,
             'email' => $dto->email,
-            'password' => $dto->password,
+            'password' => Hash::make($dto->password),
             'avatar' => $avatarPath,
             'is_admin' => $dto->is_admin
         ]);
@@ -68,6 +69,7 @@ class UserCrudServiceConcrete implements UserService
         $user->email = $dto->email;
         $user->is_admin = $dto->is_admin;
         $user->avatar = $avatarPath;
+        $user->password = Hash::make($dto->password) ;
 
         $user->save();
     }
@@ -100,10 +102,10 @@ class UserCrudServiceConcrete implements UserService
 
         $userSupport = resolve(UserSupportService::class);
         foreach ($users as $user) {
-            $viewAvatar = $userSupport->viewAvatar($user->id);
-            $performance = $userSupport->performance($user->id);
-            $averAgeParticipating = $userSupport->userAverAgeParticipating($user->id);
-            $countBreakfasts = $userSupport->countBreakfasts($user->id);
+            $viewAvatar = $userSupport->viewAvatar($user);
+            $performance = $userSupport->performance($user);
+            $averAgeParticipating = $userSupport->userAverAgeParticipating($user);
+            $countBreakfasts = $userSupport->countBreakfasts($user);
             $userDtos[] = UserDtoFactory::fromModel($user, $viewAvatar, $performance,  $averAgeParticipating, $countBreakfasts);
         }
         rsort($userDtos);

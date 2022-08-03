@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         return view('users', [
                 'users' => $service->index(),
-                'avatar' => $userSupport->viewAvatar(Auth::id())
+                'avatar' => $userSupport->viewAvatar(Auth::user())
             ]
         );
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
         }
         return view('update-user', [
                 'update_user' => $updateUser,
-                'avatar' => $userSupport->viewAvatar(Auth::id())
+                'avatar' => $userSupport->viewAvatar(Auth::user())
             ]
         );
     }
@@ -85,7 +85,7 @@ class UserController extends Controller
         return view('standings', [
                 'users' => $service->standing(),
                 'usersAverage' => $usersParticipateAverageService->participateAverage(),
-                'avatar' => $userSupport->viewAvatar(Auth::id())
+                'avatar' => $userSupport->viewAvatar(Auth::user())
             ]
         );
     }
