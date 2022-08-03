@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Dtos\Request\LoginRequestDto;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -74,16 +73,5 @@ class User extends Authenticatable
     }
 
 
-
-    public function scopeAuth(Builder $query, LoginRequestDto $dto)
-    {
-        $query->where('name', '=', $dto->name)
-            ->where('password', '=', $dto->password);
-    }
-
-    public function scopeName(Builder $query): void
-    {
-        $query->select('id', 'name');
-    }
 
 }

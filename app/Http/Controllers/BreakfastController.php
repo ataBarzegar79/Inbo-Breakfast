@@ -25,7 +25,7 @@ class BreakfastController extends Controller
     {
         return view('dashboard',
             ['breakfasts' => $service->index(),
-                'avatar' => $support->viewAvatar(Auth::id())]);
+                'avatar' => $support->viewAvatar(Auth::user())]);
     }
 
     public function create(
@@ -37,7 +37,7 @@ class BreakfastController extends Controller
         return view('breakfast-create',
             [
                 'users' => $service->create($userSupportService),
-                'avatar' => $userSupportService->viewAvatar(Auth::id()),
+                'avatar' => $userSupportService->viewAvatar(Auth::user()),
                 'averageParticipate' => $averageParticipateService->participateAverage()
             ]
         );
@@ -69,7 +69,7 @@ class BreakfastController extends Controller
         return view('breakfast-update',
             ['breakfast' => $editedBreakfast["breakfast"],
                 'users' => $editedBreakfast['users'],
-                'avatar' => $userSupportService->viewAvatar(Auth::id())
+                'avatar' => $userSupportService->viewAvatar(Auth::user())
             ]
         );
     }

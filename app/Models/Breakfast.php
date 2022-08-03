@@ -47,21 +47,8 @@ class Breakfast extends Model
 
     public function scopeOrdering(Builder $query)
     {
-        $query->orderby('created_at','desc');
+        $query->orderby('created_at', 'desc');
     }
 
-    public function scopeNotDeleted(Builder $query): Builder
-    {
-        return $query->where('deleted_at',null);
-    }
-
-    public function scopeFindByUser(Builder $query, int $userId): Builder
-    {
-
-        return $query->whereHas('users', function (Builder $q) use ($userId) {
-            $q->where("user_id", $userId);
-        });
-
-    }
 
 }

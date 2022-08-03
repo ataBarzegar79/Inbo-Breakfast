@@ -2,34 +2,34 @@
 
 namespace App\Services\User;
 
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
 interface UserSupportService
 {
     /**
-     * @param int $userId
+     * @param User $user
      * @return mixed
      */
-    public function performance(int $userId): mixed;
-
+    public function performance(User $user): mixed;
 
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return string|UrlGenerator|Application
      */
-    public function viewAvatar(int $userId): string|UrlGenerator|Application;
+    public function viewAvatar(User $user): string|UrlGenerator|Application;
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return int
      */
-    public function countBreakfasts(int $userId): int;
+    public function countBreakfasts(User $user): int;
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return float
      */
-    public function userAverAgeParticipating(int $userId): float;
+    public function userAverAgeParticipating(User $user): float;
 }

@@ -3,7 +3,6 @@
 namespace App\Services\Auth;
 
 use App\Dtos\Request\LoginRequestDto;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use function request;
 
@@ -12,9 +11,8 @@ class AuthServiceConcrete implements AuthService
 
     public function login(LoginRequestDto $dto): bool
     {
-        $user = User::auth($dto)->first();
-        if ($user) {
-            Auth::login($user);
+
+        if (Auth::attempt(['name'=> $dto->name , 'password'=> $dto->password])) {
             request()->session()->regenerate();
             return true;
         }

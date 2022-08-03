@@ -48,8 +48,7 @@
                class="form-control form-control-user"
                name="password"
                id="password"
-               value="{{$update_user->password}}"
-               placeholder="Password : {{$update_user->password}}">
+               placeholder="Password">
     </div>
 
 
