@@ -236,7 +236,9 @@
 <!-- Initialize the plugin: -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example-getting-started').multiselect();
+        $('#example-with-maxHeight').multiselect({
+            maxHeight: 170
+        });
     });
 </script>
 

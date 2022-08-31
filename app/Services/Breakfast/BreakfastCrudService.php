@@ -34,7 +34,7 @@ class  BreakfastCrudService implements BreakfastService
     {
 
         $user = auth()->user();
-        $breakfasts = Breakfast::ordering()->paginate(3); // scope using
+        $breakfasts = Breakfast::ordering()->paginate(25); // scope using
         $breakfastDtos = [];
         foreach ($breakfasts as $breakfast) {
             $doers = [];
