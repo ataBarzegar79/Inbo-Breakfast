@@ -62,12 +62,12 @@
     @enderror
     <span id="date2"></span>
 
-    <div class="form-group">
+    <div class="form-group" >
         <label class="col-form-label" for="user">Maker(s):You can select multiple makers </label>
         <br>
-            <select name="users[]" id="example-getting-started" class="multiselect-group" multiple >
+            <select name="users[]" id="example-with-maxHeight" class="multiselect-group" multiple >
                 @foreach($users as $user)
-                <option @if($user->average < $averageParticipate )class="alert-danger" @endif value="{{$user->id}}">{{$user->name}} - {{$user->average}}</option>
+                <option  @if($user->average < $averageParticipate )class="alert-danger" @endif value="{{$user->id}}">{{$user->name}} - {{$user->average}}</option>
                 @endforeach
             </select>
 
